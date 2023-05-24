@@ -17,9 +17,6 @@
 		height: 20em;
 		padding: 2em;
 	}
-
-
-  
 </style>
 
 <!-- CONTENT  -->
@@ -84,17 +81,18 @@
 				<div class="row text-center p-5 justify-content-evenly">
 					<!-- REPEAT CONTENT -->
 					<div class="col-3 flex-column slide-item shadow-lg p-3 mb-5 bg-body-tertiary rounded" ng-repeat="painting in paintingData">
-						<img ng-src="{{painting.img}}" style="width: 100%;" alt="" />
+						<div style="height: 70vh;" class="d-flex justify-content-center align-items-center">
+							<img ng-src="{{painting.img}}" class="img-thumbnail img-fluid" alt="" />
+						</div>
 						<p class="text-bg-danger">{{painting.fullName | uppercase}}</p>
 						<p>{{painting.description.slice(0, 100) + "..."}}</p>
-						<p>{{painting.artist}}</p>
 						<div class="row justify-content-between">
-							<p class="col text-start" >End in</p>
-							<p class="col text-end" >Current Bid</p>
+							<p class="col text-start">End in</p>
+							<p class="col text-end">Current Bid</p>
 						</div>
 						<div class="row justify-content-between">
-							<p class="col text-start" >{{painting.timer}}</p>
-							<p class="col text-end" >{{painting.currentBid}}</p>
+							<p class="col text-start">{{painting.timer}}</p>
+							<p class="col text-end">{{painting.currentBid}}</p>
 						</div>
 					</div>
 					<!--  -->
@@ -107,7 +105,6 @@
 
 		<!-- CAROUSEL INDICATOR -->
 
-
 		<button class="carousel-control-prev" type="button" data-bs-target="#painting-slide" data-bs-slide="prev">
 			<span class="carousel-control-prev-icon bg-black left-" aria-hidden="true"></span>
 			<span class="visually-hidden">Previous</span>
@@ -119,5 +116,5 @@
 		</button>
 	</div>
 
-	<hr>
+	<hr />
 </div>

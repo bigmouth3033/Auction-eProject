@@ -33,10 +33,9 @@ function myTimer(date, obj) {
 	let now = new Date();
 	let future = new Date(date);
 
-	let timeLeft = future - now;
-
 	let timer = [];
 
+	let timeLeft = future - now;
 	let msLeft = timeLeft % 1000;
 
 	let sTotal = (timeLeft - msLeft) / 1000;
