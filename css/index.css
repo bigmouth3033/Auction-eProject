@@ -1,0 +1,24 @@
+* {
+	font-family: 'Roboto', sans-serif;
+}
+
+.my-nav-link {
+	border-top: 2px solid #f6f1f1;
+}
+
+.my-nav-link:hover {
+	border-top: 2px solid black;
+}
+
+.nav-color{
+  background-color: #f6f1f1;
+}
+
+
+footer {
+  height: 400px;
+  background-color: blue;
+}
+
+
+

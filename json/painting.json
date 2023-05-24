@@ -1,0 +1,40 @@
+{
+	"abstractArt": [
+		{
+			"id": "aabc-01 ",
+			"fullName": "With Love Painting ",
+			"artist": "Misako Chida",
+			"description": "The lighting, screen display settings, or cameras may cause discrepancies between colors in-person and online. If you are not sure if the colors of this painting are exactly what you are looking for, I would be happy to provide more photos of the painting",
+			"category": "abstract",
+			"endDate": "05-31-2023",
+			"img": "../images/painting/AABC-01.png",
+			"currentBid": "$200",
+			"startingBid": "$150",
+			"finalPrice": null
+		},
+		{
+			"id": "aabc-02 ",
+			"fullName": "Transcendence No. 6 Painting",
+			"artist": "Gerlind Hentze",
+			"description": "The painting shows the figure in space. The figure is shaped by the colored surfaces with which it connects symbiotically and creates a sensitive atmosphere of disappearing and being present. The cardboard is prepared with chalk ground. This creates light and pastel colored surfaces.",
+			"category": "abstract",
+			"endDate": "05-30-2023",
+			"img": "../images/painting/AABC-02.png",
+			"currentBid": "$300",
+			"startingBid": "$250",
+			"finalPrice": null
+		},
+		{
+			"id": "aabc-02 ",
+			"fullName": "Liberating Painting",
+			"artist": "Misako Chida",
+			"description": "The lighting, screen display settings, or cameras may cause discrepancies between colors in-person and online. If you are not sure if the colors of this painting are exactly what you are looking for, I would be happy to provide more photos of the painting",
+			"category": "abstract",
+			"endDate": "05-29-2023",
+			"img": "../images/painting/AABC-03.png",
+			"currentBid": "$500",
+			"startingBid": "$250",
+			"finalPrice": null
+		}
+	]
+}
