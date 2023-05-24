@@ -18,9 +18,8 @@
 		padding: 2em;
 	}
 
-  .slide-item{
-    border: 0.5px solid black;
-  }
+
+  
 </style>
 
 <!-- CONTENT  -->
@@ -82,20 +81,20 @@
 
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<div class="row text-center g-1 p-4">
+				<div class="row text-center p-5 justify-content-evenly">
 					<!-- REPEAT CONTENT -->
-					<div class="col-4 flex-column slide-item" ng-repeat="painting in paintingData">
-						<img ng-src="{{painting.img}}" alt="" />
+					<div class="col-3 flex-column slide-item shadow-lg p-3 mb-5 bg-body-tertiary rounded" ng-repeat="painting in paintingData">
+						<img ng-src="{{painting.img}}" style="width: 100%;" alt="" />
 						<p class="text-bg-danger">{{painting.fullName | uppercase}}</p>
 						<p>{{painting.description.slice(0, 100) + "..."}}</p>
 						<p>{{painting.artist}}</p>
 						<div class="row justify-content-between">
-							<p class="col" style="text-align: left">End in</p>
-							<p class="col" style="text-align: right">Current Bid</p>
+							<p class="col text-start" >End in</p>
+							<p class="col text-end" >Current Bid</p>
 						</div>
 						<div class="row justify-content-between">
-							<p class="col" style="text-align: left">{{painting.timer}}</p>
-							<p class="col" style="text-align: right">{{painting.currentBid}}</p>
+							<p class="col text-start" >{{painting.timer}}</p>
+							<p class="col text-end" >{{painting.currentBid}}</p>
 						</div>
 					</div>
 					<!--  -->
