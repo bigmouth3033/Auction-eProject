@@ -19,7 +19,7 @@ app.service("DataService", function () {
 });
 
 app.run(function ($http, DataService) {
-	$http.get("./json/painting.json").then(
+	$http.get("../json/painting.json").then(
 		function (response) {
 			DataService.setPaintingData(response.data.abstractArt);
 		},
