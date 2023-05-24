@@ -42,7 +42,14 @@
 		<!-- CAROUSEL INDICATOR -->
 
 		<div class="carousel-indicators">
-			<button type="button" data-bs-target="#headingBanner" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+			<button
+				type="button"
+				data-bs-target="#headingBanner"
+				data-bs-slide-to="0"
+				class="active"
+				aria-current="true"
+				aria-label="Slide 1"
+			></button>
 			<button type="button" data-bs-target="#headingBanner" data-bs-slide-to="1" aria-label="Slide 2"></button>
 			<button type="button" data-bs-target="#headingBanner" data-bs-slide-to="2" aria-label="Slide 3"></button>
 		</div>
@@ -64,15 +71,14 @@
 		<p class="text-center desciption-text fs-2">How AuctionsTable Work</p>
 		<div class="text-center"><img src="./images/introduction-img.svg" alt="" class="text-center" /></div>
 		<p class="text-center desciption-text fs-4">
-			AuctionsTable Brand hosts online auctions, connecting buyers. With convenience, transparency, and competitive bidding, it offers a platform to secure desirable items at great prices, making it a
-			trusted destination for online auctions.
+			AuctionsTable Brand hosts online auctions, connecting buyers. With convenience, transparency, and competitive bidding, it offers a
+			platform to secure desirable items at great prices, making it a trusted destination for online auctions.
 		</p>
 	</div>
 
 	<hr />
 
 	<!-- SLIDE ITEM -->
-
 	<div id="painting-slide" class="carousel slide">
 		<!-- CAROUSEL CONTENT -->
 
@@ -80,8 +86,14 @@
 			<div class="carousel-item active">
 				<div class="row text-center p-5 justify-content-evenly">
 					<!-- REPEAT CONTENT -->
-					<div class="col-3 flex-column slide-item shadow-lg p-3 mb-5 bg-body-tertiary rounded" ng-repeat="painting in paintingData">
-						<div style="height: 70vh;" class="d-flex justify-content-center align-items-center">
+
+					<div
+						class="col-3 flex-column slide-item shadow-lg p-3 mb-5 bg-body-tertiary rounded"
+						ng-repeat="painting in paintingData"
+						ng-mousemove="changeSlideItem()"
+						ng-class="{}"
+					>
+						<div style="height: 70vh" class="d-flex justify-content-center align-items-center">
 							<img ng-src="{{painting.img}}" class="img-thumbnail img-fluid" alt="" />
 						</div>
 						<p class="text-bg-danger">{{painting.fullName | uppercase}}</p>
@@ -95,7 +107,8 @@
 							<p class="col text-end">{{painting.currentBid}}</p>
 						</div>
 					</div>
-					<!--  -->
+
+					<!-- END REPEAT -->
 				</div>
 			</div>
 

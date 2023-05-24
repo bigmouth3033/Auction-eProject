@@ -16,9 +16,11 @@
 
 
 footer {
-  height: 400px;
-  background-color: blue;
+	height: 400px;
 }
 
+footer a {
+	color: gray;
+}
 
 

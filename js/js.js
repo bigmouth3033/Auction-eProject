@@ -65,4 +65,8 @@ app.controller("homeController", function ($scope, $interval, DataService) {
 			myTimer(painting.endDate, painting);
 		}, 1);
 	}
+
+	$scope.changeSlideItem = function () {
+		$scope.slideStyle = "col-4";
+	};
 });
