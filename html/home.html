@@ -17,6 +17,18 @@
 		height: 20em;
 		padding: 2em;
 	}
+
+	.my-shadow {
+		box-shadow: -1px 2px 8px -2px rgba(0, 0, 0, 0.75);
+		-webkit-box-shadow: -1px 2px 8px -2px rgba(0, 0, 0, 0.75);
+		-moz-box-shadow: -1px 2px 8px -2px rgba(0, 0, 0, 0.75);
+	}
+
+	.my-shadow:hover {
+		box-shadow: -1px 2px 8px 2px rgba(0, 0, 0, 0.75);
+		-webkit-box-shadow: -1px 2px 8px 2px rgba(0, 0, 0, 0.75);
+		-moz-box-shadow: -1px 2px 8px 2px rgba(0, 0, 0, 0.75);
+	}
 </style>
 
 <!-- CONTENT  -->
@@ -87,17 +99,11 @@
 				<div class="row text-center p-5 justify-content-evenly">
 					<!-- REPEAT CONTENT -->
 
-					<div
-						class="col-3 flex-column slide-item shadow-lg p-3 mb-5 bg-body-tertiary rounded"
-						ng-repeat="painting in paintingData"
-						ng-mousemove="changeSlideItem()"
-						ng-class="{}"
-					>
-						<div style="height: 70vh" class="d-flex justify-content-center align-items-center">
-							<img ng-src="{{painting.img}}" class="img-thumbnail img-fluid" alt="" />
+					<div class="col-3 flex-column slide-item p-3 bg-body-tertiary rounded my-shadow" ng-repeat="painting in paintingData">
+						<div style="height: 400px" class="d-flex justify-content-center align-items-center">
+							<img ng-src="{{painting.img}}" style="max-height: 400px;" class="img-thumbnail img-fluid" alt="" />
 						</div>
 						<p class="text-bg-danger">{{painting.fullName | uppercase}}</p>
-						<p>{{painting.description.slice(0, 100) + "..."}}</p>
 						<div class="row justify-content-between">
 							<p class="col text-start">End in</p>
 							<p class="col text-end">Current Bid</p>
@@ -128,6 +134,4 @@
 			<span class="visually-hidden">Next</span>
 		</button>
 	</div>
-
-	<hr />
 </div>

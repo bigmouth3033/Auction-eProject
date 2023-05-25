@@ -21,7 +21,7 @@ app.service("DataService", function () {
 app.run(function ($http, DataService) {
 	$http.get("../json/painting.json").then(
 		function (response) {
-			DataService.setPaintingData(response.data.abstractArt);
+			DataService.setPaintingData(response.data.painting);
 		},
 		function (error) {
 			console.log("something went horribly wrong with json file", error);
@@ -52,7 +52,6 @@ function myTimer(date, obj) {
 	timer.push(`${dTotal}d`);
 	timer.push(`${hLeft}h`);
 	timer.push(`${mLeft}m`);
-	timer.push(`${sLeft}s`);
 
 	obj.timer = timer.join(" : ");
 }
@@ -60,13 +59,12 @@ function myTimer(date, obj) {
 app.controller("homeController", function ($scope, $interval, DataService) {
 	$scope.paintingData = DataService.getPaintingData();
 
+
 	for (let painting of $scope.paintingData) {
 		$interval(function () {
 			myTimer(painting.endDate, painting);
-		}, 1);
+		}, 1000);
 	}
 
-	$scope.changeSlideItem = function () {
-		$scope.slideStyle = "col-4";
-	};
+
 });
