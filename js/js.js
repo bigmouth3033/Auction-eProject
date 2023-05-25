@@ -82,8 +82,17 @@ app.controller("homeController", function ($scope, $interval, DataService) {
 			myTimer(painting.endDate, painting);
 		}, 1000);
 	}
+	
 
-	$scope.iterationIndex = getArrayOfIterationIndex(12, 3);
+
+	$scope.numberOfDisplay = 3;
+	$scope.iterationIndex = getArrayOfIterationIndex(12, $scope.numberOfDisplay);
+
+	$scope.changeDisplayNumber = function(){
+		$scope.iterationIndex = getArrayOfIterationIndex(12, $scope.numberOfDisplay);
+	}
+
+	
 	
 
 	

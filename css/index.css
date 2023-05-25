@@ -4,17 +4,25 @@
 }
 
 .my-nav-link {
-	border-top: 2px solid #f6f1f1;
+	border-top: 2px solid #0C134F;
 }
 
 .my-nav-link:hover {
-	border-top: 2px solid black;
+	border-top: 2px solid #5C469C;
 }
 
 .nav-color {
-	background-color: #f6f1f1;
+	background-color: #0C134F;
 }
 
 footer a {
 	color: gray;
+}
+
+.white-text{
+	color:white;
+}
+
+.white-background{
+	background-color: white;
 }

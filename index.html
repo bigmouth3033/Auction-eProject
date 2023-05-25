@@ -53,7 +53,7 @@
 	<body ng-app="auctionApp">
 		<!-- NAV BAR -->
 
-		<nav class="navbar navbar-expand-md nav-color sticky-lg-top">
+		<nav class="navbar navbar-expand-md nav-color text-light">
 			<div class="container-fluid">
 				<!-- BRAND-->
 
@@ -75,16 +75,24 @@
 				</button>
 				<!-- NAV CONTENT -->
 
-				<div class="collapse navbar-collapse" id="auctionSiteNavBar">
+				<div class="collapse navbar-collapse text-light" id="auctionSiteNavBar">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item my-nav-link">
-							<a class="nav-link" aria-current="page" href="#!home">HOME</a>
+						<li class="nav-item">
+							<a class="nav-link text-light fw-semibold my-nav-link" aria-current="page" href="#!home">HOME</a>
 						</li>
-						<li class="nav-item my-nav-link">
-							<a class="nav-link" href="#">ABOUT</a>
+						<li class="nav-item">
+							<a class="nav-link text-light fw-semibold my-nav-link" href="#">ABOUT</a>
 						</li>
-						<li class="nav-item dropdown my-nav-link">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> AUCTION ITEMS </a>
+						<li class="nav-item dropdown">
+							<a
+								class="nav-link dropdown-toggle text-light fw-semibold my-nav-link"
+								href="#"
+								role="button"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								AUCTION ITEMS
+							</a>
 							<ul class="dropdown-menu nav-color">
 								<li><a class="dropdown-item" href="#">Furniture</a></li>
 								<li><a class="dropdown-item" href="#">Car</a></li>
@@ -97,6 +105,8 @@
 					<form class="d-flex" role="search">
 						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
 					</form>
+
+					
 				</div>
 				<!--  -->
 			</div>
