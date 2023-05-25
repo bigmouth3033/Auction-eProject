@@ -95,29 +95,28 @@
 		<!-- CAROUSEL CONTENT -->
 
 		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<div class="row text-center p-5 justify-content-evenly">
-					<!-- REPEAT CONTENT -->
+			<!-- REPEAT  -->
 
-					<div class="col-3 flex-column slide-item p-3 bg-body-tertiary rounded my-shadow" ng-repeat="painting in paintingData">
+			<div class="carousel-item" ng-repeat="index in iterationIndex" ng-class="{'active': $index == 0}">
+				<div class="row text-center p-5 justify-content-evenly">
+					<div class="col-3 flex-column slide-item p-3 bg-body-tertiary rounded my-shadow" ng-repeat="innerIndex in index">
 						<div style="height: 400px" class="d-flex justify-content-center align-items-center">
-							<img ng-src="{{painting.img}}" style="max-height: 400px;" class="img-thumbnail img-fluid" alt="" />
+							<img ng-src="{{paintingData[innerIndex].img}}" style="max-height: 400px" class="img-thumbnail img-fluid" alt="" />
 						</div>
-						<p class="text-bg-danger">{{painting.fullName | uppercase}}</p>
+						<p class="text-bg-danger">{{paintingData[innerIndex].fullName | uppercase}}</p>
 						<div class="row justify-content-between">
 							<p class="col text-start">End in</p>
 							<p class="col text-end">Current Bid</p>
 						</div>
 						<div class="row justify-content-between">
-							<p class="col text-start">{{painting.timer}}</p>
-							<p class="col text-end">{{painting.currentBid}}</p>
+							<p class="col text-start">{{paintingData[innerIndex].timer}}</p>
+							<p class="col text-end">{{paintingData[innerIndex].currentBid}}</p>
 						</div>
 					</div>
-
-					<!-- END REPEAT -->
 				</div>
 			</div>
 
+			<!-- END REPEAT  -->
 			<div class="carousel-item"></div>
 			<div class="carousel-item"></div>
 		</div>

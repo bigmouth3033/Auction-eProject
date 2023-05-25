@@ -56,9 +56,26 @@ function myTimer(date, obj) {
 	obj.timer = timer.join(" : ");
 }
 
+function getArrayOfIterationIndex(length, numberOfItem) {
+	let arr = [];
+
+	for (let i = 0; i < length; i++) {
+		let subArr = [];
+
+		for (let j = i; j < i + numberOfItem; j++) {
+			if (j < length) {
+				subArr.push(j);
+			} else subArr.push(j - length);
+		}
+
+		arr.push(subArr);
+	}
+
+	return arr;
+}
+
 app.controller("homeController", function ($scope, $interval, DataService) {
 	$scope.paintingData = DataService.getPaintingData();
-
 
 	for (let painting of $scope.paintingData) {
 		$interval(function () {
@@ -66,5 +83,8 @@ app.controller("homeController", function ($scope, $interval, DataService) {
 		}, 1000);
 	}
 
+	$scope.iterationIndex = getArrayOfIterationIndex(12, 3);
+	
 
+	
 });
