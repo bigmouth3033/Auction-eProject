@@ -1,5 +1,6 @@
 * {
-	font-family: 'Roboto', sans-serif;
+	font-family: "Montserrat", sans-serif;
+	font-family: "Roboto", sans-serif;
 }
 
 .my-nav-link {
@@ -10,13 +11,10 @@
 	border-top: 2px solid black;
 }
 
-.nav-color{
-  background-color: #f6f1f1;
+.nav-color {
+	background-color: #f6f1f1;
 }
-
 
 footer a {
 	color: gray;
 }
-
-

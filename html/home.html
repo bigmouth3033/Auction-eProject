@@ -36,7 +36,7 @@
 <div ng-controller="homeController">
 	<!-- BANNER -->
 
-	<div id="headingBanner" class="carousel slide">
+	<div id="headingBanner" class="carousel slide container-fluid mb-3">
 		<!-- CAROUSEL CONTENT -->
 
 		<div class="carousel-inner">
@@ -79,7 +79,7 @@
 
 	<!-- SOME INTRODUCTION -->
 
-	<div class="container-fluid d-none d-lg-block introduction-container">
+	<div class="container-fluid my-3 d-none d-lg-block introduction-container">
 		<p class="text-center desciption-text fs-2">How AuctionsTable Work</p>
 		<div class="text-center"><img src="./images/introduction-img.svg" alt="" class="text-center" /></div>
 		<p class="text-center desciption-text fs-4">
@@ -88,17 +88,15 @@
 		</p>
 	</div>
 
-	<hr />
-
 	<!-- SLIDE ITEM -->
-	<div id="painting-slide" class="carousel slide">
+	<div id="painting-slide" class="carousel slide container-fluid my-3 px-5">
 		<!-- CAROUSEL CONTENT -->
 
 		<div class="carousel-inner">
 			<!-- REPEAT  -->
 			<div class="carousel-item" ng-repeat="index in iterationIndex" ng-class="{'active': $index == 0}">
-				<div class="row text-center p-5 justify-content-evenly">
-					<div class="col-3 flex-column slide-item p-3 bg-body-tertiary rounded my-shadow" ng-repeat="innerIndex in index">
+				<div class="row text-center px-5 py-5 justify-content-evenly">
+					<div class="col-3 flex-column slide-item p-2 bg-body-tertiary rounded my-shadow" ng-repeat="innerIndex in index">
 						<div style="height: 400px" class="d-flex justify-content-center align-items-center">
 							<img ng-src="{{paintingData[innerIndex].img}}" style="max-height: 400px" class="img-thumbnail img-fluid" alt="" />
 						</div>
@@ -114,7 +112,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- END REPEAT  -->
+			<!-- REPEAT  -->
 		</div>
 
 		<!-- CAROUSEL INDICATOR -->
@@ -128,5 +126,180 @@
 			<span class="carousel-control-next-icon bg-black" aria-hidden="true"></span>
 			<span class="visually-hidden">Next</span>
 		</button>
+	</div>
+
+	<!-- UPCOMING AUCTION -->
+
+	<div class="container-fluid my-3 p-4">
+		<div class="row px-4 py-0">
+			<div class="col">
+				<p class="fw-bold fs-5">UPCOMING AUCTIONS</p>
+			</div>
+
+			<div class="col text-end">
+				<p class="fw-bold fs-5">
+					<a href="#!" style="color: black; text-decoration: none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
+				</p>
+			</div>
+		</div>
+
+		<div class="row row-cols-1 row-cols-lg-2 g-4 px-5 py-2">
+			<div class="col">
+				<div class="card">
+					<div class="row">
+						<div class="col-4">
+							<img src="./images/dummy-img.png" class="img-fluid" />
+						</div>
+
+						<div class="col-8">
+							<div class="card-body">
+								<h5 class="card-title">Auction title</h5>
+								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
+								<p class="cart-text">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.
+								</p>
+								<p><i class="fas fa-map-marker-alt"></i> location</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card">
+					<div class="row">
+						<div class="col-4">
+							<img src="./images/dummy-img.png" class="img-fluid" />
+						</div>
+
+						<div class="col-8">
+							<div class="card-body">
+								<h5 class="card-title">Auction title</h5>
+								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
+								<p class="cart-text">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.
+								</p>
+								<p><i class="fas fa-map-marker-alt"></i> location</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card">
+					<div class="row">
+						<div class="col-4">
+							<img src="./images/dummy-img.png" class="img-fluid" />
+						</div>
+
+						<div class="col-8">
+							<div class="card-body">
+								<h5 class="card-title">Auction title</h5>
+								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
+								<p class="cart-text">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.
+								</p>
+								<p><i class="fas fa-map-marker-alt"></i> location</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card">
+					<div class="row">
+						<div class="col-4">
+							<img src="./images/dummy-img.png" class="img-fluid" />
+						</div>
+
+						<div class="col-8">
+							<div class="card-body">
+								<h5 class="card-title">Auction title</h5>
+								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
+								<p class="cart-text">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.
+								</p>
+								<p><i class="fas fa-map-marker-alt"></i> location</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card">
+					<div class="row">
+						<div class="col-4">
+							<img src="./images/dummy-img.png" class="img-fluid" />
+						</div>
+
+						<div class="col-8">
+							<div class="card-body">
+								<h5 class="card-title">Auction title</h5>
+								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
+								<p class="cart-text">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.
+								</p>
+								<p><i class="fas fa-map-marker-alt"></i> location</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card">
+					<div class="row">
+						<div class="col-4">
+							<img src="./images/dummy-img.png" class="img-fluid" />
+						</div>
+
+						<div class="col-8">
+							<div class="card-body">
+								<h5 class="card-title">Auction title</h5>
+								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
+								<p class="cart-text">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.
+								</p>
+								<p><i class="fas fa-map-marker-alt"></i> location</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- LASTEST NEW -->
+
+	<div class="container-fluid my-3 p-5">
+		<div class="row mb-2">
+			<div class="col-6">
+				<p class="fw-bold fs-5">LATEST NEW</p>
+			</div>
+
+			<div class="col-6 text-end">
+				<p class="fw-bold fs-5">
+					<a href="#!" style="color: black; text-decoration: none">ALL NEW <i class="fas fa-long-arrow-alt-right"></i></a>
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- ABOUT US -->
+
+	<div class="container-fluid my-3 p-5">
+		<div class="row mb-2">
+			<div class="col-6">
+				<p class="fw-bold fs-5">ABOUT US</p>
+			</div>
+
+			<div class="col-6 text-end">
+				<p class="fw-bold fs-5">
+					<a href="#!" style="color: black; text-decoration: none">ALL NEW <i class="fas fa-long-arrow-alt-right"></i></a>
+				</p>
+			</div>
+		</div>
 	</div>
 </div>
