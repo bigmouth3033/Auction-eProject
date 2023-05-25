@@ -50,7 +50,7 @@
 
 		<!-- END -->
 	</head>
-	<body ng-app="auctionApp">
+	<body ng-app="auctionApp" class="d-flex flex-column min-vh-100">
 		<!-- NAV BAR -->
 
 		<nav class="navbar navbar-expand-md nav-color text-light">
@@ -105,8 +105,6 @@
 					<form class="d-flex" role="search">
 						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
 					</form>
-
-					
 				</div>
 				<!--  -->
 			</div>
@@ -114,10 +112,10 @@
 
 		<!-- MAIN CONTENT -->
 
-		<div ng-view class="min-vh-100"></div>
+		<div ng-view></div>
 
 		<!-- Footer -->
-		<footer class="text-center text-lg-start bg-black text-white">
+		<footer class="text-center text-lg-start bg-black text-white mt-auto">
 			<!-- Social media -->
 			<section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
 				<div class="me-5 d-none d-lg-block">
