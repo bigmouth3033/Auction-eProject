@@ -10,7 +10,8 @@
 			"img": "./images/painting/P-01.jpg",
 			"currentBid": "$200",
 			"startingBid": "$150",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		},
 		{
 			"id": "P-02",
@@ -22,7 +23,8 @@
 			"img": "./images/painting/P-02.jpg",
 			"currentBid": "$300",
 			"startingBid": "$250",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		},
 		{
 			"id": "P-03",
@@ -34,7 +36,8 @@
 			"img": "./images/painting/P-03.jpg",
 			"currentBid": "$500",
 			"startingBid": "$250",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		},
 		{
 			"id": "P-04",
@@ -46,7 +49,8 @@
 			"img": "./images/painting/P-04.jpg",
 			"currentBid": "$16.000.000",
 			"startingBid": "$2.500.000",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		},
 		{
 			"id": "P-05",
@@ -58,7 +62,8 @@
 			"img": "./images/painting/P-05.jpg",
 			"currentBid": "$14.000.000",
 			"startingBid": "$2.500.000",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		},
 		{
 			"id": "P-06",
@@ -70,7 +75,8 @@
 			"img": "./images/painting/P-06.jpg",
 			"currentBid": "$5.800.000",
 			"startingBid": "$2.500.000",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		},
 		{
 			"id": "P-07",
@@ -82,7 +88,8 @@
 			"img": "./images/painting/P-07.jpg",
 			"currentBid": "$4.500.000",
 			"startingBid": "$2.500.000",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		},
 		{
 			"id": "P-08",
@@ -94,7 +101,8 @@
 			"img": "./images/painting/P-08.jpg",
 			"currentBid": "$19.000.000",
 			"startingBid": "$8.000.000",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		},
 		{
 			"id": "P-09",
@@ -106,7 +114,8 @@
 			"img": "./images/painting/P-09.jpg",
 			"currentBid": "$9.500.000",
 			"startingBid": "$3.000.000",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		},
 		{
 			"id": "P-10",
@@ -118,7 +127,8 @@
 			"img": "./images/painting/P-10.jpg",
 			"currentBid": "$6.500.000",
 			"startingBid": "$1.200.000",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		},
 		{
 			"id": "P-11",
@@ -130,7 +140,8 @@
 			"img": "./images/painting/P-11.jpg",
 			"currentBid": "$5.000.000",
 			"startingBid": "$1.000.000",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		},
 		{
 			"id": "P-12",
@@ -142,7 +153,8 @@
 			"img": "./images/painting/P-12.jpg",
 			"currentBid": "$2.000.000",
 			"startingBid": "$1.000.000",
-			"finalPrice": null
+			"finalPrice": null,
+			"end" : false
 		}
 	]
 }

@@ -56,7 +56,7 @@ app.service("DataService", function () {
 		return allUserData.users.find((item) => item.username == username && item.password == password);
 	};
 
-	let currentUser = null;
+	let currentUser = {};
 
 	this.setCurrentUser = function (user) {
 		currentUser = user;
@@ -80,6 +80,10 @@ app.run(function ($rootScope, $http, DataService) {
 	);
 
 	$rootScope.indexUser = {};
+
+	$rootScope.changeIndexUser = function (userObj) {
+		$rootScope.indexUser = userObj;
+	};
 });
 
 function myTimer(date, obj) {
@@ -102,10 +106,37 @@ function myTimer(date, obj) {
 
 	let dTotal = (hTotal - hLeft) / 24;
 
-	timer.push(`${dTotal}d`);
-	timer.push(`${hLeft}h`);
-	timer.push(`${mLeft}m`);
-	obj.timer = timer.join(" : ");
+	if (dTotal < 0 || hLeft < 0 || mLeft < 0 || sLeft < 0) {
+		obj.end = true;
+		obj.timer = "ALREADY END";
+		return;
+	}
+
+	if (dTotal) {
+		timer.push(`${dTotal}D`);
+		obj.timer = timer.join("");
+		return;
+	}
+
+	if (hLeft) {
+		timer.push(`${hLeft}H`);
+		obj.timer = timer.join("");
+		return;
+	}
+
+	if (mLeft) {
+		timer.push(`${mLeft}M`);
+		obj.timer = timer.join("");
+		return;
+	}
+
+	if (sLeft) {
+		timer.push(`${sLeft}S`);
+		obj.timer = timer.join("");
+		return;
+	}
+
+	obj.timer = timer.join("");
 }
 
 function getArrayOfIterationIndex(length, numberOfItem) {
@@ -131,7 +162,7 @@ app.controller("homeController", function ($scope, $interval, DataService) {
 
 	for (let painting of $scope.paintingData) {
 		$interval(function () {
-			myTimer(painting.endDate, painting);
+			if (!painting.end) myTimer(painting.endDate, painting);
 		}, 1000);
 	}
 
@@ -154,8 +185,11 @@ app.controller("signInController", function ($scope, $location, DataService) {
 
 		DataService.setCurrentUser(user);
 		DataService.loginSuccess();
+
+		$scope.changeIndexUser(DataService.getCurrentUser());
+
 		alert("success");
-		Object.assign($scope.indexUser,DataService.getCurrentUser());
+
 		$location.path("/home");
 	};
 });

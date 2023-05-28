@@ -13,44 +13,40 @@
 <!-- STYLE -->
 
 <style>
+	.overlay {
+		z-index: 1000;
+		opacity: 0;
+	}
+
+	.overlay:hover {
+		opacity: 0.3;
+		transition: all 0.8s ease ;
+	}
+
+	.border-effect {
+		outline: 1px dotted black;
+		outline-offset: 3px;
+		transition: outline-offset 200ms ease;
+	}
+
+	.border-effect:hover,
+	.border-effect:focus {
+		outline: 2px solid white;
+		outline-offset: -6px;
+	}
+
 	
 </style>
 
 <!-- CONTENT  -->
 
 <div ng-controller="homeController" class="body-background">
-	<!-- BANNER -->
-
-	<!-- <div class="card text-bg-dark reset-card">
-		<div id="headingBanner" class="carousel slide" data-bs-ride="carousel">
-			<div class="carousel-inner">
-				<div class="carousel-item active my-transition" data-bs-interval="1000">
-					<img src="./images/banner-1-home.png" class="d-block w-100" alt="..." />
-				</div>
-				<div class="carousel-item my-transition" data-bs-interval="1000">
-					<img src="./images/banner-2-home.png" class="d-block w-100" alt="..." />
-				</div>
-				<div class="carousel-item my-transition" data-bs-interval="1000">
-					<img src="./images/banner-3-home.png" class="d-block w-100" alt="..." />
-				</div>
-			</div>
-		</div>
-		<div class="card-img-overlay">
-			<div class="d-none d-lg-flex d-flex flex-column align-items-start justify-content-center ms-5" style="height: 100%">
-				<h1 class="card-title" style="width: fit-content; background-color: black; font-size: 60px">FIND</h1>
-				<h1 class="card-title mb-5" style="width: fit-content; background-color: black; font-size: 60px">YOUR TREASURES</h1>
-				<button class="btn btn-close-white text-bg-light reset-card" style="width: 400px">VIEW ALL ITEMS</button>
-			</div>
-		</div>
-	</div> -->
-
-
 	<!-- SOME INTRODUCTION -->
 
 	<div class="container-fluid mb-3 d-none d-lg-block introduction-container" style="background-color: white">
-		<p class="text-center desciption-text fs-2">How AuctionsTable Work</p>
+		<p class="text-center desciption-text fs-2 m-0">How AuctionsTable Work</p>
 		<div class="text-center"><img src="./images/introduction-img.svg" alt="" class="text-center" /></div>
-		<p class="text-center desciption-text fs-4">
+		<p class="text-center desciption-text fs-4 m-0">
 			AuctionsTable Brand hosts online auctions, connecting buyers. With convenience, transparency, and competitive bidding, it offers a
 			platform to secure desirable items at great prices, making it a trusted destination for online auctions.
 		</p>
@@ -79,7 +75,7 @@
 						ng-repeat="innerIndex in index"
 					>
 						<div style="height: 25rem" class="d-flex justify-content-center align-items-center">
-							<img ng-src="{{paintingData[innerIndex].img}}" style="max-height: 25rem" class="img-fluid img-thumbnail" alt="" />
+							<img ng-src="{{paintingData[innerIndex].img}}" style="max-height: 25rem" class="img-fluid border-effect" alt="" />
 						</div>
 						<div class="card-body" style="height: 10rem">
 							<h5 style="height: 3rem" class="fw-bolder fs-5 card-title">{{paintingData[innerIndex].fullName | uppercase}}</h5>
@@ -88,7 +84,7 @@
 								<p class="col text-end card-text">Current Bid</p>
 							</div>
 							<div class="row justify-content-between">
-								<p class="col text-start card-footer">{{paintingData[innerIndex].timer}}</p>
+								<p class="col text-start card-footer text-danger">{{paintingData[innerIndex].timer}}</p>
 								<p class="col text-end card-footer">{{paintingData[innerIndex].currentBid}}</p>
 							</div>
 						</div>
@@ -107,129 +103,159 @@
 				<span class="carousel-control-next-icon bg-black" aria-hidden="true"></span>
 			</button>
 		</div>
+	</div>
 
-		<!-- UPCOMING AUCTION -->
+	<!-- UPCOMING AUCTION -->
 
-		<div class="container-fluid my-3 p-4 white-background">
-			<div class="row px-4 py-0">
-				<div class="col">
-					<p class="fw-bold fs-5">UPCOMING AUCTIONS</p>
-				</div>
-
-				<div class="col text-end">
-					<p class="fw-bold fs-5">
-						<a href="#!" style="color: black; text-decoration: none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
-					</p>
-				</div>
+	<div class="container-fluid my-3 p-4 white-background">
+		<div class="row px-4 py-0">
+			<div class="col">
+				<p class="fw-bold fs-5">UPCOMING AUCTIONS</p>
 			</div>
 
-			<div class="row row-cols-1 row-cols-lg-2 g-4 px-5 py-2">
-				<div class="col">
-					<div class="card my-shadow reset-card">
-						<div class="row">
-							<div class="col-lg-4">
-								<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
-							</div>
-
-							<div class="col-lg-8">
-								<div class="card-body">
-									<h5 class="card-title">Auction title</h5>
-									<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
-									<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
-									<p><i class="fas fa-map-marker-alt"></i> location</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col">
-					<div class="card my-shadow reset-card" style="border-top-left-radius: 0; border-bottom-left-radius: 0">
-						<div class="row">
-							<div class="col-lg-4">
-								<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
-							</div>
-
-							<div class="col-lg-8">
-								<div class="card-body">
-									<h5 class="card-title">Auction title</h5>
-									<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
-									<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
-									<p><i class="fas fa-map-marker-alt"></i> location</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col">
-					<div class="card my-shadow reset-card" style="border-top-left-radius: 0; border-bottom-left-radius: 0">
-						<div class="row">
-							<div class="col-lg-4">
-								<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
-							</div>
-
-							<div class="col-lg-8">
-								<div class="card-body">
-									<h5 class="card-title">Auction title</h5>
-									<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
-									<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
-									<p><i class="fas fa-map-marker-alt"></i> location</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col">
-					<div class="card my-shadow reset-card" style="border-top-left-radius: 0; border-bottom-left-radius: 0">
-						<div class="row">
-							<div class="col-lg-4 d-flex align-items-center">
-								<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
-							</div>
-
-							<div class="col-lg-8">
-								<div class="card-body">
-									<h5 class="card-title">Auction title</h5>
-									<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
-									<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
-									<p><i class="fas fa-map-marker-alt"></i> location</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- LASTEST NEW -->
-
-		<div class="container-fluid my-3 p-5">
-			<div class="row mb-2">
-				<div class="col-6">
-					<p class="fw-bold fs-5">LATEST NEW</p>
-				</div>
-
-				<div class="col-6 text-end">
-					<p class="fw-bold fs-5">
-						<a href="#!" style="color: black; text-decoration: none">ALL NEW <i class="fas fa-long-arrow-alt-right"></i></a>
-					</p>
-				</div>
+			<div class="col text-end">
+				<p class="fw-bold fs-5">
+					<a href="#!" style="color: black; text-decoration: none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
+				</p>
 			</div>
 		</div>
 
-		<!-- ABOUT US -->
+		<div class="row row-cols-1 row-cols-lg-2 g-4 px-5 py-2">
+			<div class="col">
+				<div class="card my-shadow reset-card">
+					<div class="row">
+						<div class="col-lg-4">
+							<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
+						</div>
 
-		<div class="container-fluid my-3 p-5">
-			<div class="row mb-2">
-				<div class="col-6">
-					<p class="fw-bold fs-5">ABOUT US</p>
+						<div class="col-lg-8">
+							<div class="card-body">
+								<h5 class="card-title">Auction title</h5>
+								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
+								<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
+								<p><i class="fas fa-map-marker-alt"></i> location</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card my-shadow reset-card" style="border-top-left-radius: 0; border-bottom-left-radius: 0">
+					<div class="row">
+						<div class="col-lg-4">
+							<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
+						</div>
+
+						<div class="col-lg-8">
+							<div class="card-body">
+								<h5 class="card-title">Auction title</h5>
+								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
+								<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
+								<p><i class="fas fa-map-marker-alt"></i> location</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card my-shadow reset-card" style="border-top-left-radius: 0; border-bottom-left-radius: 0">
+					<div class="row">
+						<div class="col-lg-4">
+							<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
+						</div>
+
+						<div class="col-lg-8">
+							<div class="card-body">
+								<h5 class="card-title">Auction title</h5>
+								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
+								<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
+								<p><i class="fas fa-map-marker-alt"></i> location</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card my-shadow reset-card" style="border-top-left-radius: 0; border-bottom-left-radius: 0">
+					<div class="row">
+						<div class="col-lg-4 d-flex align-items-center">
+							<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
+						</div>
+
+						<div class="col-lg-8">
+							<div class="card-body">
+								<h5 class="card-title">Auction title</h5>
+								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
+								<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
+								<p><i class="fas fa-map-marker-alt"></i> location</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ALL ITEM -->
+
+	<!-- ALL ITEM -->
+
+	<!-- LASTEST NEW -->
+
+	<div class="container-fluid mt-3 p-5 white-background">
+		<div class="row px-4 py-0">
+			<div class="col">
+				<p class="fw-bolder fs-5">LATEST BLOGS</p>
+			</div>
+
+			<div class="col text-end">
+				<p class="fw-bold fs-5">
+					<a href="#!" style="color: black; text-decoration: none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
+				</p>
+			</div>
+		</div>
+
+		<div class="row p-3">
+			<div class="card col-md-6 bg-black overflow-hidden position-relative" style="height: 30rem">
+				<a href="" class="position-absolute bg-black overlay" style="height: 30rem; width: 100%"></a>
+				<img src="./images/dummy-img.png" alt="" />
+				<div class="card-img-overlay d-flex flex-column justify-content-end">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">
+						This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+					</p>
+					<p class="card-text"><small>Last updated 3 mins ago</small></p>
+				</div>
+			</div>
+
+			<div class="col-md-6 gap-2 d-flex flex-column" style="height: 30rem">
+				<div class="card bg-black flex-grow-1 overflow-hidden">
+					<a href="" class="position-absolute bg-black overlay" style="height: 100%; width: 100%"></a>
+					<img src="./images/dummy-img.png" alt="" />
+					<div class="card-img-overlay d-flex flex-column justify-content-end">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">
+							This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit
+							longer.
+						</p>
+						<p class="card-text"><small>Last updated 3 mins ago</small></p>
+					</div>
 				</div>
 
-				<div class="col-6 text-end">
-					<p class="fw-bold fs-5">
-						<a href="#!" style="color: black; text-decoration: none">ALL NEW <i class="fas fa-long-arrow-alt-right"></i></a>
-					</p>
+				<div class="card bg-black flex-grow-1 overflow-hidden">
+					<a href="#!signin" class="position-absolute bg-black overlay" style="height: 100%; width: 100%"></a>
+					<img src="./images/dummy-img.png" alt="" />
+					<div class="card-img-overlay d-flex flex-column justify-content-end">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">
+							This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit
+							longer.
+						</p>
+						<p class="card-text"><small>Last updated 3 mins ago</small></p>
+					</div>
 				</div>
 			</div>
 		</div>
