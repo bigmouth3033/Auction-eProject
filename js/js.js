@@ -1,9 +1,16 @@
 let app = angular.module("auctionApp", ["ngRoute"]);
 
 app.config(function ($routeProvider) {
-	$routeProvider.when("/home", {
-		templateUrl: "./html/home.html",
-	});
+	$routeProvider
+		.when("/home", {
+			templateUrl: "./html/home.html",
+		})
+		.when("/signin", {
+			templateUrl: "./html/signin.html",
+		})
+		.when("/signup", {
+			templateUrl: "./html/signup.html",
+		});
 });
 
 app.service("DataService", function () {
@@ -18,7 +25,9 @@ app.service("DataService", function () {
 	};
 });
 
-app.run(function ($http, DataService) {
+app.run(function ($rootScope, $http, DataService) {
+	$rootScope.showBanner = true;
+
 	$http.get("./json/painting.json").then(
 		function (response) {
 			DataService.setPaintingData(response.data.painting);
@@ -52,7 +61,6 @@ function myTimer(date, obj) {
 	timer.push(`${dTotal}d`);
 	timer.push(`${hLeft}h`);
 	timer.push(`${mLeft}m`);
-
 	obj.timer = timer.join(" : ");
 }
 
@@ -82,18 +90,15 @@ app.controller("homeController", function ($scope, $interval, DataService) {
 			myTimer(painting.endDate, painting);
 		}, 1000);
 	}
-	
-
 
 	$scope.numberOfDisplay = 3;
 	$scope.iterationIndex = getArrayOfIterationIndex(12, $scope.numberOfDisplay);
 
-	$scope.changeDisplayNumber = function(){
+	$scope.changeDisplayNumber = function () {
 		$scope.iterationIndex = getArrayOfIterationIndex(12, $scope.numberOfDisplay);
-	}
-
-	
-	
-
-	
+	};
 });
+
+app.controller("signInController", function ($scope) {});
+
+app.controller("signUpController", function ($scope) {});

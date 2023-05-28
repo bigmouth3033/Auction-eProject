@@ -13,71 +13,7 @@
 <!-- STYLE -->
 
 <style>
-	.introduction-container {
-		height: 20em;
-		padding: 2em;
-	}
-
-	.my-shadow {
-		-webkit-box-shadow: 0px 0px 5px -1px #000000;
-		box-shadow: 0px 0px 5px -1px #000000;
-	}
-
-	.my-shadow-nothover {
-		-webkit-box-shadow: 0px 0px 5px -1px #000000;
-		box-shadow: 0px 0px 5px -1px #000000;
-	}
-
-	.my-shadow:hover {
-		-webkit-box-shadow: 0px 0px 7px -1px #000000;
-		box-shadow: 0px 0px 7px -1px #000000;
-	}
-
-	.my-transition {
-		transition: 1s;
-	}
-
-	.reset-card {
-		border: 0;
-		border-radius: 0;
-	}
-
-	.body-background {
-		background-color: #efefef;
-	}
-
-	.foot-radius {
-		border-bottom-left-radius: 5px;
-		border-bottom-right-radius: 5px;
-	}
-
-	.my-padding {
-		padding: 1.5px;
-	}
-
-	.img-totalfit {
-		width: 100%;
-		height: 100%;
-	}
-
-	.card-effect {
-		box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
-		transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12), 0.3s box-shadow,
-			0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
-		cursor: pointer;
-	}
-
-	.card-effect:hover {
-		transform: scale(1.05);
-		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
-	}
-
-	.carousel-control-prev,
-	.carousel-control-next {
-		height: fit-content;
-		width: fit-content;
-		top: 50%;
-	}
+	
 </style>
 
 <!-- CONTENT  -->
@@ -108,6 +44,7 @@
 		</div>
 	</div> -->
 
+
 	<!-- SOME INTRODUCTION -->
 
 	<div class="container-fluid mb-3 d-none d-lg-block introduction-container" style="background-color: white">
@@ -137,12 +74,12 @@
 			<div class="carousel-item" ng-repeat="index in iterationIndex" ng-class="{'active': $index == 0}">
 				<div class="row gap-3 text-center px-5 py-5 justify-content-evenly">
 					<div
-						class="col-lg-3 my-padding foot-radius my-shadow card reset-card card-effect"
+						class="col-lg-3 my-padding foot-radius my-shadow card reset-card card-effect p-3"
 						style="width: 20rem; height: 36rem"
 						ng-repeat="innerIndex in index"
 					>
 						<div style="height: 25rem" class="d-flex justify-content-center align-items-center">
-							<img ng-src="{{paintingData[innerIndex].img}}" style="max-height: 25rem" class="img-fluid" alt="" />
+							<img ng-src="{{paintingData[innerIndex].img}}" style="max-height: 25rem" class="img-fluid img-thumbnail" alt="" />
 						</div>
 						<div class="card-body" style="height: 10rem">
 							<h5 style="height: 3rem" class="fw-bolder fs-5 card-title">{{paintingData[innerIndex].fullName | uppercase}}</h5>
@@ -263,43 +200,6 @@
 					</div>
 				</div>
 
-				<div class="col">
-					<div class="card my-shadow reset-card" style="border-top-left-radius: 0; border-bottom-left-radius: 0">
-						<div class="row">
-							<div class="col-lg-4">
-								<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
-							</div>
-
-							<div class="col-lg-8">
-								<div class="card-body">
-									<h5 class="card-title">Auction title</h5>
-									<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
-									<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
-									<p><i class="fas fa-map-marker-alt"></i> location</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col">
-					<div class="card my-shadow reset-card" style="border-top-left-radius: 0; border-bottom-left-radius: 0">
-						<div class="row">
-							<div class="col-lg-4">
-								<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
-							</div>
-
-							<div class="col-lg-8">
-								<div class="card-body">
-									<h5 class="card-title">Auction title</h5>
-									<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
-									<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
-									<p><i class="fas fa-map-marker-alt"></i> location</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 		<!-- LASTEST NEW -->
