@@ -101,3 +101,25 @@ a {
 	width: fit-content;
 	top: 50%;
 }
+
+.overlay {
+	z-index: 1000;
+	opacity: 0;
+}
+
+.overlay:hover {
+	opacity: 0.3;
+	transition: all 0.8s ease;
+}
+
+.border-effect {
+	outline: 1px dotted black;
+	outline-offset: 3px;
+	transition: outline-offset 200ms ease;
+}
+
+.border-effect:hover,
+.border-effect:focus {
+	outline: 2px solid white;
+	outline-offset: -6px;
+}

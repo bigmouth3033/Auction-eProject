@@ -12,31 +12,7 @@
 
 <!-- STYLE -->
 
-<style>
-	.overlay {
-		z-index: 1000;
-		opacity: 0;
-	}
-
-	.overlay:hover {
-		opacity: 0.3;
-		transition: all 0.8s ease ;
-	}
-
-	.border-effect {
-		outline: 1px dotted black;
-		outline-offset: 3px;
-		transition: outline-offset 200ms ease;
-	}
-
-	.border-effect:hover,
-	.border-effect:focus {
-		outline: 2px solid white;
-		outline-offset: -6px;
-	}
-
-	
-</style>
+<style></style>
 
 <!-- CONTENT  -->
 
@@ -52,58 +28,11 @@
 		</p>
 	</div>
 
-	<!-- SLIDE ITEM -->
-	<div id="painting-slide" class="carousel slide container-fluid my-3 px-5">
-		<!-- CAROUSEL CONTENT -->
-		<div class="d-flex justify-content-end" style="margin-right: 200px">
-			<input
-				class="btn bg-body btn-info fw-bolder"
-				type="number"
-				ng-model="numberOfDisplay"
-				ng-change="changeDisplayNumber()"
-				min="1"
-				max="{{paintingData.length}}"
-			/>
-		</div>
-		<div class="carousel-inner">
-			<!-- REPEAT  -->
-			<div class="carousel-item" ng-repeat="index in iterationIndex" ng-class="{'active': $index == 0}">
-				<div class="row gap-3 text-center px-5 py-5 justify-content-evenly">
-					<div
-						class="col-lg-3 my-padding foot-radius my-shadow card reset-card card-effect p-3"
-						style="width: 20rem; height: 36rem"
-						ng-repeat="innerIndex in index"
-					>
-						<div style="height: 25rem" class="d-flex justify-content-center align-items-center">
-							<img ng-src="{{paintingData[innerIndex].img}}" style="max-height: 25rem" class="img-fluid border-effect" alt="" />
-						</div>
-						<div class="card-body" style="height: 10rem">
-							<h5 style="height: 3rem" class="fw-bolder fs-5 card-title">{{paintingData[innerIndex].fullName | uppercase}}</h5>
-							<div class="row justify-content-between">
-								<p class="col text-start card-text">End in</p>
-								<p class="col text-end card-text">Current Bid</p>
-							</div>
-							<div class="row justify-content-between">
-								<p class="col text-start card-footer text-danger">{{paintingData[innerIndex].timer}}</p>
-								<p class="col text-end card-footer">{{paintingData[innerIndex].currentBid}}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- REPEAT  -->
-			</div>
+	<!-- TRENDING -->
 
-			<!-- CAROUSEL INDICATOR -->
 
-			<button class="carousel-control-prev" type="button" data-bs-target="#painting-slide" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon bg-black left-" aria-hidden="true"></span>
-			</button>
 
-			<button class="carousel-control-next" type="button" data-bs-target="#painting-slide" data-bs-slide="next">
-				<span class="carousel-control-next-icon bg-black" aria-hidden="true"></span>
-			</button>
-		</div>
-	</div>
+	<!-- TRENDING -->
 
 	<!-- UPCOMING AUCTION -->
 
@@ -201,6 +130,67 @@
 
 	<!-- ALL ITEM -->
 
+	<div id="painting-slide" class="carousel slide container-fluid my-3 px-5">
+		<!-- CAROUSEL CONTENT -->
+		<div class="row">
+			<div class="col justify-content-between fw-bolder fs-3">PAINTING</div>
+			<input
+				class="btn bg-body btn-info fw-bolder col-1"
+				type="number"
+				ng-model="numberOfDisplay"
+				ng-change="changeDisplayNumber()"
+				min="1"
+				max="{{paintingData.length}}"
+			/>
+		</div>
+
+		<hr />
+		<div class="carousel-inner">
+			<!-- REPEAT  -->
+			<div class="carousel-item" ng-repeat="index in paintingIterationIndex" ng-class="{'active': $index == 0}">
+				<div class="row gap-3 text-center px-5 py-5 justify-content-evenly">
+					<div
+						class="col-lg-3 my-padding foot-radius my-shadow card reset-card card-effect p-3"
+						style="width: 20rem; height: 36rem"
+						ng-repeat="innerIndex in index"
+					>
+						<div style="height: 25rem" class="d-flex justify-content-center align-items-center">
+							<a href="#!product" ng-click="changeToProductPage(paintingData[innerIndex])"
+								><img ng-src="{{paintingData[innerIndex].img}}" style="max-height: 25rem" class="img-fluid border-effect" alt=""
+							/></a>
+						</div>
+						<div class="card-body" style="height: 10rem">
+							<h5 style="height: 3rem" class="fw-bolder fs-5 card-title">
+								<a href="#!product" ng-click="changeToProductPage(paintingData[innerIndex])" class="link-dark"
+									>{{paintingData[innerIndex].fullName | uppercase}}</a
+								>
+							</h5>
+							<div class="row justify-content-between">
+								<p class="col text-start card-text">End in</p>
+								<p class="col text-end card-text">Current Bid</p>
+							</div>
+							<div class="row justify-content-between">
+								<p class="col text-start card-footer text-danger">{{paintingData[innerIndex].timer}}</p>
+								<p class="col text-end card-footer">{{paintingData[innerIndex].currentBid}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- REPEAT  -->
+			</div>
+
+			<!-- CAROUSEL INDICATOR -->
+
+			<button class="carousel-control-prev" type="button" data-bs-target="#painting-slide" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon bg-black left-" aria-hidden="true"></span>
+			</button>
+
+			<button class="carousel-control-next" type="button" data-bs-target="#painting-slide" data-bs-slide="next">
+				<span class="carousel-control-next-icon bg-black" aria-hidden="true"></span>
+			</button>
+		</div>
+	</div>
+
 	<!-- ALL ITEM -->
 
 	<!-- LASTEST NEW -->
@@ -219,9 +209,9 @@
 		</div>
 
 		<div class="row p-3">
-			<div class="card col-md-6 bg-black overflow-hidden position-relative" style="height: 30rem">
-				<a href="" class="position-absolute bg-black overlay" style="height: 30rem; width: 100%"></a>
-				<img src="./images/dummy-img.png" alt="" />
+			<div class="card col-md-6 overflow-hidden position-relative" style="height: 35rem">
+				<a href="" class="position-absolute bg-black overlay" style="height: 35rem; width: 100%"></a>
+				<img src="./images/dummy-img.png" class="overflow-hidden" alt="" />
 				<div class="card-img-overlay d-flex flex-column justify-content-end">
 					<h5 class="card-title">Card title</h5>
 					<p class="card-text">
@@ -231,10 +221,10 @@
 				</div>
 			</div>
 
-			<div class="col-md-6 gap-2 d-flex flex-column" style="height: 30rem">
-				<div class="card bg-black flex-grow-1 overflow-hidden">
+			<div class="col-md-6 gap-2 d-flex flex-column" style="height: 35rem">
+				<div class="card col overflow-hidden">
 					<a href="" class="position-absolute bg-black overlay" style="height: 100%; width: 100%"></a>
-					<img src="./images/dummy-img.png" alt="" />
+					<img src="./images/dummy-img.png" class="overflow-hidden" alt="" />
 					<div class="card-img-overlay d-flex flex-column justify-content-end">
 						<h5 class="card-title">Card title</h5>
 						<p class="card-text">
@@ -245,9 +235,9 @@
 					</div>
 				</div>
 
-				<div class="card bg-black flex-grow-1 overflow-hidden">
+				<div class="card col overflow-hidden">
 					<a href="#!signin" class="position-absolute bg-black overlay" style="height: 100%; width: 100%"></a>
-					<img src="./images/dummy-img.png" alt="" />
+					<img src="./images/dummy-img.png" class="overflow-hidden" alt="" />
 					<div class="card-img-overlay d-flex flex-column justify-content-end">
 						<h5 class="card-title">Card title</h5>
 						<p class="card-text">

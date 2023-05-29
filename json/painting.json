@@ -11,7 +11,7 @@
 			"currentBid": "$200",
 			"startingBid": "$150",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		},
 		{
 			"id": "P-02",
@@ -24,7 +24,7 @@
 			"currentBid": "$300",
 			"startingBid": "$250",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		},
 		{
 			"id": "P-03",
@@ -37,7 +37,7 @@
 			"currentBid": "$500",
 			"startingBid": "$250",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		},
 		{
 			"id": "P-04",
@@ -50,7 +50,7 @@
 			"currentBid": "$16.000.000",
 			"startingBid": "$2.500.000",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		},
 		{
 			"id": "P-05",
@@ -63,7 +63,7 @@
 			"currentBid": "$14.000.000",
 			"startingBid": "$2.500.000",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		},
 		{
 			"id": "P-06",
@@ -76,7 +76,7 @@
 			"currentBid": "$5.800.000",
 			"startingBid": "$2.500.000",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		},
 		{
 			"id": "P-07",
@@ -89,7 +89,7 @@
 			"currentBid": "$4.500.000",
 			"startingBid": "$2.500.000",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		},
 		{
 			"id": "P-08",
@@ -102,7 +102,7 @@
 			"currentBid": "$19.000.000",
 			"startingBid": "$8.000.000",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		},
 		{
 			"id": "P-09",
@@ -115,7 +115,7 @@
 			"currentBid": "$9.500.000",
 			"startingBid": "$3.000.000",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		},
 		{
 			"id": "P-10",
@@ -128,7 +128,7 @@
 			"currentBid": "$6.500.000",
 			"startingBid": "$1.200.000",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		},
 		{
 			"id": "P-11",
@@ -141,7 +141,7 @@
 			"currentBid": "$5.000.000",
 			"startingBid": "$1.000.000",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		},
 		{
 			"id": "P-12",
@@ -154,7 +154,7 @@
 			"currentBid": "$2.000.000",
 			"startingBid": "$1.000.000",
 			"finalPrice": null,
-			"end" : false
+			"end": false
 		}
 	]
 }

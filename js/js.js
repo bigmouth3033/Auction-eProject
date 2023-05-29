@@ -10,21 +10,76 @@ app.config(function ($routeProvider) {
 		})
 		.when("/signup", {
 			templateUrl: "./html/signup.html",
+		})
+		.when("/product", {
+			templateUrl: "./html/product.html",
 		});
 });
 
-app.service("DataService", function () {
-	let paintingData = null;
+app.service("AuctionItems", function () {
+	const paintingKey = "painting";
+	const carKey = "car";
+	const furnitureKey = "furniture";
+
+	let paintingData = JSON.parse(localStorage.getItem(paintingKey)) || [];
+	let carData = JSON.parse(localStorage.getItem(carKey)) || [];
+	let furnitureData = JSON.parse(localStorage.getItem(furnitureKey)) || [];
+	let currentProduct = null;
+
+	this.updatePaintingJson = function () {
+		localStorage.setItem(paintingKey, JSON.stringify(paintingData));
+	};
 
 	this.setPaintingData = function (data) {
 		paintingData = data;
+		this.updatePaintingJson();
 	};
 
 	this.getPaintingData = function () {
 		return paintingData;
 	};
 
+	this.updateCarJson = function () {
+		localStorage.setItem(paintingKey, JSON.stringify(carData));
+	};
+
+	this.setCarData = function (data) {
+		carData = data;
+		this.updateCarJson();
+	};
+
+	this.getCarData = function () {
+		return carData;
+	};
+
+	this.updateFurnitureJson = function () {
+		localStorage.setItem(furnitureKey, JSON.stringify(furnitureData));
+	};
+
+	this.setFurnitureData = function (data) {
+		furnitureData = data;
+		this.updateFurnitureJson();
+	};
+
+	this.getFurnitureData = function () {
+		return furnitureData;
+	};
+
+	this.setCurrentProduct = function (data) {
+		currentProduct = data;
+	};
+
+	this.getCurrentProduct = function () {
+		return currentProduct;
+	};
+});
+
+app.service("UserData", function () {
+	const allUserKey = "allUserArr";
+
 	let isUser = false;
+	let allUserData = JSON.parse(localStorage.getItem(allUserKey)) || [];
+	let currentUser = {};
 
 	this.isUser = function () {
 		return isUser;
@@ -38,10 +93,13 @@ app.service("DataService", function () {
 		isUser = false;
 	};
 
-	let allUserData = localStorage.getItem("allUserObject") ? JSON.parse(localStorage.getItem("allUserObject")) : { users: [] };
+	this.updataUsersJson = function () {
+		localStorage.setItem(allUserKey, JSON.stringify(allUserData));
+	};
 
 	this.setAllUserData = function (data) {
 		allUserData = data;
+		this.updataUsersJson();
 	};
 
 	this.getAllUserData = function () {
@@ -49,14 +107,13 @@ app.service("DataService", function () {
 	};
 
 	this.addNewUser = function (userData) {
-		allUserData.users.push(userData);
+		allUserData.push(userData);
+		this.updataUsersJson();
 	};
 
 	this.getUser = function (username, password) {
-		return allUserData.users.find((item) => item.username == username && item.password == password);
+		return allUserData.find((item) => item.username == username && item.password == password);
 	};
-
-	let currentUser = {};
 
 	this.setCurrentUser = function (user) {
 		currentUser = user;
@@ -67,17 +124,41 @@ app.service("DataService", function () {
 	};
 });
 
-app.run(function ($rootScope, $http, DataService) {
+app.run(function ($rootScope, $http, AuctionItems) {
 	$rootScope.showBanner = true;
 
-	$http.get("./json/painting.json").then(
-		function (response) {
-			DataService.setPaintingData(response.data.painting);
-		},
-		function (error) {
-			console.log("something went horribly wrong with json file", error);
-		}
-	);
+	if (AuctionItems.getPaintingData().length == 0) {
+		$http.get("./json/painting.json").then(
+			function (response) {
+				AuctionItems.setPaintingData(response.data.painting);
+			},
+			function (error) {
+				console.log("fuck this shit, you fucking stupid piece of shit", error);
+			}
+		);
+	}
+
+	// if (AuctionItems.getCarData().length == 0) {
+	// 	$http.get("./json/car.json").then(
+	// 		function (response) {
+	// 			AuctionItems.setCarData(response.data.car);
+	// 		},
+	// 		function (error) {
+	// 			console.log("fuck this shit, you fucking stupid piece of shit", error);
+	// 		}
+	// 	);
+	// }
+
+	// if (AuctionItems.getFurnitureData().length == 0) {
+	// 	$http.get("./json/furniture.json").then(
+	// 		function (response) {
+	// 			AuctionItems.setFurnitureData(response.data.furniture);
+	// 		},
+	// 		function (error) {
+	// 			console.log("fuck this shit, you fucking stupid piece of shit", error);
+	// 		}
+	// 	);
+	// }
 
 	$rootScope.indexUser = {};
 
@@ -157,36 +238,66 @@ function getArrayOfIterationIndex(length, numberOfItem) {
 	return arr;
 }
 
-app.controller("homeController", function ($scope, $interval, DataService) {
-	$scope.paintingData = DataService.getPaintingData();
+app.controller("homeController", function ($scope, $interval, AuctionItems, UserData) {
+	$scope.paintingData = AuctionItems.getPaintingData();
+	$scope.carData = AuctionItems.getCarData();
+	$scope.furnitureData = AuctionItems.getFurnitureData();
 
-	for (let painting of $scope.paintingData) {
-		$interval(function () {
-			if (!painting.end) myTimer(painting.endDate, painting);
-		}, 1000);
+	$scope.allData = [];
+
+	for (let item of $scope.paintingData) {
+		$scope.allData.push(item);
 	}
 
+	for (let item of $scope.carData) {
+		$scope.allData.push(item);
+		alert("arst");
+	}
+
+	$scope.allData.sort((item1, item2) => new Date(item1.endDate) - new Date(item2.endDate));
+	$scope.finishedData = [];
+
+	function stopInterval(interval) {
+		$interval.cancel(interval);
+	}
+
+	$scope.allData.forEach(function (item) {
+		let interval = $interval(function () {
+			if (item.end) {
+				$scope.finishedData.push($scope.allData.shift());
+				stopInterval(interval);
+				return;
+			}
+
+			myTimer(item.endDate, item);
+		}, 1000);
+	});
+
 	$scope.numberOfDisplay = 3;
-	$scope.iterationIndex = getArrayOfIterationIndex(12, $scope.numberOfDisplay);
+	$scope.paintingIterationIndex = getArrayOfIterationIndex($scope.paintingData.length, $scope.numberOfDisplay);
 
 	$scope.changeDisplayNumber = function () {
-		$scope.iterationIndex = getArrayOfIterationIndex(12, $scope.numberOfDisplay);
+		$scope.paintingIterationIndex = getArrayOfIterationIndex($scope.paintingData.length, $scope.numberOfDisplay);
+	};
+
+	$scope.changeToProductPage = function (product) {
+		AuctionItems.setCurrentProduct(product);
 	};
 });
 
-app.controller("signInController", function ($scope, $location, DataService) {
+app.controller("signInController", function ($scope, $location, UserData) {
 	$scope.onSignin = function () {
-		let user = DataService.getUser($scope.signinUsername, $scope.signinPassword);
+		let user = UserData.getUser($scope.signinUsername, $scope.signinPassword);
 
 		if (!user) {
 			alert("wrong user name and password");
 			return;
 		}
 
-		DataService.setCurrentUser(user);
-		DataService.loginSuccess();
+		UserData.setCurrentUser(user);
+		UserData.loginSuccess();
 
-		$scope.changeIndexUser(DataService.getCurrentUser());
+		$scope.changeIndexUser(UserData.getCurrentUser());
 
 		alert("success");
 
@@ -199,10 +310,10 @@ const USERNAME_REGEX = /^[0-9A-Za-z]+$/;
 const PASSWORD_REGEX = /^[0-9A-Za-z]+$/;
 const PHONE_REGEX = /^[0-9]+$/;
 
-app.controller("signUpController", function ($scope, DataService) {
+app.controller("signUpController", function ($scope, UserData) {
 	$scope.onSignup = function () {
 		let isOk = true;
-		let allUserArr = DataService.getAllUserData().users;
+		let allUserArr = UserData.getAllUserData();
 
 		if (allUserArr.find((item) => item.username == $scope.signupUsername)) {
 			$scope.existUsername = true;
@@ -260,15 +371,13 @@ app.controller("signUpController", function ($scope, DataService) {
 		} else $scope.wrongPhoneFormat = false;
 
 		if (isOk) {
-			DataService.addNewUser({
+			UserData.addNewUser({
 				username: $scope.signupUsername,
 				password: $scope.signupPassword,
 				email: $scope.signupEmail,
 				location: $scope.signupLocation,
 				phone: $scope.signupPhone,
 			});
-
-			localStorage.setItem("allUserObject", JSON.stringify(DataService.getAllUserData()));
 
 			$scope.signupUsername = "";
 			$scope.signupPassword = "";
@@ -280,4 +389,8 @@ app.controller("signUpController", function ($scope, DataService) {
 			alert("success");
 		}
 	};
+});
+
+app.controller("productController", function ($scope, AuctionItems) {
+	$scope.product = AuctionItems.getCurrentProduct();
 });
