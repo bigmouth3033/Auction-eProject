@@ -12,14 +12,16 @@
 
 <!-- STYLE -->
 
-<style></style>
+<style>
+	
+</style>
 
 <!-- CONTENT  -->
 
 <div ng-controller="homeController" class="body-background">
 	<!-- SOME INTRODUCTION -->
 
-	<div class="container-fluid mb-3 d-none d-lg-block introduction-container" style="background-color: white">
+	<div class="container-fluid mb-3 d-none d-lg-block introduction-container bg-white">
 		<p class="text-center desciption-text fs-2 m-0">How AuctionsTable Work</p>
 		<div class="text-center"><img src="./images/introduction-img.svg" alt="" class="text-center" /></div>
 		<p class="text-center desciption-text fs-4 m-0">
@@ -29,8 +31,6 @@
 	</div>
 
 	<!-- TRENDING -->
-
-
 
 	<!-- TRENDING -->
 
@@ -44,7 +44,7 @@
 
 			<div class="col text-end">
 				<p class="fw-bold fs-5">
-					<a href="#!" style="color: black; text-decoration: none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
+					<a href="#!" class="text-black text-decoration-none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
 				</p>
 			</div>
 		</div>
@@ -70,7 +70,7 @@
 			</div>
 
 			<div class="col">
-				<div class="card my-shadow reset-card" style="border-top-left-radius: 0; border-bottom-left-radius: 0">
+				<div class="card my-shadow reset-card">
 					<div class="row">
 						<div class="col-lg-4">
 							<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
@@ -89,7 +89,7 @@
 			</div>
 
 			<div class="col">
-				<div class="card my-shadow reset-card" style="border-top-left-radius: 0; border-bottom-left-radius: 0">
+				<div class="card my-shadow reset-card">
 					<div class="row">
 						<div class="col-lg-4">
 							<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
@@ -108,7 +108,7 @@
 			</div>
 
 			<div class="col">
-				<div class="card my-shadow reset-card" style="border-top-left-radius: 0; border-bottom-left-radius: 0">
+				<div class="card my-shadow reset-card">
 					<div class="row">
 						<div class="col-lg-4 d-flex align-items-center">
 							<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
@@ -148,19 +148,18 @@
 		<div class="carousel-inner">
 			<!-- REPEAT  -->
 			<div class="carousel-item" ng-repeat="index in paintingIterationIndex" ng-class="{'active': $index == 0}">
-				<div class="row gap-3 text-center px-5 py-5 justify-content-evenly">
+				<div class="row gap-3 text-center p-5 justify-content-evenly">
 					<div
-						class="col-lg-3 my-padding foot-radius my-shadow card reset-card card-effect p-3"
-						style="width: 20rem; height: 36rem"
+						class="col-lg-3 my-padding my-shadow card card-effect p-3 slide-item-container"
 						ng-repeat="innerIndex in index"
 					>
-						<div style="height: 25rem" class="d-flex justify-content-center align-items-center">
+						<div class="d-flex justify-content-center align-items-center slide-img-container">
 							<a href="#!product" ng-click="changeToProductPage(paintingData[innerIndex])"
-								><img ng-src="{{paintingData[innerIndex].img}}" style="max-height: 25rem" class="img-fluid border-effect" alt=""
+								><img ng-src="{{paintingData[innerIndex].img}}" class="img-fluid border-effect slide-img" alt=""
 							/></a>
 						</div>
-						<div class="card-body" style="height: 10rem">
-							<h5 style="height: 3rem" class="fw-bolder fs-5 card-title">
+						<div class="card-body">
+							<h5 class="fw-bolder fs-5 card-title">
 								<a href="#!product" ng-click="changeToProductPage(paintingData[innerIndex])" class="link-dark"
 									>{{paintingData[innerIndex].fullName | uppercase}}</a
 								>
@@ -203,14 +202,14 @@
 
 			<div class="col text-end">
 				<p class="fw-bold fs-5">
-					<a href="#!" style="color: black; text-decoration: none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
+					<a href="#!" class="text-black text-decoration-none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
 				</p>
 			</div>
 		</div>
 
 		<div class="row p-3">
-			<div class="card col-md-6 overflow-hidden position-relative" style="height: 35rem">
-				<a href="" class="position-absolute bg-black overlay" style="height: 35rem; width: 100%"></a>
+			<div class="card col-md-6 overflow-hidden position-relative latest-new-container">
+				<a href="" class="position-absolute bg-black overlay latest-new-overlay"></a>
 				<img src="./images/dummy-img.png" class="overflow-hidden" alt="" />
 				<div class="card-img-overlay d-flex flex-column justify-content-end">
 					<h5 class="card-title">Card title</h5>
@@ -221,9 +220,9 @@
 				</div>
 			</div>
 
-			<div class="col-md-6 gap-2 d-flex flex-column" style="height: 35rem">
+			<div class="col-md-6 gap-2 d-flex flex-column latest-new-container" >
 				<div class="card col overflow-hidden">
-					<a href="" class="position-absolute bg-black overlay" style="height: 100%; width: 100%"></a>
+					<a href="" class="position-absolute bg-black overlay latest-new-small-container"></a>
 					<img src="./images/dummy-img.png" class="overflow-hidden" alt="" />
 					<div class="card-img-overlay d-flex flex-column justify-content-end">
 						<h5 class="card-title">Card title</h5>
@@ -236,7 +235,7 @@
 				</div>
 
 				<div class="card col overflow-hidden">
-					<a href="#!signin" class="position-absolute bg-black overlay" style="height: 100%; width: 100%"></a>
+					<a href="#!signin" class="position-absolute bg-black overlay latest-new-small-container"></a>
 					<img src="./images/dummy-img.png" class="overflow-hidden" alt="" />
 					<div class="card-img-overlay d-flex flex-column justify-content-end">
 						<h5 class="card-title">Card title</h5>

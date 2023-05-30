@@ -16,6 +16,7 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-sanitize.js"></script>
 
 		<!-- BOOTSTRAP -->
 
@@ -50,7 +51,7 @@
 
 		<!-- END -->
 	</head>
-	<body ng-app="auctionApp" class="d-flex flex-column min-vh-100" style="max-width: 2500px; margin: auto;">
+	<body ng-app="auctionApp" class="d-flex flex-column min-vh-100 body-limit">
 		<!-- NAV BAR -->
 
 		<nav class="navbar navbar-expand-md nav-color text-light">
@@ -130,9 +131,9 @@
 			</div>
 			<div class="card-img-overlay">
 				<div class="d-none d-lg-flex d-flex flex-column align-items-start justify-content-center ms-5" style="height: 100%">
-					<h1 class="card-title" style="width: fit-content; background-color: black; font-size: 60px">FIND</h1>
-					<h1 class="card-title mb-5" style="width: fit-content; background-color: black; font-size: 60px">YOUR TREASURES</h1>
-					<button class="btn btn-close-white text-bg-light reset-card" style="width: 400px">VIEW ALL ITEMS</button>
+					<h1 class="card-title index-banner-style">FIND</h1>
+					<h1 class="card-title mb-5 index-banner-style">YOUR TREASURES</h1>
+					<button class="btn btn-close-white text-bg-light reset-card index-button-style">VIEW ALL ITEMS</button>
 				</div>
 			</div>
 		</div>
@@ -174,7 +175,7 @@
 						<!-- Grid column -->
 						<div class="col-lg-4 col-xl-3 mx-auto mb-4 fw-bold">
 							<h6 class="text-uppercase fw-bold mb-4"><b> AuctionsTable</b></h6>
-							<p style="color: gray">
+							<p>
 								AuctionsTable is an organization selling valuable items and goods through auctions. We have a vast experience of organizing
 								auctions for past 25 years. And now, we have e-services for auctions with more than 700 expert auction houses worldwide,
 								adding millions of unique items each year.
@@ -226,7 +227,7 @@
 			<!-- Links  -->
 
 			<!-- Copyright -->
-			<div class="fw-bold text-center p-4 text-white" style="background-color: black">
+			<div class="fw-bold text-center p-4 text-white">
 				<p>&copy AuctionsTable 2023</p>
 			</div>
 		</footer>

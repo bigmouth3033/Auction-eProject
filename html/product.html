@@ -10,40 +10,46 @@
 	crossorigin="anonymous"
 ></script> -->
 
-<style></style>
+<style>
+  p img{
+    display: block;
+    width: fit-content;
+    margin: auto;
+  }
+</style>
 
-<div ng-controller="productController" class="body-background" >
+<div ng-controller="productController" class="body-background">
 	<div class="container">
-    <div class="fw-bolder fs-4 pt-5">
-      {{product.fullName + " by " + product.artist}}
-    </div>
+		<div class="fw-bolder fs-4 pt-5">{{product.fullName + " by " + product.artist}}</div>
 
 		<div class="row gap-5 ps-5">
-			<div class="col-md-8 shadow rounded d-flex justify-content-center p-3" style="height: 80vh;max-height: 600px;">
+			<div class="col-md-8 shadow rounded d-flex justify-content-center p-3" style="height: 80vh; max-height: 600px">
 				<img ng-src="{{product.img}}" style="max-height: 80vh" alt="" class="img-fluid border-effect" />
 			</div>
 
 			<div class="col-md-3 d-flex flex-column gap-2">
 				<div class="col shadow rounded p-2">
-          <h5 class="fw-bolder fs-2">ARTIST</h5>
-          <p class="fw-bold fs-3 text-bg-danger">{{product.artist}}</p>
-          <h5 class="fw-bolder fs-2">CURRENT BID</h5>
-          <p class="fw-bold fs-3 text-bg-danger">{{product.currentBid}}</p>
-          <h5 class="fw-bolder fs-2">STARTING BID</h5>
-          <p class="fw-bold fs-3 text-bg-danger">{{product.startingBid}}</p>
-          <h5 class="fw-bolder fs-2">TIME LEFT</h5>
-          <p class="fw-bold fs-3 text-bg-danger">{{product.timer}}</p>
-          
-        </div>
+					<h5 class="fw-bolder fs-2">ARTIST</h5>
+					<p class="fw-bold fs-3 text-bg-danger">{{product.artist}}</p>
+					<h5 class="fw-bolder fs-2">CURRENT BID</h5>
+					<p class="fw-bold fs-3 text-bg-danger">{{product.currentBid}}</p>
+					<h5 class="fw-bolder fs-2">STARTING BID</h5>
+					<p class="fw-bold fs-3 text-bg-danger">{{product.startingBid}}</p>
+					<h5 class="fw-bolder fs-2">TIME LEFT</h5>
+					<p class="fw-bold fs-3 text-bg-danger">{{product.timer}}</p>
+				</div>
 				<div>
-          <div class="input-group">
-            <span class="input-group-text">$</span>
-            <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
-            <span class="input-group-text">.00</span>
-            <button class="btn btn-danger">BIDDING</button>
-          </div>
-        </div>
+					<div class="input-group">
+						<span class="input-group-text">$</span>
+						<input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" />
+						<span class="input-group-text">.00</span>
+						<button class="btn btn-danger">BIDDING</button>
+					</div>
+				</div>
 			</div>
 		</div>
+
+		<hr / class="mt-5">
+		<div class="container p-5 m-5" ng-bind-html="product.content"></div>
 	</div>
 </div>

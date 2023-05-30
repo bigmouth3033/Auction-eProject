@@ -4,7 +4,7 @@
 	/* font-family: "Montserrat", sans-serif;
 	font-family: "Roboto", sans-serif; */
 
-	font-family: 'Montserrat', sans-serif;
+	font-family: "Montserrat", sans-serif;
 }
 
 .my-nav-link {
@@ -29,6 +29,21 @@ footer a {
 
 a {
 	text-decoration: none;
+}
+
+.body-limit {
+	max-width: 2500px;
+	margin: auto;
+}
+
+.index-banner-style {
+	width: fit-content;
+	background-color: black;
+	font-size: 60px;
+}
+
+.index-button-style{
+	width: 400px;
 }
 
 /* HOME CSS */
@@ -122,4 +137,32 @@ a {
 .border-effect:focus {
 	outline: 2px solid white;
 	outline-offset: -6px;
+}
+
+.slide-item-container {
+	height: 75vh;
+	width: 20rem;
+	max-height: 600px;
+	min-height: 400px;
+}
+
+.slide-img-container {
+	height: 50vh;
+}
+
+.slide-img {
+	max-height: 50vh;
+}
+
+.latest-new-container{
+	height: 35rem;
+}
+
+.latest-new-overlay{
+	height: 35rem; width: 100%
+}
+
+.latest-new-small-container{
+	width: 100%;
+	height: 100%;
 }

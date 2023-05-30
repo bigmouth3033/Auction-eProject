@@ -1,4 +1,4 @@
-let app = angular.module("auctionApp", ["ngRoute"]);
+let app = angular.module("auctionApp", ["ngRoute", "ngSanitize"]);
 
 app.config(function ($routeProvider) {
 	$routeProvider
@@ -16,15 +16,20 @@ app.config(function ($routeProvider) {
 		});
 });
 
+function getLocalStorageItem(key){
+	return JSON.parse(localStorage.getItem(key));
+}
+
 app.service("AuctionItems", function () {
 	const paintingKey = "painting";
 	const carKey = "car";
 	const furnitureKey = "furniture";
+	const currentItemKey = "currentItem"
 
-	let paintingData = JSON.parse(localStorage.getItem(paintingKey)) || [];
-	let carData = JSON.parse(localStorage.getItem(carKey)) || [];
-	let furnitureData = JSON.parse(localStorage.getItem(furnitureKey)) || [];
-	let currentProduct = null;
+	let paintingData = getLocalStorageItem(paintingKey) || [];
+	let carData = getLocalStorageItem(carKey) || [];
+	let furnitureData = getLocalStorageItem(furnitureKey) || [];
+	let currentItem = getLocalStorageItem(currentItemKey) || null;
 
 	this.updatePaintingJson = function () {
 		localStorage.setItem(paintingKey, JSON.stringify(paintingData));
@@ -65,12 +70,17 @@ app.service("AuctionItems", function () {
 		return furnitureData;
 	};
 
-	this.setCurrentProduct = function (data) {
-		currentProduct = data;
+	this.updateCurrentItemJson = function(){
+		localStorage.setItem(currentItemKey, JSON.stringify(currentItem));
+	}
+
+	this.setCurrentItem = function (data) {
+		currentItem = data;
+		this.updateCurrentItemJson();
 	};
 
-	this.getCurrentProduct = function () {
-		return currentProduct;
+	this.getCurrentItem = function () {
+		return currentItem;
 	};
 });
 
@@ -78,7 +88,7 @@ app.service("UserData", function () {
 	const allUserKey = "allUserArr";
 
 	let isUser = false;
-	let allUserData = JSON.parse(localStorage.getItem(allUserKey)) || [];
+	let allUserData = getLocalStorageItem(allUserKey) || [];
 	let currentUser = {};
 
 	this.isUser = function () {
@@ -281,7 +291,7 @@ app.controller("homeController", function ($scope, $interval, AuctionItems, User
 	};
 
 	$scope.changeToProductPage = function (product) {
-		AuctionItems.setCurrentProduct(product);
+		AuctionItems.setCurrentItem(product);
 	};
 });
 
@@ -392,5 +402,6 @@ app.controller("signUpController", function ($scope, UserData) {
 });
 
 app.controller("productController", function ($scope, AuctionItems) {
-	$scope.product = AuctionItems.getCurrentProduct();
+	$scope.product = AuctionItems.getCurrentItem();
+
 });
