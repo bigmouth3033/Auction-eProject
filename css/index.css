@@ -77,7 +77,7 @@ a {
 }
 
 .transition-stop {
-	transition: all 0;
+	transition: all 0s;
 }
 
 .introduction-container {
