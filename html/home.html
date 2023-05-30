@@ -147,7 +147,7 @@
 		<hr />
 		<div class="carousel-inner">
 			<!-- REPEAT  -->
-			<div class="carousel-item" ng-repeat="index in paintingIterationIndex" ng-class="{'active': $index == 0}">
+			<div class="carousel-item transition-stop" ng-repeat="index in paintingIterationIndex" ng-class="{'active': $index == 0}">
 				<div class="row gap-3 text-center p-5 justify-content-evenly">
 					<div
 						class="col-lg-3 my-padding my-shadow card card-effect p-3 slide-item-container"
@@ -160,7 +160,7 @@
 						</div>
 						<div class="card-body">
 							<h5 class="fw-bolder fs-5 card-title">
-								<a href="#!product" ng-click="changeToProductPage(paintingData[innerIndex])" class="link-dark"
+								<a href="#!product" ng-click="changeToProductPage(paintingData[	innerIndex])" class="link-dark"
 									>{{paintingData[innerIndex].fullName | uppercase}}</a
 								>
 							</h5>
