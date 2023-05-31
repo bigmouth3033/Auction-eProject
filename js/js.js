@@ -16,7 +16,7 @@ app.config(function ($routeProvider) {
 		});
 });
 
-function getLocalStorageItem(key){
+function getLocalStorageItem(key) {
 	return JSON.parse(localStorage.getItem(key));
 }
 
@@ -24,12 +24,28 @@ app.service("AuctionItems", function () {
 	const paintingKey = "painting";
 	const carKey = "car";
 	const furnitureKey = "furniture";
-	const currentItemKey = "currentItem"
+	const currentItemKey = "currentItem";
+
+	this.findItem = function(id){
+		if(id[0] == "P"){
+			return paintingData.find(item => item.id == id);
+		}
+
+		if(id[0] == "C"){
+			return carData.find(item => item.id == id);
+		}
+
+		if(id[0] == "F"){
+			return furnitureData.find(item => item.id == id);
+		}
+	}
 
 	let paintingData = getLocalStorageItem(paintingKey) || [];
 	let carData = getLocalStorageItem(carKey) || [];
 	let furnitureData = getLocalStorageItem(furnitureKey) || [];
-	let currentItem = getLocalStorageItem(currentItemKey) || null;
+	let currentItem = this.findItem(getLocalStorageItem(currentItemKey)) || null;
+
+	
 
 	this.updatePaintingJson = function () {
 		localStorage.setItem(paintingKey, JSON.stringify(paintingData));
@@ -70,18 +86,19 @@ app.service("AuctionItems", function () {
 		return furnitureData;
 	};
 
-	this.updateCurrentItemJson = function(){
-		localStorage.setItem(currentItemKey, JSON.stringify(currentItem));
-	}
+	this.updateCurrentItemIDJson = function () {
+		localStorage.setItem(currentItemKey, JSON.stringify(currentItem.id));
+	};
 
 	this.setCurrentItem = function (data) {
 		currentItem = data;
-		this.updateCurrentItemJson();
+		this.updateCurrentItemIDJson();
 	};
 
 	this.getCurrentItem = function () {
 		return currentItem;
 	};
+
 });
 
 app.service("UserData", function () {
@@ -134,7 +151,36 @@ app.service("UserData", function () {
 	};
 });
 
-app.run(function ($rootScope, $http, AuctionItems) {
+app.service("Timer", function ($interval, AuctionItems) {
+	let paintingData = AuctionItems.getPaintingData();
+
+	let stillCountData = [];
+	let finishedCountData = [];
+
+
+	for (let item of paintingData) {
+		stillCountData.push(item);
+	}
+
+	function stopInterval(interval) {
+		$interval.cancel(interval);
+	}
+
+	stillCountData.forEach(function (item) {
+		let interval = $interval(function () {
+			if (item.end) {
+				finishedCountData.push(stillCountData.shift());
+				stopInterval(interval);
+				return;
+			}
+			console.log(item.timer);
+			myTimer(item.endDate, item);
+		}, 1000);
+	});
+
+});
+
+app.run(function ($rootScope, $http, AuctionItems, Timer) {
 	$rootScope.showBanner = true;
 
 	if (AuctionItems.getPaintingData().length == 0) {
@@ -197,37 +243,18 @@ function myTimer(date, obj) {
 
 	let dTotal = (hTotal - hLeft) / 24;
 
+	obj.dayLeft = dTotal;
+	obj.hourLeft = hLeft;
+	obj.minuteLeft = mLeft;
+	obj.secondLeft = sLeft;
+
 	if (dTotal < 0 || hLeft < 0 || mLeft < 0 || sLeft < 0) {
 		obj.end = true;
 		obj.timer = "ALREADY END";
 		return;
 	}
 
-	if (dTotal) {
-		timer.push(`${dTotal}D`);
-		obj.timer = timer.join("");
-		return;
-	}
-
-	if (hLeft) {
-		timer.push(`${hLeft}H`);
-		obj.timer = timer.join("");
-		return;
-	}
-
-	if (mLeft) {
-		timer.push(`${mLeft}M`);
-		obj.timer = timer.join("");
-		return;
-	}
-
-	if (sLeft) {
-		timer.push(`${sLeft}S`);
-		obj.timer = timer.join("");
-		return;
-	}
-
-	obj.timer = timer.join("");
+	obj.timer = obj.dayLeft + "d " + obj.hourLeft + "h " + obj.minuteLeft + "m " + obj.secondLeft + "s";
 }
 
 function getArrayOfIterationIndex(length, numberOfItem) {
@@ -248,40 +275,10 @@ function getArrayOfIterationIndex(length, numberOfItem) {
 	return arr;
 }
 
-app.controller("homeController", function ($scope, $interval, AuctionItems, UserData) {
+app.controller("homeController", function ($scope, $interval, AuctionItems, UserData, Timer) {
 	$scope.paintingData = AuctionItems.getPaintingData();
 	$scope.carData = AuctionItems.getCarData();
 	$scope.furnitureData = AuctionItems.getFurnitureData();
-
-	$scope.allData = [];
-
-	for (let item of $scope.paintingData) {
-		$scope.allData.push(item);
-	}
-
-	for (let item of $scope.carData) {
-		$scope.allData.push(item);
-		alert("arst");
-	}
-
-	$scope.allData.sort((item1, item2) => new Date(item1.endDate) - new Date(item2.endDate));
-	$scope.finishedData = [];
-
-	function stopInterval(interval) {
-		$interval.cancel(interval);
-	}
-
-	$scope.allData.forEach(function (item) {
-		let interval = $interval(function () {
-			if (item.end) {
-				$scope.finishedData.push($scope.allData.shift());
-				stopInterval(interval);
-				return;
-			}
-
-			myTimer(item.endDate, item);
-		}, 1000);
-	});
 
 	$scope.numberOfDisplay = 3;
 	$scope.paintingIterationIndex = getArrayOfIterationIndex($scope.paintingData.length, $scope.numberOfDisplay);
@@ -401,7 +398,27 @@ app.controller("signUpController", function ($scope, UserData) {
 	};
 });
 
-app.controller("productController", function ($scope, AuctionItems) {
+app.controller("productController", function ($scope, $route, AuctionItems) {
 	$scope.product = AuctionItems.getCurrentItem();
+	$scope.productSuggestion;
 
+	if ($scope.product.id[0] == "P") {
+		$scope.productSuggestion = AuctionItems.getPaintingData();
+	}
+
+	if ($scope.product.id[0] == "F") {
+		$scope.productSuggestion = AuctionItems.getFurnitureData();
+	}
+
+	if ($scope.product.id[0] == "C") {
+		$scope.productSuggestion = AuctionItems.getCarData();
+	}
+
+	$scope.productSuggestion.sort((a, b) => 0.5 - Math.random());
+	$scope.productSuggestion.length = 10;
+
+	$scope.changeToProductPage = function (product) {
+		AuctionItems.setCurrentItem(product);
+		$route.reload();
+	};
 });
