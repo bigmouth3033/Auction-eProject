@@ -155,7 +155,7 @@
 		<div class="carousel-inner">
 			<!-- REPEAT  -->
 			<div class="carousel-item transition-stop" ng-repeat="index in paintingIterationIndex" ng-class="{'active': $index == 0}">
-				<div class="row gap-3 text-center p-5 justify-content-evenly">
+				<div class="row gap-1 text-center p-5 justify-content-evenly">
 					<div
 						class="col-lg-3 my-padding my-shadow card card-effect p-3 slide-item-container"
 						ng-repeat="innerIndex in index"
@@ -176,8 +176,8 @@
 								<p class="col text-end card-text">Current Bid</p>
 							</div>
 							<div class="row justify-content-between">
-								<p class="col text-start card-footer text-danger">{{paintingData[innerIndex].timer}}</p>
-								<p class="col text-end card-footer">{{paintingData[innerIndex].currentBid}}</p>
+								<pre class="col text-start card-footer text-danger fw-bolder fs-6">{{paintingData[innerIndex].timer | timeFilter}}</pre>
+								<pre class="col text-end card-footer fw-bolder fs-6">${{paintingData[innerIndex].currentBid | number}}</pre>
 							</div>
 						</div>
 					</div>
@@ -209,48 +209,39 @@
 
 			<div class="col text-end">
 				<p class="fw-bold fs-5">
-					<a href="#!" class="text-black text-decoration-none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
+					<a href="" class="text-black text-decoration-none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
 				</p>
 			</div>
 		</div>
 
-		<div class="row p-3">
-			<div class="card col-md-6 overflow-hidden position-relative latest-new-container">
-				<a href="" class="position-absolute bg-black overlay latest-new-overlay"></a>
-				<img src="./images/dummy-img.png" class="overflow-hidden" alt="" />
-				<div class="card-img-overlay d-flex flex-column justify-content-end">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">
-						This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-					</p>
-					<p class="card-text"><small>Last updated 3 mins ago</small></p>
+		<div class="row py-3 px-4">
+			<div class="col-md-6 rounded">
+				<div class="card latest-new-container rounded">
+					<a href="#!blog" ng-click="changeToBlogPage(allBlogs[0])" class="position-absolute bg-black overlay latest-new-overlay"></a>
+					<img ng-src="{{allBlogs[0].img}}"  alt="" style="width: 100%;height: 100%;" />
+					<div class="card-img-overlay d-flex flex-column justify-content-end">
+						<h5 class="card-title text-white fw-bolder">{{allBlogs[0].title}}</h5>
+						<p class="card-text text-white fw-bolder"><small>{{allBlogs[0].date}}</small></p>
+					</div>
 				</div>
 			</div>
 
 			<div class="col-md-6 gap-2 d-flex flex-column latest-new-container" >
-				<div class="card col overflow-hidden">
-					<a href="" class="position-absolute bg-black overlay latest-new-small-container"></a>
-					<img src="./images/dummy-img.png" class="overflow-hidden" alt="" />
-					<div class="card-img-overlay d-flex flex-column justify-content-end">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">
-							This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit
-							longer.
-						</p>
-						<p class="card-text"><small>Last updated 3 mins ago</small></p>
+				<div class="card col overflow-hidden reset-card">
+					<a href="#!blog" ng-click="changeToBlogPage(allBlogs[1])" class="position-absolute bg-black overlay latest-new-small-container"></a>
+					<img ng-src="{{allBlogs[1].img}}" class="img-fluid" alt="" />
+					<div class="card-img-overlay">
+						<h5 class="card-title text-white fw-bolder">{{allBlogs[1].title}}</h5>
+						<p class="card-text text-white fw-bolder"><small>{{allBlogs[1].date}}</small></p>
 					</div>
 				</div>
 
-				<div class="card col overflow-hidden">
-					<a href="#!signin" class="position-absolute bg-black overlay latest-new-small-container"></a>
-					<img src="./images/dummy-img.png" class="overflow-hidden" alt="" />
+				<div class="card col overflow-hidden reset-card">
+					<a href="#!blog" ng-click="changeToBlogPage(allBlogs[2])" class="position-absolute bg-black overlay latest-new-small-container"></a>
+					<img ng-src="{{allBlogs[2].img}}" class="img-fluid" alt="" />
 					<div class="card-img-overlay d-flex flex-column justify-content-end">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">
-							This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit
-							longer.
-						</p>
-						<p class="card-text"><small>Last updated 3 mins ago</small></p>
+						<h5 class="card-title conten text-white fw-bolder">{{allBlogs[2].title}}</h5>
+						<p class="card-text text-white fw-bolder"><small>{{allBlogs[2].date}}</small></p>
 					</div>
 				</div>
 			</div>

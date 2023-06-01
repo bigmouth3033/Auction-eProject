@@ -13,6 +13,9 @@ app.config(function ($routeProvider) {
 		})
 		.when("/product", {
 			templateUrl: "./html/product.html",
+		})
+		.when("/blog", {
+			templateUrl: "./html/blog.html",
 		});
 });
 
@@ -26,26 +29,26 @@ app.service("AuctionItems", function () {
 	const furnitureKey = "furniture";
 	const currentItemKey = "currentItem";
 
-	this.findItem = function(id){
-		if(id[0] == "P"){
-			return paintingData.find(item => item.id == id);
+	this.findItem = function (id) {
+		if (id === null) return;
+
+		if (id[0] == "P") {
+			return paintingData.find((item) => item.id == id);
 		}
 
-		if(id[0] == "C"){
-			return carData.find(item => item.id == id);
+		if (id[0] == "C") {
+			return carData.find((item) => item.id == id);
 		}
 
-		if(id[0] == "F"){
-			return furnitureData.find(item => item.id == id);
+		if (id[0] == "F") {
+			return furnitureData.find((item) => item.id == id);
 		}
-	}
+	};
 
 	let paintingData = getLocalStorageItem(paintingKey) || [];
 	let carData = getLocalStorageItem(carKey) || [];
 	let furnitureData = getLocalStorageItem(furnitureKey) || [];
-	let currentItem = this.findItem(getLocalStorageItem(currentItemKey)) || null;
-
-	
+	let currentItem = this.findItem(getLocalStorageItem(currentItemKey)) || [];
 
 	this.updatePaintingJson = function () {
 		localStorage.setItem(paintingKey, JSON.stringify(paintingData));
@@ -98,7 +101,6 @@ app.service("AuctionItems", function () {
 	this.getCurrentItem = function () {
 		return currentItem;
 	};
-
 });
 
 app.service("UserData", function () {
@@ -151,36 +153,75 @@ app.service("UserData", function () {
 	};
 });
 
-app.service("Timer", function ($interval, AuctionItems) {
-	let paintingData = AuctionItems.getPaintingData();
+app.service("BlogData", function () {
+	const blogsKey = "Blogs";
+	const currentBlogKey = "currentBlog";
 
-	let stillCountData = [];
-	let finishedCountData = [];
+	this.findBlog = function (id) {
+		if (id === null) return;
 
+		return blogs.find((item) => item.id == id);
+	};
 
-	for (let item of paintingData) {
-		stillCountData.push(item);
-	}
+	let blogs = getLocalStorageItem(blogsKey) || [];
+	let currentBlog = this.findBlog(getLocalStorageItem(currentBlogKey)) || null;
 
-	function stopInterval(interval) {
-		$interval.cancel(interval);
-	}
+	this.updateAllBlogJson = function (data) {
+		localStorage.setItem(blogsKey, JSON.stringify(blogs));
+	};
 
-	stillCountData.forEach(function (item) {
-		let interval = $interval(function () {
-			if (item.end) {
-				finishedCountData.push(stillCountData.shift());
-				stopInterval(interval);
-				return;
-			}
-			console.log(item.timer);
-			myTimer(item.endDate, item);
-		}, 1000);
-	});
+	this.getAllBlog = function () {
+		return blogs;
+	};
 
+	this.setAllBlog = function (data) {
+		blogs = data;
+		this.updateAllBlogJson();
+	};
+
+	this.setCurrentBlogIDJson = function (id) {
+		localStorage.setItem(currentBlogKey, JSON.stringify(id));
+	};
+
+	this.setCurrentBlog = function (data) {
+		currentBlog = data;
+		this.setCurrentBlogIDJson(data.id);
+	};
+
+	this.getCurrentBlog = function () {
+		return currentBlog;
+	};
 });
 
-app.run(function ($rootScope, $http, AuctionItems, Timer) {
+app.filter("timeFilter", function () {
+	return function (time) {
+		if (time == "ALREADY END") {
+			return "ALREADY END";
+		}
+
+		let arr = [];
+
+		arr = time.split(":");
+
+		if (arr[0] > 0) {
+			return arr[0] + "D LEFT";
+		}
+
+		if (arr[1] > 0) {
+			return arr[1] + "H LEFT";
+		}
+
+		if (arr[2] > 0) {
+			return arr[2] + "M LEFT";
+		}
+
+		if (arr[3] > 0) {
+			return arr[3] + "S LEFT";
+		}
+	};
+});
+
+app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData) {
 	$rootScope.showBanner = true;
 
 	if (AuctionItems.getPaintingData().length == 0) {
@@ -216,11 +257,54 @@ app.run(function ($rootScope, $http, AuctionItems, Timer) {
 	// 	);
 	// }
 
+	if (BlogData.getAllBlog().length == 0) {
+		$http.get("./json/blog.json").then(
+			function (response) {
+				BlogData.setAllBlog(response.data.blogs);
+			},
+			function (error) {
+				console.log("some thing wrong");
+			}
+		);
+	}
+
 	$rootScope.indexUser = {};
 
 	$rootScope.changeIndexUser = function (userObj) {
 		$rootScope.indexUser = userObj;
 	};
+
+	function stopInterval(interval) {
+		$interval.cancel(interval);
+	}
+
+	$rootScope.stillCounted = [];
+	$rootScope.finishedCounted = [];
+
+	for (let item of AuctionItems.getPaintingData()) {
+		$rootScope.stillCounted.push(item);
+	}
+
+	for (let item of AuctionItems.getCarData()) {
+		$rootScope.stillCounted.push(item);
+	}
+
+	for (let item of AuctionItems.getCarData()) {
+		$rootScope.stillCounted.push(item);
+	}
+
+	$rootScope.stillCounted.sort((item1, item2) => new Date(item1.endDate) - new Date(item2.endDate));
+
+	$rootScope.stillCounted.forEach(function (item) {
+		let interval = $interval(function () {
+			if (item.end) {
+				stopInterval(interval);
+				$rootScope.finishedCounted.push($rootScope.stillCounted.shift());
+				return;
+			}
+			myTimer(item.endDate, item);
+		}, 1000);
+	});
 });
 
 function myTimer(date, obj) {
@@ -254,7 +338,7 @@ function myTimer(date, obj) {
 		return;
 	}
 
-	obj.timer = obj.dayLeft + "d " + obj.hourLeft + "h " + obj.minuteLeft + "m " + obj.secondLeft + "s";
+	obj.timer = obj.dayLeft + ":" + obj.hourLeft + ":" + obj.minuteLeft + ":" + obj.secondLeft + "";
 }
 
 function getArrayOfIterationIndex(length, numberOfItem) {
@@ -275,7 +359,7 @@ function getArrayOfIterationIndex(length, numberOfItem) {
 	return arr;
 }
 
-app.controller("homeController", function ($scope, $interval, AuctionItems, UserData, Timer) {
+app.controller("homeController", function ($scope, $interval, AuctionItems, UserData, BlogData) {
 	$scope.paintingData = AuctionItems.getPaintingData();
 	$scope.carData = AuctionItems.getCarData();
 	$scope.furnitureData = AuctionItems.getFurnitureData();
@@ -290,6 +374,14 @@ app.controller("homeController", function ($scope, $interval, AuctionItems, User
 	$scope.changeToProductPage = function (product) {
 		AuctionItems.setCurrentItem(product);
 	};
+
+	$scope.allBlogs = BlogData.getAllBlog();
+
+	$scope.changeToBlogPage = function(blog){
+		BlogData.setCurrentBlog(blog);
+	}
+
+
 });
 
 app.controller("signInController", function ($scope, $location, UserData) {
@@ -421,4 +513,9 @@ app.controller("productController", function ($scope, $route, AuctionItems) {
 		AuctionItems.setCurrentItem(product);
 		$route.reload();
 	};
+});
+
+app.controller("blogController", function ($scope, AuctionItems, BlogData) {
+	$scope.currentBlog = BlogData.getCurrentBlog();
+	
 });

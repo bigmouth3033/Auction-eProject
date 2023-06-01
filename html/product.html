@@ -34,11 +34,11 @@
 		class="container fw-bolder text-black mt-5"
 	><a href="#!home"><i class="fa-solid fa-house"></i> HOME</a> / <a href="">PRODUCTS</a> / <a href="">{{product.category}}</a> / <a href="">{{product.fullName || Uppercase}}</a></pre>
 
-	<div class="container p-5 pt-1">
+	<div class="container p-5 pt-1 ">
 		<div class="fw-bolder fs-4 py-4 ps-5">{{product.fullName + " by " + product.artist}}</div>
 
-		<div class="row ps-5 mt-3 gap-5 justify-content-center">
-			<div class="col-md-7 rounded d-flex justify-content-center p-3 body-background" style="height: 80vh; max-height: 600px">
+		<div class="row ps-5 mt-3 justify-content-center">
+			<div class="col-md-8 rounded d-flex justify-content-center p-3 body-background" style="height: 80vh; max-height: 600px">
 				<img ng-src="{{product.img}}" style="max-height: 80vh" alt="" class="img-fluid border-effect" />
 			</div>
 
@@ -77,19 +77,17 @@
 
 		<hr class="mt-5" />
 
-		<div class="row gap-5 ps-5 mt-5">
-			<div class="col-md-8 p-3 overflow-hidden" ng-bind-html="product.content"></div>
+		<!-- <div class="row ps-5 mt-5 gap-5"> -->
+		<div class="col-md-8 p-3 overflow-hidden m-auto" ng-bind-html="product.content"></div>
 
-			<div class="col-md-3 d-flex flex-column gap-2">
-				<div class="card" ng-repeat="item in productSuggestion">
-					<img ng-src="{{item.img}}" class="card-img-top" alt="..." />
-					<div class="card-body">
-						<p class="card-text text-center"><a href="" ng-click="changeToProductPage(item)">{{item.fullName}}</a></p>
-					</div>
-				</div>
+		<hr>
+		<div class="text-center fw-bolder fs-5">You May Also Like</div>
+		<div class="row container row-cols-4 justify-content-center">
+			<div class="col d-flex justify-content-center border" ng-repeat="item in productSuggestion">
+				<img ng-src="{{item.img}}" alt="" class="img-fluid" style="max-height: 200px;">
 			</div>
 		</div>
 
-		<hr />
+		
 	</div>
 </div>
