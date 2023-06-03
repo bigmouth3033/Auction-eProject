@@ -1,5 +1,33 @@
 /* INDEX CSS */
 
+/* SLICK */
+
+.slick-prev::before,
+.slick-next::before {
+	font-family: FontAwesome;
+	color: black;
+}
+
+.slick-prev::before {
+	content: "\f100";
+}
+
+.slick-next::before {
+	content: "\f101";
+}
+
+.slick-arrow:before {
+	font-size: 30px;
+}
+.slick-next {
+	right: 10px;
+}
+.slick-prev {
+	left: 10px;
+}
+
+/* SLICK */
+
 * {
 	/* font-family: "Montserrat", sans-serif;
 	font-family: "Roboto", sans-serif; */
@@ -8,11 +36,11 @@
 }
 
 .my-nav-link {
-	border-top: 2px solid #0c134f;
+	border-top: 2px solid #212529;
 }
 
 .my-nav-link:hover {
-	border-top: 2px solid #5c469c;
+	border-top: 2px solid white;
 }
 
 .nav-color {
@@ -25,6 +53,10 @@ footer a {
 
 .white-text {
 	color: white;
+}
+
+.text-gray {
+	color: gray;
 }
 
 a {
@@ -44,6 +76,54 @@ a {
 
 .index-button-style {
 	width: 400px;
+}
+
+@media (min-width: 768px) {
+	.animate {
+		animation-duration: 0.3s;
+		-webkit-animation-duration: 0.3s;
+		animation-fill-mode: both;
+		-webkit-animation-fill-mode: both;
+	}
+}
+
+@keyframes slideIn {
+	0% {
+		transform: translateY(1rem);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateY(0rem);
+		opacity: 1;
+	}
+
+	0% {
+		transform: translateY(1rem);
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes slideIn {
+	0% {
+		-webkit-transform: transform;
+		-webkit-opacity: 0;
+	}
+
+	100% {
+		-webkit-transform: translateY(0);
+		-webkit-opacity: 1;
+	}
+
+	0% {
+		-webkit-transform: translateY(1rem);
+		-webkit-opacity: 0;
+	}
+}
+
+.slideIn {
+	-webkit-animation-name: slideIn;
+	animation-name: slideIn;
 }
 
 /* HOME CSS */
@@ -127,13 +207,13 @@ a {
 }
 
 .overlay:hover {
-	opacity: 0.3;
-	transition: all 0.8s ease;
+	opacity: 0.4;
+	transition: all 200ms ease;
 }
 
 .border-effect {
-	outline: 1px dotted black;
-	outline-offset: 3px;
+	outline: 1px solid white;
+	outline-offset: 0px;
 	transition: outline-offset 200ms ease;
 }
 
@@ -145,17 +225,18 @@ a {
 
 .slide-item-container {
 	height: 75vh;
-	max-height: 600px;
+	max-height: 550px;
 	min-height: 500px;
-	/* width: 20rem; */
+	width: 20rem;
 }
 
 .slide-img-container {
-	min-height: 50vh;
+	height: 50vh;
+	max-height: 400px;
 }
 
 .slide-img {
-	max-height: 50vh;
+	max-height: 380px;
 }
 
 .latest-new-container {
@@ -170,4 +251,20 @@ a {
 .latest-new-small-container {
 	width: 100%;
 	height: 100%;
+}
+
+.fit-content {
+	width: fit-content;
+}
+
+/* BORDER EFFECT */
+
+/* SIGN IN PAGE */
+
+.signin-page {
+	height: 100%;
+	min-height: 100vh;
+	background: #616161; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #9bc5c3, #616161); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #9bc5c3, #616161); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }

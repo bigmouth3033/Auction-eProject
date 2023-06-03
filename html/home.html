@@ -11,19 +11,69 @@
 ></script> -->
 
 <!-- STYLE -->
-
 <style>
-	
+	/* .slick-prev,
+	.slick-next {
+		position: absolute;
+		top: 100%;
+		transform: translateY(-50%);
+		z-index: 1;
+		display: block;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		color: #fff;
+		text-align: center;
+		font-size: 20px;
+		line-height: 40px;
+		cursor: pointer;
+	}
+
+	.slick-prev {
+		left: 20px;
+	}
+
+	.slick-next {
+		right: 20px;
+	}
+
+	.slick-prev:hover,
+	.slick-next:hover {
+		background: #ff0000;
+	} */
+
+	.myshow {
+		display: flex !important;
+		height: 750px;
+		align-items: center;
+	}
 </style>
 
 <!-- CONTENT  -->
 
-<div ng-controller="homeController" class="body-background">
-
-	
-
-
-
+<div ng-controller="homeController" class="body-background homepage">
+	<div class="card card-effect text-bg-dark reset-card">
+		<div id="headingBanner" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active my-transition" data-bs-interval="4000">
+					<img src="./images/banner-1-home.png" class="d-block w-100" alt="..." />
+				</div>
+				<div class="carousel-item my-transition" data-bs-interval="4000">
+					<img src="./images/banner-2-home.png" class="d-block w-100" alt="..." />
+				</div>
+				<div class="carousel-item my-transition" data-bs-interval="4000">
+					<img src="./images/banner-3-home.png" class="d-block w-100" alt="..." />
+				</div>
+			</div>
+		</div>
+		<div class="card-img-overlay">
+			<div class="d-none d-lg-flex d-flex flex-column align-items-start justify-content-center ms-5" style="height: 100%">
+				<h1 class="card-title index-banner-style">FIND</h1>
+				<h1 class="card-title mb-5 index-banner-style">YOUR TREASURES</h1>
+				<!-- <button class="btn btn-close-white text-bg-light reset-card index-button-style">VIEW ALL ITEMS</button> -->
+			</div>
+		</div>
+	</div>
 
 	<!-- SOME INTRODUCTION -->
 
@@ -36,14 +86,13 @@
 		</p>
 	</div>
 
-
 	<!-- TRENDING -->
 
 	<!-- TRENDING -->
 
 	<!-- UPCOMING AUCTION -->
 
-	<div class="container-fluid my-3 p-4 white-background">
+	<div class="container-fluid my-3 p-4 white-background mb-5">
 		<div class="row px-4 py-0">
 			<div class="col">
 				<p class="fw-bold fs-5">UPCOMING AUCTIONS</p>
@@ -137,29 +186,19 @@
 
 	<!-- ALL ITEM -->
 
-	<div id="painting-slide" class="carousel slide container-fluid my-3 px-5">
-		<!-- CAROUSEL CONTENT -->
-		<div class="row">
-			<div class="col justify-content-between fw-bolder fs-3">PAINTING</div>
-			<input
-				class="btn bg-body btn-info fw-bolder col-1"
-				type="number"
-				ng-model="numberOfDisplay"
-				ng-change="changeDisplayNumber()"
-				min="1"
-				max="{{paintingData.length}}"
-			/>
+	<!-- <div id="painting-slide" class="carousel slide container-fluid my-5">
+		
+		<div class="px-5">
+			<div class="col justify-content-between fw-bolder fs-2 m-auto fit-content">
+				<a class="text-black" href="#!category" ng-click="viewPainting()">PAINTING</a>
+			</div>
+			<div style="width: 100px" class="m-auto border-top border-4 border-black mb-3 mt-1"></div>
 		</div>
 
-		<hr />
 		<div class="carousel-inner">
-			<!-- REPEAT  -->
 			<div class="carousel-item transition-stop" ng-repeat="index in paintingIterationIndex" ng-class="{'active': $index == 0}">
-				<div class="row gap-1 text-center p-5 justify-content-evenly">
-					<div
-						class="col-lg-3 my-padding my-shadow card card-effect p-3 slide-item-container"
-						ng-repeat="innerIndex in index"
-					>
+				<div class="row gap-5 text-center py-3 justify-content-center">
+					<div class="col-lg-3 my-padding my-shadow card card-effect p-3 slide-item-container" ng-repeat="innerIndex in index">
 						<div class="d-flex justify-content-center align-items-center slide-img-container">
 							<a href="#!product" ng-click="changeToProductPage(paintingData[innerIndex])"
 								><img ng-src="{{paintingData[innerIndex].img}}" class="img-fluid border-effect slide-img" alt=""
@@ -167,7 +206,7 @@
 						</div>
 						<div class="card-body">
 							<h5 class="fw-bolder fs-5 card-title">
-								<a href="#!product" ng-click="changeToProductPage(paintingData[	innerIndex])" class="link-dark"
+								<a href="#!product" ng-click="changeToProductPage(paintingData[innerIndex])" class="link-dark"
 									>{{paintingData[innerIndex].fullName | uppercase}}</a
 								>
 							</h5>
@@ -182,43 +221,89 @@
 						</div>
 					</div>
 				</div>
-				<!-- REPEAT  -->
 			</div>
-
-			<!-- CAROUSEL INDICATOR -->
-
-			<button class="carousel-control-prev" type="button" data-bs-target="#painting-slide" data-bs-slide="prev">
+			<button class="carousel-control-prev ps-5 ms-5" type="button" data-bs-target="#painting-slide" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon bg-black left-" aria-hidden="true"></span>
 			</button>
 
-			<button class="carousel-control-next" type="button" data-bs-target="#painting-slide" data-bs-slide="next">
+			<button class="carousel-control-next pe-5 me-5" type="button" data-bs-target="#painting-slide" data-bs-slide="next">
 				<span class="carousel-control-next-icon bg-black" aria-hidden="true"></span>
 			</button>
 		</div>
+	</div> -->
+
+	<div class="px-5">
+		<div class="col justify-content-between fw-bolder fs-2 m-auto fit-content">
+			<a class="text-black" href="#!category" ng-click="viewPainting()">PAINTING</a>
+		</div>
+		<div style="width: 100px" class="m-auto border-top border-4 border-black mb-3 mt-1"></div>
 	</div>
+
+	<slick infinite="true" slides-to-show="3" slides-to-scroll="1" class="p-5 m-5 m-auto container" dot="true">
+		<div class="mx-3 myshow" ng-repeat="item in paintingData">
+			<div class="card rounded-0 card-effect">
+				<a href="#!product" ng-click="changeToProductPage(item)"><img ng-src="{{item.img}}" class="img-fluid border-effect" /></a>
+				<div class="card-body">
+					<p class="text-center fw-bolder" style="font-size: 18px">
+						<a class="text-black" href="#!product" ng-click="changeToProductPage(item)">{{item.fullName}}</a>
+					</p>
+					<div class="row">
+						<div class="col" style="font-size: 17px">Time Left</div>
+						<div class="col text-end" style="font-size: 17px">Current Bid</div>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col fw-bolder" style="font-size: 17px">${{item.currentBid | number}}</div>
+						<div class="col text-end fw-bolder" style="font-size: 17px">{{item.timer | timeFilter}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</slick>
+
+	<hr class="container">
 
 	<!-- ALL ITEM -->
 
+	<!-- HOW TO BUY HOW TO SELL -->
+
+	<div class="row px-5 gap-1 overflow-hidden m-0 mt-5" style="height: 100px">
+		<div class="col">
+			<div class="card text-bg-dark reset-card">
+				<a href="#!howtobuy" class="position-absolute bg-black overlay w-100 h-100">a</a>
+				<img src="./images/howtobuy.jpg" class="card-img" alt="..." />
+				<div class="card-img-overlay ps-5">
+					<h6 class="card-title">How To</h6>
+					<h5 class="fw-bold">Buy With Us</h5>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card text-bg-dark reset-card">
+				<a href="#!whytosell" class="position-absolute bg-black overlay w-100 h-100"></a>
+				<img src="./images/howtosell.jpg" class="card-img" alt="..." />
+				<div class="card-img-overlay ps-5">
+					<h6 class="card-title">How To</h6>
+					<h5 class="fw-bold">Sell With Us</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- LASTEST NEW -->
 
-	<div class="container-fluid mt-3 p-5 white-background">
+	<div class="container-fluid mt-3 p-5">
 		<div class="row px-4 py-0">
 			<div class="col">
-				<p class="fw-bolder fs-5">LATEST BLOGS</p>
-			</div>
-
-			<div class="col text-end">
-				<p class="fw-bold fs-5">
-					<a href="" class="text-black text-decoration-none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
-				</p>
+				<p class="fw-bolder fs-2">LATEST BLOGS</p>
 			</div>
 		</div>
 
 		<div class="row py-3 px-4">
-			<div class="col-md-6 rounded">
-				<div class="card latest-new-container rounded">
+			<div class="col-md-6">
+				<div class="card latest-new-container reset-card">
 					<a href="#!blog" ng-click="changeToBlogPage(allBlogs[0])" class="position-absolute bg-black overlay latest-new-overlay"></a>
-					<img ng-src="{{allBlogs[0].img}}"  alt="" style="width: 100%;height: 100%;" />
+					<img ng-src="{{allBlogs[0].img}}" alt="" style="width: 100%; height: 100%" />
 					<div class="card-img-overlay d-flex flex-column justify-content-end">
 						<h5 class="card-title text-white fw-bolder">{{allBlogs[0].title}}</h5>
 						<p class="card-text text-white fw-bolder"><small>{{allBlogs[0].date}}</small></p>
@@ -226,9 +311,13 @@
 				</div>
 			</div>
 
-			<div class="col-md-6 gap-2 d-flex flex-column latest-new-container" >
+			<div class="col-md-6 gap-2 d-flex flex-column latest-new-container p-0">
 				<div class="card col overflow-hidden reset-card">
-					<a href="#!blog" ng-click="changeToBlogPage(allBlogs[1])" class="position-absolute bg-black overlay latest-new-small-container"></a>
+					<a
+						href="#!blog"
+						ng-click="changeToBlogPage(allBlogs[1])"
+						class="position-absolute bg-black overlay latest-new-small-container"
+					></a>
 					<img ng-src="{{allBlogs[1].img}}" class="img-fluid" alt="" />
 					<div class="card-img-overlay">
 						<h5 class="card-title text-white fw-bolder">{{allBlogs[1].title}}</h5>
@@ -237,7 +326,11 @@
 				</div>
 
 				<div class="card col overflow-hidden reset-card">
-					<a href="#!blog" ng-click="changeToBlogPage(allBlogs[2])" class="position-absolute bg-black overlay latest-new-small-container"></a>
+					<a
+						href="#!blog"
+						ng-click="changeToBlogPage(allBlogs[2])"
+						class="position-absolute bg-black overlay latest-new-small-container"
+					></a>
 					<img ng-src="{{allBlogs[2].img}}" class="img-fluid" alt="" />
 					<div class="card-img-overlay d-flex flex-column justify-content-end">
 						<h5 class="card-title conten text-white fw-bolder">{{allBlogs[2].title}}</h5>
@@ -245,6 +338,11 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div class="text-center">
+			<a href="" class="overlay position-absolute bg-black" style="width: 400px; height: 60px"></a>
+			<button class="px-5 py-3" style="width: 400px; height: 60px">SEE ALL NEWS</button>
 		</div>
 	</div>
 </div>

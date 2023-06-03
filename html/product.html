@@ -11,83 +11,281 @@
 ></script> -->
 
 <style>
-	p img {
+	.bindhtml p img {
 		display: block;
 		width: fit-content;
 		margin: auto;
 	}
 
-	p {
+	.bindhtml p {
 		text-align: justify;
 		margin-bottom: 25px;
 	}
 
-	table {
+	.bindhtml table {
 		margin-bottom: 25px;
 		margin-top: 25px;
 		margin: auto;
 	}
+
+	pre a {
+		color: black;
+	}
+
+	.info-tab-height {
+		height: 250px;
+		background-color: #f4f5f7;
+	}
+
+	.accordion-item .accordion-collapse {
+		transition: height 0.3s ease; /* Adjust the duration for the transition animation */
+		height: 0;
+		overflow: hidden;
+	}
+
+	.accordion-item .accordion-collapse.show {
+		height: auto;
+	}
+
+	.accordion-body {
+		margin: 0;
+		padding: 0;
+	}
 </style>
 
 <div ng-controller="productController">
-	<pre
-		class="container fw-bolder text-black mt-5"
-	><a href="#!home"><i class="fa-solid fa-house"></i> HOME</a> / <a href="">PRODUCTS</a> / <a href="">{{product.category}}</a> / <a href="">{{product.fullName || Uppercase}}</a></pre>
+	<div style="background-color: rgb(250, 250, 245)">
+		<pre
+			class="container fw-bolder text-black pt-3"
+		><a href="#!home"><i class="fa-solid fa-house"></i> HOME</a> > <a href="#!category" ng-click="viewCategory()">PRODUCTS</a> > <a href="">{{product.category}}</a> > <a href="">{{product.fullName || Uppercase}}</a></pre>
+		<hr / class="container">
 
-	<div class="container p-5 pt-1 ">
-		<div class="fw-bolder fs-4 py-4 ps-5">{{product.fullName + " by " + product.artist}}</div>
+		<div ng-if="!indexUser.username" class="container ps-5 border border-1 py-3">
+			Please <a href="#!signin">log in</a> or <a href="#!signup">sign up</a> to place a bid.
+		</div>
 
-		<div class="row ps-5 mt-3 justify-content-center">
-			<div class="col-md-8 rounded d-flex justify-content-center p-3 body-background" style="height: 80vh; max-height: 600px">
-				<img ng-src="{{product.img}}" style="max-height: 80vh" alt="" class="img-fluid border-effect" />
+		<div class="p-5 pt-1">
+			<div class="fw-bolder fs-4 py-4 ps-5">{{product.fullName + " by " + product.artist}}</div>
+
+			<div class="row ps-5 mt-3 justify-content-start flex-sm-nowrap">
+				<div class="col-1">
+					<div>
+						<a href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><img ng-src="{{product.img}}" alt="" class="img-fluid" /></a>
+
+						<div
+							class="modal fade"
+							id="staticBackdrop"
+							data-bs-backdrop="static"
+							data-bs-keyboard="false"
+							tabindex="-1"
+							aria-labelledby="staticBackdropLabel"
+							aria-hidden="true"
+						>
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-body">
+										<div class="d-flex justify-content-between">
+											<h1 class="modal-title fs-5" id="staticBackdropLabel">{{product.fullName}}</h1>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<img ng-src="{{product.img}}" class="img-fluid" alt="" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-7 rounded d-flex justify-content-center p-3 bg-white" style="height: 80vh; max-height: 600px">
+					<img ng-src="{{product.img}}" style="max-height: 80vh" alt="" class="img-fluid border-effect" />
+				</div>
+
+				<div class="col-3 d-flex flex-column border-start" style="width: 380px">
+					<div class="d-flex flex-column mb-2 position-relative">
+						<a href="" class="position-absolute overlay w-100 h-100 bg-black rounded"></a>
+						<button class="bg-white p-2 fs-5 fw-bolder m-0 p-2 border rounded">
+							<i class="far fa-star"></i> Add to your Favorite
+						</button>
+					</div>
+					<hr>
+					<div class="col px-4 pt-3">
+						<div class="row my-2">
+							<div class="col fw-bolder fs-5">CURRENT BID</div>
+							<pre class="col text-end text-danger fs-5 fw-bolder"><i class="fa-solid fa-user"></i> {{product.lastUserBid}}</pre>
+						</div>
+						<pre class="my-2 fw-bolder fs-5 fw-bolder text-success">${{product.currentBid | number}}</pre>
+						<div class="fw-bolder fs-6">TIME LEFT <i class="fas fa-clock"></i></div>
+						<pre class="mb-2 fs-5 fw-bolder text-success">{{product.timer}}</pre>
+						<div class="fw-bolder fs-6">END DATE</div>
+						<pre class="mb-2 fs-5 fw-bolder text-success">{{product.endDateStr}}</pre>
+						<div class="fw-bolder fs-6">NUMBER OF BID</div>
+						<pre class="mb-2 fs-5 fw-bolder text-success">{{product.numberOfBId}}</pre>
+						<div class="row gap-3 p-2">
+							<input type="text" ng-model="userBid" class="col border-0" />
+							<button class="btn btn-danger col rounded-0" ng-disabled="product.end" ng-click="bid(userBid, product, indexUser)">
+								BID
+							</button>
+						</div>
+						<div class="text-center mt-4">
+							<pre class="fw-bolder"><a href="" class="text-decoration-underline">Frequently Asked Questions</a></pre>
+						</div>
+					</div>
+					<div class="p-3 text-center">
+						<button class="fw-bold border-0 px-5 py-2">Contact Seller</button>
+					</div>
+				</div>
 			</div>
-
-			<div class="col-md-4 d-flex flex-column rounded" style="width: 380px">
-				<div class="d-flex flex-column mb-2">
-					<button class="border-0 body-background px-4 py-2"><pre class="fs-5 fw-bolder text-danger m-0"><i class="far fa-star"></i> Add to your Favorite</pre></button>
-				</div>
-
-				<div class="col body-background px-4 pt-4">
-					<div class="row my-2">
-						<div class="col text-muted fw-bolder fs-5">CURRENT BID</div>
-						<pre class="col text-end text-danger fs-5 fw-bolder"><i class="fa-solid fa-user"></i> {{product.lastUserBid}}</pre>
-					</div>
-					<pre class="my-2 fw-bolder fs-5 fw-bolder text-success">${{product.currentBid | number}}</pre>
-					<div class="text-muted fw-bolder fs-5">TIME LEFT <i class="fas fa-clock"></i></div>
-					<pre class="mb-2 fs-5 fw-bolder text-danger">{{product.timer}}</pre>
-					<div class="text-muted fw-bolder fs-5">NUMBER OF BID</div>
-					<pre class="mb-2 fs-5 fw-bolder">{{product.numberOfBId}}</pre>
-					<div class="text-muted fw-bolder fs-5">VIEWS <i class="fas fa-eye"></i></div>
-					<pre class="mb-2 fs-5 fw-bolder">{{product.view | number}}</pre>
-					<div class="row gap-3 p-2">
-						<input type="number" ng-model="userBid" class="col border-0" />
-						<button class="btn btn-danger col">BID</button>
-					</div>
-					<div class="text-center mt-4">
-						<pre class="fw-bolder"><a href="" class="text-decoration-underline">Frequently Asked Questions</a></pre>
+			<div class="row ps-5 mt-3 justify-content-start flex-sm-nowrap">
+				<div class="col-1"></div>
+				<div class="col-7 row">
+					<div class="col fw-bolder fs-6"><i class="fa-solid fa-eye pe-1"></i> Views: {{product.view | number}}</div>
+					<div class="col text-end">
+						<i class="fa-brands fa-facebook fa-lg px-1"></i>
+						<i class="fab fa-tiktok fa-lg px-1"></i>
+						<i class="fa-brands fa-instagram fa-lg px-1"></i>
+						<i class="fab fa-twitter fa-lg px-1"></i>
 					</div>
 				</div>
-				<div class="p-3 text-center border">
-					<button class="body-background fw-bold border-0 px-5 py-2">Contact Seller</button>
+			</div>
+			<div class="row ps-5 mt-4 justify-content-start flex-sm-nowrap">
+				<div class="col-1"></div>
+				<div class="col-7 row me-4">
+					<nav>
+						<div class="nav nav-tabs" id="nav-tab" role="tablist">
+							<!-- <button
+								class="nav-link active"
+								id="nav-home-tab"
+								data-bs-toggle="tab"
+								data-bs-target="#nav-home"
+								type="button"
+								role="tab"
+								aria-controls="nav-home"
+								aria-selected="true"
+							>
+								Specification
+							</button> -->
+							<button
+								class="nav-link"
+								id="nav-profile-tab"
+								data-bs-toggle="tab"
+								data-bs-target="#nav-profile"
+								type="button"
+								role="tab"
+								aria-controls="nav-profile"
+								aria-selected="false"
+							>
+								Description
+							</button>
+							<button
+								class="nav-link"
+								id="nav-contact-tab"
+								data-bs-toggle="tab"
+								data-bs-target="#nav-contact"
+								type="button"
+								role="tab"
+								aria-controls="nav-contact"
+								aria-selected="false"
+							>
+								Contact
+							</button>
+							<button
+								class="nav-link"
+								id="nav-disabled-tab"
+								data-bs-toggle="tab"
+								data-bs-target="#nav-disabled"
+								type="button"
+								role="tab"
+								aria-controls="nav-disabled"
+								aria-selected="false"
+							>
+								Shipping
+							</button>
+						</div>
+					</nav>
+					<div class="tab-content" id="nav-tabContent">
+						<!-- <div
+							class="tab-pane fade show active info-tab-height"
+							id="nav-home"
+							role="tabpanel"
+							aria-labelledby="nav-home-tab"
+							tabindex="0"
+						>
+							...
+						</div> -->
+						<div class="tab-pane fade info-tab-height" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+							{{product.description}}
+						</div>
+						<div class="tab-pane fade info-tab-height" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+							...
+						</div>
+						<div class="tab-pane fade info-tab-height" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
+							...
+						</div>
+					</div>
+				</div>
+				<div class="col-3">
+					<p class="fw-bold">Brought to you by</p>
+					<div class="row">
+						<div class="col-3">
+							<img src="./images/headdepartment.png" class="img-fluid" alt="" />
+						</div>
+						<div class="col">
+							<p class="m-0 fw-bolder">Khloe Nguyễn</p>
+							<p class="m-0">Head of department</p>
+						</div>
+					</div>
+					<hr />
+					<a href="" class="text-decoration-underline text-dark">mai@auctionstable.com</a> <br />
+					<a href="" class="text-decoration-underline text-dark">+09 123456789</a>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<div></div>
+	<!-- <div class="row ps-5 mt-5 gap-5"> -->
+	<div class="col-6 p-3 overflow-hidden m-auto bg-white bindhtml" ng-bind-html="product.content"></div>
 
-		<hr class="mt-5" />
-
-		<!-- <div class="row ps-5 mt-5 gap-5"> -->
-		<div class="col-md-8 p-3 overflow-hidden m-auto" ng-bind-html="product.content"></div>
-
-		<hr>
-		<div class="text-center fw-bolder fs-5">You May Also Like</div>
-		<div class="row container row-cols-4 justify-content-center">
-			<div class="col d-flex justify-content-center border" ng-repeat="item in productSuggestion">
-				<img ng-src="{{item.img}}" alt="" class="img-fluid" style="max-height: 200px;">
+	<div class="container px-5 py-4 border" style="background-color: rgb(238, 238, 238)">
+		<div class="row m-2 border p-5 bg-white">
+			<div class="col text-center">
+				<i class="fa-sharp fa-solid fa-star fa-2xl mb-5"></i>
+				<p class="m-0 fw-bolder">Thousands Of Five-Star Reviews</p>
+				<p class="m-0 mb-2 fw-bolder"></p>
+				<small>We deliver world-class customer service to all of our buyers.</small>
+			</div>
+			<div class="col text-center">
+				<i class="fa-solid fa-globe fa-2xl mb-5"></i>
+				<p class="m-0 fw-bolder">Global Selection</p>
+				<p class="m-0 mb-2 text-white fw-bolder">t</p>
+				<small>Explore an unparalleled selection by seller from around the world.</small>
+			</div>
+			<div class="col text-center">
+				<i class="fa-solid fa-shield fa-2xl mb-5"></i>
+				<p class="m-0 fw-bolder">Satisfaction Guaranteed</p>
+				<p class="m-0 mb-2 text-white fw-bolder">t</p>
+				<small>Our 7-day, money-back guarantee allows you to buy with confidence.</small>
+			</div>
+			<div class="col text-center">
+				<i class="fa-sharp fa-solid fa-dollar-sign fa-2xl mb-5"></i>
+				<p class="m-0 fw-bolder">Support An Artist</p>
+				<p class="m-0 mb-2 fw-bolder">With Every Purchase</p>
+				<small>Support An Artist With Every Purchase</small>
 			</div>
 		</div>
+		<div class="text-center mt-3">Need More Help?</div>
+		<div class="text-center mt-5">
+			<div class="position-relative m-auto" style="width: fit-content">
+				<a href="" class="overlay position-absolute w-100 h-100 bg-black"></a>
+				<button class="px-3 py-4">Contact Customer Support</button>
+			</div>
+		</div>
+	</div>
 
-		
+	<hr />
+	<div class="text-center fw-bolder fs-5">You May Also Like</div>
+
+	<div class="row container row-cols-4 justify-content-center">
+		<div class="col d-flex justify-content-center border" ng-repeat="item in productSuggestion">
+			<img ng-src="{{item.img}}" alt="" class="img-fluid" style="max-height: 200px" />
+		</div>
 	</div>
 </div>

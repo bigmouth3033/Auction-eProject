@@ -28,102 +28,87 @@
 	}
 
 	.show-error-div {
-		height: 3.5em;
+		height: 3em;
 	}
 </style>
 
 <div ng-controller="signUpController">
-	<div class="row justify-content-center align-items-center min-vh-80 signin-font">
-		<div class="d-none d-lg-block col-lg-5 align-self-baseline my-5 py-5">
-			<h5 class="fw-bolder mb-3"><i class="fas fa-trophy"></i> AuctionStable: Your Premier Auction Company with 25 Years of Experience</h5>
-			<div class="mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus id maiores mollitia ips</div>
-			<div class="row gap-3">
-				<div class="col-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui a ratione dolorum est soluta,</div>
-				<div class="col-5">
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, tempora facere! Quaerat quae odit pariat
-				</div>
-				<div class="col-5">
-					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo pariatur culpa nisi obcaecati aut suscipit ea, animi beatae,
-					consequatur harum inventore quas nobis
-				</div>
-				<div class="col-5">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, voluptate optio vitae voluptatem ab cupiditate ullam,
-					deleniti eos null
-				</div>
-			</div>
+
+	<div class="row justify-content-center p-5 h-100 align-items-center signin-page">	
+		<form class="col-4 shadow bg-white p-5" ng-submit="onSignup()">
+			<p class="text-center">Already registered?</p> <br>
+			<a href="#!signin" class="d-block text-center">SIGN IN TO YOUR ACCOUNT</a>
+		<hr />
+		<h3 class="text-center mt-2 fw-bolder">CREATING NEW ACCOUNT</h3>
+
+		<div>
+			<label for="username" class="form-text">USERNAME *</label>
+			<input type="text" class="form-control" id="username" ng-model="signupUsername"  />
 		</div>
 
-		<form class="col-md-5 rounded border-success body-background p-3 shadow my-5" ng-submit="onSignup()">
-			<div class="d-flex gap-2 align-items-center my-3">
-				<p>Already registered?</p>
-				<button class="rounded my-shadow border-0 fw-bolder"><a href="#!signin" class="d-block p-2">SIGN IN TO YOUR ACCOUNT</a></button>
-			</div>
-			<hr />
-			<h3 class="text-center mt-2 fw-bolder">CREATING NEW ACCOUNT</h3>
+		<div class="show-error-div">
+			<p class="text-danger" ng-if="existUsername">This username is already exist</p>
+			<p class="text-danger" ng-if="userWrongLength">Username must be more than 6 letters</p>
+			<p class="text-danger" ng-if="wrongUsernameFormat">Wrong username format</p>
+		</div>
 
-			<div>
-				<label for="username" class="form-text">USERNAME *</label>
-				<input type="text" class="form-control" id="username" ng-model="signupUsername" />
-			</div>
+		<div>
+			<label for="password" class="form-text">PASSWORD *</label>
+			<input type="password" class="form-control" id="password" ng-model="signupPassword" />
+		</div>
 
-			<div class="show-error-div">
-				<p class="text-danger" ng-if="existUsername">This username is already exist</p>
-				<p class="text-danger" ng-if="userWrongLength">Username must be more than 6 letters</p>
-				<p class="text-danger" ng-if="wrongUsernameFormat">Wrong username format</p>
-			</div>
+		<div class="show-error-div">
+			<p class="text-danger" ng-if="passwordWrongLength">Password must be more than 6 letters</p>
+			<p class="text-danger" ng-if="wrongPasswordFormat">Wrong pascword format</p>
+		</div>
 
-			<div>
-				<label for="password" class="form-text">PASSWORD *</label>
-				<input type="password" class="form-control" id="password" ng-model="signupPassword" />
-			</div>
+		<div>
+			<label for="passwordconfirm" class="form-text">CONFIRM PASSWORD *</label>
+			<input type="password" class="form-control" id="passwordconfirm" ng-model="passwordConfirm" />
+		</div>
 
-			<div class="show-error-div">
-				<p class="text-danger" ng-if="passwordWrongLength">Password must be more than 6 letters</p>
-				<p class="text-danger" ng-if="wrongPasswordFormat">Wrong pascword format</p>
-			</div>
+		<div class="show-error-div">
+			<p class="text-danger" ng-if="wrongConfirm">Please input the same password</p>
+		</div>
 
-			<div>
-				<label for="passwordconfirm" class="form-text">CONFIRM PASSWORD *</label>
-				<input type="password" class="form-control" id="passwordconfirm" ng-model="passwordConfirm" />
-			</div>
+		<div>
+			<label for="email" class="form-text">EMAIL *</label>
+			<input type="text" class="form-control" id="email" ng-model="signupEmail" />
+		</div>
 
-			<div class="show-error-div">
-				<p class="text-danger" ng-if="wrongConfirm">Please input the same password</p>
-			</div>
+		<div class="show-error-div">
+			<p class="text-danger" ng-if="existEmail">This email is already exist</p>
+			<p class="text-danger" ng-if="wrongEmailFormat">Wrong email format</p>
+		</div>
 
-			<div>
-				<label for="email" class="form-text">EMAIL *</label>
-				<input type="text" class="form-control" id="email" ng-model="signupEmail" />
-			</div>
+		<div>
+			<label for="location" class="form-text">LOCATION *</label>
+			<input type="text" class="form-control" id="location" ng-model="signupLocation" />
+		</div>
 
-			<div class="show-error-div">
-				<p class="text-danger" ng-if="existEmail">This email is already exist</p>
-				<p class="text-danger" ng-if="wrongEmailFormat">Wrong email format</p>
-			</div>
+		<div class="show-error-div">
+			<p class="text-danger" ng-if="wrongLocationFormat">Location is required</p>
+		</div>
 
-			<div>
-				<label for="location" class="form-text">LOCATION *</label>
-				<input type="text" class="form-control" id="location" ng-model="signupLocation" />
-			</div>
+		<div>
+			<label for="phonenumber" class="form-text">PHONE NUMBER *</label>
+			<input type="text" class="form-control" id="phonenumber" ng-model="signupPhone" />
+		</div>
 
-			<div class="show-error-div">
-				<p class="text-danger" ng-if="wrongLocationFormat">Location is required</p>
-			</div>
+		<div class="show-error-div">
+			<p class="text-danger" ng-if="existPhone">This phonenumber is already exist</p>
+			<p class="text-danger" ng-if="wrongPhoneFormat">Wrong Phone Format</p>
+		</div>
 
-			<div>
-				<label for="phonenumber" class="form-text">PHONE NUMBER *</label>
-				<input type="text" class="form-control" id="phonenumber" ng-model="signupPhone" />
-			</div>
+		<div class="d-flex flex-column mb-4">
+			<button type="submit" class="signin-button text-white">SIGN UP</button>
+		</div>
 
-			<div class="show-error-div">
-				<p class="text-danger" ng-if="existPhone">This phonenumber is already exist</p>
-				<p class="text-danger" ng-if="wrongPhoneFormat">Wrong Phone Format</p>
-			</div>
+		<div class="text-end">
+			<a href="#!home">Return To Home</a>
+		</div>
 
-			<div class="d-flex flex-column mb-3">
-				<button type="submit" class="signin-button text-white">SIGN UP</button>
-			</div>
+	</form>
+</div>
 
-		</form>
-	</div>
 </div>

@@ -1,4 +1,4 @@
-let app = angular.module("auctionApp", ["ngRoute", "ngSanitize"]);
+let app = angular.module("auctionApp", ["ngRoute", "ngSanitize", "slickCarousel"]);
 
 app.config(function ($routeProvider) {
 	$routeProvider
@@ -16,6 +16,15 @@ app.config(function ($routeProvider) {
 		})
 		.when("/blog", {
 			templateUrl: "./html/blog.html",
+		})
+		.when("/category", {
+			templateUrl: "./html/category.html",
+		})
+		.when("/howtobuy", {
+			templateUrl: "./html/howtobuy.html",
+		})
+		.when("/whytosell", {
+			templateUrl: "./html/whytosell.html",
 		});
 });
 
@@ -103,12 +112,46 @@ app.service("AuctionItems", function () {
 	};
 });
 
+app.service("Category", function (AuctionItems) {
+	const categoryKey = "categoryItems";
+	// patern list
+	// C : car
+	// P : painting
+
+	this.setCategoryItemsByPattern = function (pattern) {
+		let arr = [];
+
+		if (pattern == "P") {
+			for (let item of AuctionItems.getPaintingData()) {
+				arr.push(item);
+			}
+		}
+
+		if (pattern == "C") {
+			for (let item of AuctionItems.getCarData()) {
+				arr.push(item);
+			}
+		}
+
+		updateLocalStorageCategoryPattern(pattern);
+
+		return arr;
+	};
+
+	let categoryItems = this.setCategoryItemsByPattern(localStorage.getItem(categoryKey));
+
+	this.getCategoryItems = function () {
+		return categoryItems;
+	};
+
+	function updateLocalStorageCategoryPattern(pattern) {
+		localStorage.setItem(categoryKey, pattern);
+	}
+});
+
 app.service("UserData", function () {
 	const allUserKey = "allUserArr";
-
-	let isUser = false;
-	let allUserData = getLocalStorageItem(allUserKey) || [];
-	let currentUser = {};
+	const currentUserKey = "currentUserStorage";
 
 	this.isUser = function () {
 		return isUser;
@@ -118,7 +161,19 @@ app.service("UserData", function () {
 		isUser = true;
 	};
 
-	this.logout = function () {
+	this.findUser = function (username) {
+		let user = allUserData.find((item) => item.username == username);
+
+		if (user) this.loginSuccess();
+
+		return user;
+	};
+
+	let isUser = false;
+	let allUserData = getLocalStorageItem(allUserKey) || [];
+	let currentUser = this.findUser(getLocalStorageItem(currentUserKey)) || {};
+
+	this.logoutSuccess = function () {
 		isUser = false;
 	};
 
@@ -144,8 +199,13 @@ app.service("UserData", function () {
 		return allUserData.find((item) => item.username == username && item.password == password);
 	};
 
+	this.setCurrentUserUsernameJson = function (username) {
+		localStorage.setItem(currentUserKey, JSON.stringify(username));
+	};
+
 	this.setCurrentUser = function (user) {
 		currentUser = user;
+		this.setCurrentUserUsernameJson(user.username);
 	};
 
 	this.getCurrentUser = function () {
@@ -199,6 +259,8 @@ app.filter("timeFilter", function () {
 			return "ALREADY END";
 		}
 
+		if (time === undefined) return "ALREADY END";
+
 		let arr = [];
 
 		arr = time.split(":");
@@ -221,12 +283,35 @@ app.filter("timeFilter", function () {
 	};
 });
 
-app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData) {
+app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData, Category) {
+	$rootScope.navAndFoot = true;
+
+	$rootScope.hideNavAndFoot = function () {
+		$rootScope.navAndFoot = false;
+	};
+
+	$rootScope.showNavAndFoot = function () {
+		$rootScope.navAndFoot = true;
+	};
+
+	// $rootScope.hideIndexPage = function () {
+	// 	$rootScope.hideNavAndFoot();
+	// };
+
 	$rootScope.showBanner = true;
 
 	if (AuctionItems.getPaintingData().length == 0) {
 		$http.get("./json/painting.json").then(
 			function (response) {
+				for (item of response.data.painting) {
+					item.endDateStr = new Date(item.endDate).toLocaleDateString("en-us", {
+						weekday: "long",
+						year: "numeric",
+						month: "short",
+						day: "numeric",
+					});
+				}
+
 				AuctionItems.setPaintingData(response.data.painting);
 			},
 			function (error) {
@@ -234,28 +319,6 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData) {
 			}
 		);
 	}
-
-	// if (AuctionItems.getCarData().length == 0) {
-	// 	$http.get("./json/car.json").then(
-	// 		function (response) {
-	// 			AuctionItems.setCarData(response.data.car);
-	// 		},
-	// 		function (error) {
-	// 			console.log("fuck this shit, you fucking stupid piece of shit", error);
-	// 		}
-	// 	);
-	// }
-
-	// if (AuctionItems.getFurnitureData().length == 0) {
-	// 	$http.get("./json/furniture.json").then(
-	// 		function (response) {
-	// 			AuctionItems.setFurnitureData(response.data.furniture);
-	// 		},
-	// 		function (error) {
-	// 			console.log("fuck this shit, you fucking stupid piece of shit", error);
-	// 		}
-	// 	);
-	// }
 
 	if (BlogData.getAllBlog().length == 0) {
 		$http.get("./json/blog.json").then(
@@ -268,10 +331,22 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData) {
 		);
 	}
 
-	$rootScope.indexUser = {};
+	$rootScope.indexUser = UserData.getCurrentUser();
 
 	$rootScope.changeIndexUser = function (userObj) {
 		$rootScope.indexUser = userObj;
+	};
+
+	$rootScope.logout = function () {
+		$rootScope.indexUser = {};
+		UserData.setCurrentUser({
+			username: null,
+			password: null,
+			email: null,
+			location: null,
+			phone: null,
+		});
+		UserData.logoutSuccess();
 	};
 
 	function stopInterval(interval) {
@@ -359,7 +434,21 @@ function getArrayOfIterationIndex(length, numberOfItem) {
 	return arr;
 }
 
-app.controller("homeController", function ($scope, $interval, AuctionItems, UserData, BlogData) {
+app.controller("homeController", function ($scope, $interval, AuctionItems, UserData, BlogData, Category) {
+	$scope.showNavAndFoot();
+
+	$scope.slickConfig = {
+		enabled: true,
+		autoplay: true,
+		draggable: false,
+		autoplaySpeed: 500,
+		method: {},
+		event: {
+			beforeChange: function (event, slick, currentSlide, nextSlide) {},
+			afterChange: function (event, slick, currentSlide, nextSlide) {},
+		},
+	};
+
 	$scope.paintingData = AuctionItems.getPaintingData();
 	$scope.carData = AuctionItems.getCarData();
 	$scope.furnitureData = AuctionItems.getFurnitureData();
@@ -377,14 +466,18 @@ app.controller("homeController", function ($scope, $interval, AuctionItems, User
 
 	$scope.allBlogs = BlogData.getAllBlog();
 
-	$scope.changeToBlogPage = function(blog){
+	$scope.changeToBlogPage = function (blog) {
 		BlogData.setCurrentBlog(blog);
-	}
+	};
 
-
+	$scope.viewPainting = function () {
+		Category.setCategoryItemsByPattern("P");
+	};
 });
 
 app.controller("signInController", function ($scope, $location, UserData) {
+	$scope.hideNavAndFoot();
+
 	$scope.onSignin = function () {
 		let user = UserData.getUser($scope.signinUsername, $scope.signinPassword);
 
@@ -410,6 +503,8 @@ const PASSWORD_REGEX = /^[0-9A-Za-z]+$/;
 const PHONE_REGEX = /^[0-9]+$/;
 
 app.controller("signUpController", function ($scope, UserData) {
+	$scope.hideNavAndFoot();
+
 	$scope.onSignup = function () {
 		let isOk = true;
 		let allUserArr = UserData.getAllUserData();
@@ -476,6 +571,8 @@ app.controller("signUpController", function ($scope, UserData) {
 				email: $scope.signupEmail,
 				location: $scope.signupLocation,
 				phone: $scope.signupPhone,
+				biddingProducts: [],
+				ownProducts: [],
 			});
 
 			$scope.signupUsername = "";
@@ -490,7 +587,7 @@ app.controller("signUpController", function ($scope, UserData) {
 	};
 });
 
-app.controller("productController", function ($scope, $route, AuctionItems) {
+app.controller("productController", function ($scope, $route, AuctionItems, UserData, Category) {
 	$scope.product = AuctionItems.getCurrentItem();
 	$scope.productSuggestion;
 
@@ -507,15 +604,81 @@ app.controller("productController", function ($scope, $route, AuctionItems) {
 	}
 
 	$scope.productSuggestion.sort((a, b) => 0.5 - Math.random());
-	$scope.productSuggestion.length = 10;
 
 	$scope.changeToProductPage = function (product) {
 		AuctionItems.setCurrentItem(product);
 		$route.reload();
 	};
+
+	$scope.bid = function (price, product, user) {
+		if (!UserData.isUser()) {
+			alert("Please signup to bid");
+			return;
+		}
+
+		if (+product.currentBid >= +price) {
+			alert("wrong price");
+			return;
+		}
+
+		if (product.biddingUsers[product.biddingUsers.length - 1] == user.username) {
+			alert("you already bid");
+			return;
+		}
+
+		product.numberOfBId++;
+		product.currentBid = price;
+		product.lastUserBid = user.username;
+
+		let index;
+
+		if ((index = product.biddingUsers.findIndex((biddingUsername) => biddingUsername == user.username)) == -1) {
+			product.biddingUsers.push(user.username);
+		} else {
+			product.biddingUsers.splice(index, 1);
+			product.biddingUsers.push(user.username);
+		}
+
+		if (!user.biddingProducts.find((productId) => productId == product.id)) {
+			user.biddingProducts.push(product.id);
+		}
+
+		UserData.updataUsersJson();
+		AuctionItems.updatePaintingJson();
+
+		alert("bid success");
+	};
+
+	$scope.viewCategory = function () {
+		Category.setCategoryItemsByPattern($scope.product.id[0]);
+	};
 });
 
 app.controller("blogController", function ($scope, AuctionItems, BlogData) {
 	$scope.currentBlog = BlogData.getCurrentBlog();
-	
+});
+
+app.controller("categoryController", function ($scope, AuctionItems, Category) {
+	$scope.data = Category.getCategoryItems();
+
+	$scope.changeToProductPage = function (item) {
+		AuctionItems.setCurrentItem(item);
+	};
+});
+
+app.directive("slickCarousel", function () {
+	return {
+		restrict: "A",
+		link: function (scope, element) {
+			// Initialize the Slick Carousel plugin
+			$(element).slick({
+				dots: true,
+				infinite: true,
+				speed: 300,
+				slidesToShow: 1,
+				centerMode: true,
+				variableWidth: true,
+			});
+		},
+	};
 });

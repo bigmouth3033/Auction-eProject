@@ -26,46 +26,30 @@
 	.min-vh-80 {
 		min-height: 80vh;
 	}
+
 </style>
 
 <div ng-controller="signInController">
-	<div class="row justify-content-center align-items-center min-vh-80 signin-font">
-		<div class="d-none d-lg-block col-lg-5">
-			<h5 class="fw-bolder mb-3"><i class="fas fa-trophy"></i> AuctionStable: Your Premier Auction Company with 25 Years of Experience</h5>
-			<div class="mb-3">
-				With over two decades of industry experience, we have developed a deep understanding of various auction categories 
-			</div>
-			<div class="row gap-3">
-				<div class="col-5">AuctionStable operates on a global scale, connecting buyers and sellers from all corners of the world</div>
-				<div class="col-5">AuctionStable prioritizes transparency, reliability, and integrity throughout the auction process</div>
-				<div class="col-5">
-					Specializing in a diverse range of items, including paintings, cars, and furniture, AuctionStable has established itself as a
-					trusted platform for buyers and sellers alike
-				</div>
-				<div class="col-5">
-					If you're interested in selling or buying through AuctionStable or have any inquiries about our services, feel free to contact us
-					through our website or give us a call
-				</div>
-			</div>
-		</div>
-
-		<form class="col-md-5 rounded border-success body-background p-3 shadow" ng-submit="onSignin()">
-			<div class="d-flex gap-2 align-items-center my-3">
-				<p>Don't have an account?</p>
-				<button class="rounded my-shadow border-0 fw-bolder"><a href="#!signup" class="d-block p-2">REGISTER FOR FREE</a></button>
-			</div>
+	<div class="row justify-content-center p-5 h-100 align-items-center signin-page">
+		<form class="col-4 shadow bg-white p-5" ng-submit="onSignin()">
+			<p class="text-center">Don't have an account?</p>
+			<br />
+			<div class="text-center fs-6"><a href="#!signup">REGISTER FOR FREE</a></div>
 			<hr />
 			<h3 class="text-center mt-2 fw-bolder">SIGN IN TO YOUR ACCOUNT</h3>
 			<div class="mb-5">
-				<label for="username" class="form-text">USERNAME *</label>
+				<label for="username" class="form-text ">USERNAME *</label>
 				<input type="text" class="form-control" id="username" ng-model="signinUsername" />
 			</div>
 			<div class="mb-5">
 				<label for="password" class="form-text">PASSWORD *</label>
 				<input type="password" class="form-control" id="password" ng-model="signinPassword" />
 			</div>
-			<div class="d-flex flex-column mb-3">
+			<div class="d-flex flex-column mb-4">
 				<button type="submit" class="signin-button text-white">SIGN IN</button>
+			</div>
+			<div class="text-end">
+				<a href="#!home">Return To Home</a>
 			</div>
 		</form>
 	</div>
