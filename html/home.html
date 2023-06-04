@@ -12,39 +12,44 @@
 
 <!-- STYLE -->
 <style>
-	/* .slick-prev,
-	.slick-next {
-		position: absolute;
-		top: 100%;
-		transform: translateY(-50%);
-		z-index: 1;
-		display: block;
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		color: #fff;
-		text-align: center;
-		font-size: 20px;
-		line-height: 40px;
-		cursor: pointer;
+
+	.slick-dots {
+		display: flex;
+		justify-content: center;
+		margin: 0;
+		padding: 1rem 0;
+		list-style-type: none;
+		bottom: 0%;
 	}
 
-	.slick-prev {
-		left: 20px;
+	.slick-dots li {
+		background-color: black;
+		width: 6rem;
+		height: 0.1rem;
+		border-radius: 0;
+		margin-right: -3px;
+		overflow: hidden;
 	}
 
-	.slick-next {
-		right: 20px;
+	.slick-dots li button {
+		width: 6rem;
 	}
 
-	.slick-prev:hover,
-	.slick-next:hover {
-		background: #ff0000;
-	} */
+	.slick-dots li.slick-active button {
+		border-top: 3px solid red;
+	}
+
+	.slick-dots li:first-child {
+		margin-left: 0;
+	}
+
+	.slick-dots li:last-child {
+		margin-right: 50px;
+	}
 
 	.myshow {
 		display: flex !important;
-		height: 750px;
+		height: 650px;
 		align-items: center;
 	}
 </style>
@@ -89,6 +94,8 @@
 	<!-- TRENDING -->
 
 	<!-- TRENDING -->
+
+	<!-- UPCOMING AUCTION -->
 
 	<!-- UPCOMING AUCTION -->
 
@@ -186,52 +193,6 @@
 
 	<!-- ALL ITEM -->
 
-	<!-- <div id="painting-slide" class="carousel slide container-fluid my-5">
-		
-		<div class="px-5">
-			<div class="col justify-content-between fw-bolder fs-2 m-auto fit-content">
-				<a class="text-black" href="#!category" ng-click="viewPainting()">PAINTING</a>
-			</div>
-			<div style="width: 100px" class="m-auto border-top border-4 border-black mb-3 mt-1"></div>
-		</div>
-
-		<div class="carousel-inner">
-			<div class="carousel-item transition-stop" ng-repeat="index in paintingIterationIndex" ng-class="{'active': $index == 0}">
-				<div class="row gap-5 text-center py-3 justify-content-center">
-					<div class="col-lg-3 my-padding my-shadow card card-effect p-3 slide-item-container" ng-repeat="innerIndex in index">
-						<div class="d-flex justify-content-center align-items-center slide-img-container">
-							<a href="#!product" ng-click="changeToProductPage(paintingData[innerIndex])"
-								><img ng-src="{{paintingData[innerIndex].img}}" class="img-fluid border-effect slide-img" alt=""
-							/></a>
-						</div>
-						<div class="card-body">
-							<h5 class="fw-bolder fs-5 card-title">
-								<a href="#!product" ng-click="changeToProductPage(paintingData[innerIndex])" class="link-dark"
-									>{{paintingData[innerIndex].fullName | uppercase}}</a
-								>
-							</h5>
-							<div class="row justify-content-between">
-								<p class="col text-start card-text">End in</p>
-								<p class="col text-end card-text">Current Bid</p>
-							</div>
-							<div class="row justify-content-between">
-								<pre class="col text-start card-footer text-danger fw-bolder fs-6">{{paintingData[innerIndex].timer | timeFilter}}</pre>
-								<pre class="col text-end card-footer fw-bolder fs-6">${{paintingData[innerIndex].currentBid | number}}</pre>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<button class="carousel-control-prev ps-5 ms-5" type="button" data-bs-target="#painting-slide" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon bg-black left-" aria-hidden="true"></span>
-			</button>
-
-			<button class="carousel-control-next pe-5 me-5" type="button" data-bs-target="#painting-slide" data-bs-slide="next">
-				<span class="carousel-control-next-icon bg-black" aria-hidden="true"></span>
-			</button>
-		</div>
-	</div> -->
-
 	<div class="px-5">
 		<div class="col justify-content-between fw-bolder fs-2 m-auto fit-content">
 			<a class="text-black" href="#!category" ng-click="viewPainting()">PAINTING</a>
@@ -239,7 +200,7 @@
 		<div style="width: 100px" class="m-auto border-top border-4 border-black mb-3 mt-1"></div>
 	</div>
 
-	<slick infinite="true" slides-to-show="3" slides-to-scroll="1" class="p-5 m-5 m-auto container" dot="true">
+	<slick slides-to-show="4" slides-to-scroll="1" class="p-5 m-5 m-auto container" settings="slickConfig">
 		<div class="mx-3 myshow" ng-repeat="item in paintingData">
 			<div class="card rounded-0 card-effect">
 				<a href="#!product" ng-click="changeToProductPage(item)"><img ng-src="{{item.img}}" class="img-fluid border-effect" /></a>
@@ -249,19 +210,19 @@
 					</p>
 					<div class="row">
 						<div class="col" style="font-size: 17px">Time Left</div>
-						<div class="col text-end" style="font-size: 17px">Current Bid</div>
+						<div class="col text-end" style="font-size: 16px" ng-if="item.currentBid">Current Bid</div>
+						<div class="col text-end" style="font-size: 16px" ng-if="!item.currentBid">Final Price</div>
 					</div>
 					<hr />
 					<div class="row">
-						<div class="col fw-bolder" style="font-size: 17px">${{item.currentBid | number}}</div>
-						<div class="col text-end fw-bolder" style="font-size: 17px">{{item.timer | timeFilter}}</div>
+						<div class="col fw-bolder" style="font-size: 17px">{{item.timer | timeFilter}}</div>
+						<div class="col fw-bolder text-end" style="font-size: 16px" ng-if="item.currentBid">${{item.currentBid | number}}</div>
+						<div class="col fw-bolder text-end" style="font-size: 16px" ng-if="!item.currentBid">${{item.finalPrice | number}}</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</slick>
-
-	<hr class="container">
 
 	<!-- ALL ITEM -->
 

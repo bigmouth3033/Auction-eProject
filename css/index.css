@@ -26,12 +26,26 @@
 	left: 10px;
 }
 
+/*  */
+/* .slick-dots li button:before {
+	width: 100px;
+}
+
+.slick-dots{
+	display: flex;
+}
+
+
+.slick-dots li{
+	flex: 1;
+}
+ */
+
+
+
 /* SLICK */
 
 * {
-	/* font-family: "Montserrat", sans-serif;
-	font-family: "Roboto", sans-serif; */
-
 	font-family: "Montserrat", sans-serif;
 }
 

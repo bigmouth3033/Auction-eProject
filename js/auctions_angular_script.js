@@ -1,3 +1,5 @@
+"use strict";
+
 let app = angular.module("auctionApp", ["ngRoute", "ngSanitize", "slickCarousel"]);
 
 app.config(function ($routeProvider) {
@@ -28,9 +30,13 @@ app.config(function ($routeProvider) {
 		});
 });
 
+// load localstorage json item by key
+
 function getLocalStorageItem(key) {
 	return JSON.parse(localStorage.getItem(key));
 }
+
+//aution item service
 
 app.service("AuctionItems", function () {
 	const paintingKey = "painting";
@@ -38,6 +44,9 @@ app.service("AuctionItems", function () {
 	const furnitureKey = "furniture";
 	const currentItemKey = "currentItem";
 
+	// bunch of key
+
+	// find item by id, get current user by id that saved in localstorage
 	this.findItem = function (id) {
 		if (id === null) return;
 
@@ -54,15 +63,18 @@ app.service("AuctionItems", function () {
 		}
 	};
 
+	// return the first truthy value, if localstorage dont have item then initilize it with array
 	let paintingData = getLocalStorageItem(paintingKey) || [];
 	let carData = getLocalStorageItem(carKey) || [];
 	let furnitureData = getLocalStorageItem(furnitureKey) || [];
 	let currentItem = this.findItem(getLocalStorageItem(currentItemKey)) || [];
 
+	//call this to update current painting data to json
 	this.updatePaintingJson = function () {
 		localStorage.setItem(paintingKey, JSON.stringify(paintingData));
 	};
 
+	//set painting and update it to localstorage
 	this.setPaintingData = function (data) {
 		paintingData = data;
 		this.updatePaintingJson();
@@ -72,10 +84,12 @@ app.service("AuctionItems", function () {
 		return paintingData;
 	};
 
+	// update car data to json
 	this.updateCarJson = function () {
 		localStorage.setItem(paintingKey, JSON.stringify(carData));
 	};
 
+	// set cardata and update to json
 	this.setCarData = function (data) {
 		carData = data;
 		this.updateCarJson();
@@ -85,10 +99,12 @@ app.service("AuctionItems", function () {
 		return carData;
 	};
 
+	// update funituredata to json
 	this.updateFurnitureJson = function () {
 		localStorage.setItem(furnitureKey, JSON.stringify(furnitureData));
 	};
 
+	// set furniture item and update to json
 	this.setFurnitureData = function (data) {
 		furnitureData = data;
 		this.updateFurnitureJson();
@@ -98,10 +114,12 @@ app.service("AuctionItems", function () {
 		return furnitureData;
 	};
 
+	// upadate current item id to save current item when page is loaded
 	this.updateCurrentItemIDJson = function () {
 		localStorage.setItem(currentItemKey, JSON.stringify(currentItem.id));
 	};
 
+	// set current item and save its id to localstorage
 	this.setCurrentItem = function (data) {
 		currentItem = data;
 		this.updateCurrentItemIDJson();
@@ -141,7 +159,10 @@ app.service("Category", function (AuctionItems) {
 	let categoryItems = this.setCategoryItemsByPattern(localStorage.getItem(categoryKey));
 
 	this.getCategoryItems = function () {
-		return categoryItems;
+		if (categoryItems.length != 0) return categoryItems;
+		else {
+			return this.setCategoryItemsByPattern(localStorage.getItem(categoryKey));
+		}
 	};
 
 	function updateLocalStorageCategoryPattern(pattern) {
@@ -152,16 +173,20 @@ app.service("Category", function (AuctionItems) {
 app.service("UserData", function () {
 	const allUserKey = "allUserArr";
 	const currentUserKey = "currentUserStorage";
+	// key for all user and key of current user
 
+	// check login status
 	this.isUser = function () {
 		return isUser;
 	};
 
+	// set login status to true
 	this.loginSuccess = function () {
 		isUser = true;
 	};
 
-	this.findUser = function (username) {
+	// get current user by username saved in localstorage
+	this.getCurrentUser = function (username) {
 		let user = allUserData.find((item) => item.username == username);
 
 		if (user) this.loginSuccess();
@@ -169,18 +194,22 @@ app.service("UserData", function () {
 		return user;
 	};
 
-	let isUser = false;
+	let isUser = false; // default to false
+	// check for data in localstorage if not that get the initilize value
 	let allUserData = getLocalStorageItem(allUserKey) || [];
-	let currentUser = this.findUser(getLocalStorageItem(currentUserKey)) || {};
+	let currentUser = this.getCurrentUser(getLocalStorageItem(currentUserKey)) || {};
 
+	// change logout status
 	this.logoutSuccess = function () {
 		isUser = false;
 	};
 
+	// update all userdata json to localstorage
 	this.updataUsersJson = function () {
 		localStorage.setItem(allUserKey, JSON.stringify(allUserData));
 	};
 
+	// set all userdata then update its data to localstorage
 	this.setAllUserData = function (data) {
 		allUserData = data;
 		this.updataUsersJson();
@@ -190,19 +219,23 @@ app.service("UserData", function () {
 		return allUserData;
 	};
 
+	// add new sign up user and update alluserdata localstorage
 	this.addNewUser = function (userData) {
 		allUserData.push(userData);
 		this.updataUsersJson();
 	};
 
-	this.getUser = function (username, password) {
+	// check for login by username and password in alluserdata, if true then login success
+	this.getUserByLogin = function (username, password) {
 		return allUserData.find((item) => item.username == username && item.password == password);
 	};
 
+	// update current user username to localstorage to maintain login status of user when page is loaded
 	this.setCurrentUserUsernameJson = function (username) {
 		localStorage.setItem(currentUserKey, JSON.stringify(username));
 	};
 
+	// set current user when login success and save user username to localstorage
 	this.setCurrentUser = function (user) {
 		currentUser = user;
 		this.setCurrentUserUsernameJson(user.username);
@@ -216,16 +249,20 @@ app.service("UserData", function () {
 app.service("BlogData", function () {
 	const blogsKey = "Blogs";
 	const currentBlogKey = "currentBlog";
+	// key to get json data from localstorage
 
+	// find current blog by blog id, use to get current blog
 	this.findBlog = function (id) {
 		if (id === null) return;
 
 		return blogs.find((item) => item.id == id);
 	};
 
+	// initialize data, find in localstorage if not then using [] and null
 	let blogs = getLocalStorageItem(blogsKey) || [];
 	let currentBlog = this.findBlog(getLocalStorageItem(currentBlogKey)) || null;
 
+	//update all blogdata to localstorage
 	this.updateAllBlogJson = function (data) {
 		localStorage.setItem(blogsKey, JSON.stringify(blogs));
 	};
@@ -234,15 +271,18 @@ app.service("BlogData", function () {
 		return blogs;
 	};
 
+	// set all blog data and save it to localstorage
 	this.setAllBlog = function (data) {
 		blogs = data;
 		this.updateAllBlogJson();
 	};
 
+	// save current blog id to json to get current when page loaded
 	this.setCurrentBlogIDJson = function (id) {
 		localStorage.setItem(currentBlogKey, JSON.stringify(id));
 	};
 
+	//set current blog and update to json
 	this.setCurrentBlog = function (data) {
 		currentBlog = data;
 		this.setCurrentBlogIDJson(data.id);
@@ -253,6 +293,7 @@ app.service("BlogData", function () {
 	};
 });
 
+// fifter to show time to home page properly
 app.filter("timeFilter", function () {
 	return function (time) {
 		if (time == "ALREADY END") {
@@ -283,27 +324,35 @@ app.filter("timeFilter", function () {
 	};
 });
 
-app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData, Category) {
-	$rootScope.navAndFoot = true;
+// using rootScope to handle all base set up for webpage
+app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData, Category, $window) {
+	$rootScope.navAndFoot = true; // stage of nav nad foot show it or not
 
+	// change nav and foot state to hide
 	$rootScope.hideNavAndFoot = function () {
 		$rootScope.navAndFoot = false;
 	};
 
+	// change nav and foot state to show
 	$rootScope.showNavAndFoot = function () {
 		$rootScope.navAndFoot = true;
 	};
 
-	// $rootScope.hideIndexPage = function () {
-	// 	$rootScope.hideNavAndFoot();
-	// };
+	// $http service is asynchronous so need to using special practice to handle it so data can load properly
+	// using async to load all data from json and only reload page one time instead of reload every time using $http
+	// still not so sure how this shit work
+	async function loadAllJsonData() {
+		if (AuctionItems.getPaintingData().length == 0) {
+			try {
+				const paintingResponse = await $http.get("./json/painting.json");
+				const blogResponse = await $http.get("./json/blog.json");
 
-	$rootScope.showBanner = true;
-
-	if (AuctionItems.getPaintingData().length == 0) {
-		$http.get("./json/painting.json").then(
-			function (response) {
-				for (item of response.data.painting) {
+				for (let item of paintingResponse.data.painting) {
+					if (item.endDate === null) {
+						item.endDate = new Date(Date.now() + randomizeFromMinToMaxByMilisecond(3, 15)).valueOf();
+					}
+				}
+				for (let item of paintingResponse.data.painting) {
 					item.endDateStr = new Date(item.endDate).toLocaleDateString("en-us", {
 						weekday: "long",
 						year: "numeric",
@@ -312,31 +361,27 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 					});
 				}
 
-				AuctionItems.setPaintingData(response.data.painting);
-			},
-			function (error) {
-				console.log("fuck this shit, you fucking stupid piece of shit", error);
+				AuctionItems.setPaintingData(paintingResponse.data.painting);
+				BlogData.setAllBlog(blogResponse.data.blogs);
+
+				$window.location.reload();
+			} catch (error) {
+				console.log("error loading data by json", error);
 			}
-		);
+		}
 	}
 
-	if (BlogData.getAllBlog().length == 0) {
-		$http.get("./json/blog.json").then(
-			function (response) {
-				BlogData.setAllBlog(response.data.blogs);
-			},
-			function (error) {
-				console.log("some thing wrong");
-			}
-		);
-	}
+	loadAllJsonData();
 
+	// index user to show user status in nav page
 	$rootScope.indexUser = UserData.getCurrentUser();
 
+	// using method to avoid confict when working with nested controller
 	$rootScope.changeIndexUser = function (userObj) {
 		$rootScope.indexUser = userObj;
 	};
 
+	// logout event when interact with nav bar
 	$rootScope.logout = function () {
 		$rootScope.indexUser = {};
 		UserData.setCurrentUser({
@@ -349,6 +394,7 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 		UserData.logoutSuccess();
 	};
 
+	// stop interval service for item that run out of time
 	function stopInterval(interval) {
 		$interval.cancel(interval);
 	}
@@ -356,23 +402,31 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 	$rootScope.stillCounted = [];
 	$rootScope.finishedCounted = [];
 
-	for (let item of AuctionItems.getPaintingData()) {
-		$rootScope.stillCounted.push(item);
-	}
+	// sort items that end and not end to two diffent array that math their end status
+	AuctionItems.getPaintingData().forEach(function (item) {
+		if (item.end == false) {
+			$rootScope.stillCounted.push(item);
+			return;
+		}
+		$rootScope.finishedCounted.push(item);
+	});
 
-	for (let item of AuctionItems.getCarData()) {
-		$rootScope.stillCounted.push(item);
-	}
+	AuctionItems.getCarData().forEach(function (item) {
+		if (item.end == false) {
+			$rootScope.stillCounted.push(item);
+			return;
+		}
+		$rootScope.finishedCounted.push(item);
+	});
 
-	for (let item of AuctionItems.getCarData()) {
-		$rootScope.stillCounted.push(item);
-	}
-
+	// sort stillCount
 	$rootScope.stillCounted.sort((item1, item2) => new Date(item1.endDate) - new Date(item2.endDate));
 
+	// run iterval to countdown time for item not end
 	$rootScope.stillCounted.forEach(function (item) {
 		let interval = $interval(function () {
 			if (item.end) {
+				AuctionItems.updatePaintingJson();
 				stopInterval(interval);
 				$rootScope.finishedCounted.push($rootScope.stillCounted.shift());
 				return;
@@ -382,11 +436,15 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 	});
 });
 
+// get random minute from min to max and convert it to milisecond
+function randomizeFromMinToMaxByMilisecond(min, max) {
+	return Math.round(Math.random() * (max - min + 1) + min - 0.5) * 60000;
+}
+
+// timer function to countdown, combine with interval
 function myTimer(date, obj) {
 	let now = new Date();
 	let future = new Date(date);
-
-	let timer = [];
 
 	let timeLeft = future - now;
 	let msLeft = timeLeft % 1000;
@@ -408,6 +466,8 @@ function myTimer(date, obj) {
 	obj.secondLeft = sLeft;
 
 	if (dTotal < 0 || hLeft < 0 || mLeft < 0 || sLeft < 0) {
+		obj.finalPrice = obj.currentBid;
+		obj.currentBid = null;
 		obj.end = true;
 		obj.timer = "ALREADY END";
 		return;
@@ -416,6 +476,7 @@ function myTimer(date, obj) {
 	obj.timer = obj.dayLeft + ":" + obj.hourLeft + ":" + obj.minuteLeft + ":" + obj.secondLeft + "";
 }
 
+// useless shit that took days for nothing
 function getArrayOfIterationIndex(length, numberOfItem) {
 	let arr = [];
 
@@ -434,52 +495,52 @@ function getArrayOfIterationIndex(length, numberOfItem) {
 	return arr;
 }
 
-app.controller("homeController", function ($scope, $interval, AuctionItems, UserData, BlogData, Category) {
-	$scope.showNavAndFoot();
+// controller of home
+app.controller("homeController", function ($scope, AuctionItems, UserData, BlogData, Category) {
+	$scope.showNavAndFoot(); // make sure always show nav and foot when home is loaded
 
+	// config for slick
 	$scope.slickConfig = {
 		enabled: true,
 		autoplay: true,
-		draggable: false,
-		autoplaySpeed: 500,
-		method: {},
-		event: {
-			beforeChange: function (event, slick, currentSlide, nextSlide) {},
-			afterChange: function (event, slick, currentSlide, nextSlide) {},
-		},
+		draggable: true,
+		autoplaySpeed: 1000,
+		infinite: false,
+		dots: true,
+		cssEase: "ease",
+		edgeFriction: 0.5,
 	};
 
+	// get all data to show
 	$scope.paintingData = AuctionItems.getPaintingData();
 	$scope.carData = AuctionItems.getCarData();
 	$scope.furnitureData = AuctionItems.getFurnitureData();
 
-	$scope.numberOfDisplay = 3;
-	$scope.paintingIterationIndex = getArrayOfIterationIndex($scope.paintingData.length, $scope.numberOfDisplay);
-
-	$scope.changeDisplayNumber = function () {
-		$scope.paintingIterationIndex = getArrayOfIterationIndex($scope.paintingData.length, $scope.numberOfDisplay);
-	};
-
+	// change to product page event, set current product, save current product id to localstorage
 	$scope.changeToProductPage = function (product) {
 		AuctionItems.setCurrentItem(product);
 	};
 
+	// get blog data to show to home
 	$scope.allBlogs = BlogData.getAllBlog();
 
+	// change blog page, set current blog and save blog id
 	$scope.changeToBlogPage = function (blog) {
 		BlogData.setCurrentBlog(blog);
 	};
 
+	// change to category page: work in progress
 	$scope.viewPainting = function () {
 		Category.setCategoryItemsByPattern("P");
 	};
 });
 
 app.controller("signInController", function ($scope, $location, UserData) {
-	$scope.hideNavAndFoot();
+	$scope.hideNavAndFoot(); // hide nav and foot when signin is loaded
 
+	// signin event
 	$scope.onSignin = function () {
-		let user = UserData.getUser($scope.signinUsername, $scope.signinPassword);
+		let user = UserData.getUserByLogin($scope.signinUsername, $scope.signinPassword);
 
 		if (!user) {
 			alert("wrong user name and password");
@@ -497,14 +558,16 @@ app.controller("signInController", function ($scope, $location, UserData) {
 	};
 });
 
+// regex to check for signup form
 const EMAIL_REGEX = /^\w+@[0-9A-Za-z]+\.[0-9A-Za-z]+$/;
 const USERNAME_REGEX = /^[0-9A-Za-z]+$/;
 const PASSWORD_REGEX = /^[0-9A-Za-z]+$/;
 const PHONE_REGEX = /^[0-9]+$/;
 
 app.controller("signUpController", function ($scope, UserData) {
-	$scope.hideNavAndFoot();
+	$scope.hideNavAndFoot(); // hide nav and foot when signup is loaded
 
+	// check sign up event
 	$scope.onSignup = function () {
 		let isOk = true;
 		let allUserArr = UserData.getAllUserData();
@@ -587,10 +650,17 @@ app.controller("signUpController", function ($scope, UserData) {
 	};
 });
 
+// controller for product page
 app.controller("productController", function ($scope, $route, AuctionItems, UserData, Category) {
+	$scope.showNavAndFoot();
+
+	//load current item
 	$scope.product = AuctionItems.getCurrentItem();
+
+	// product suggestion
 	$scope.productSuggestion;
 
+	// check for current item type to load suggestion items
 	if ($scope.product.id[0] == "P") {
 		$scope.productSuggestion = AuctionItems.getPaintingData();
 	}
@@ -603,20 +673,17 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 		$scope.productSuggestion = AuctionItems.getCarData();
 	}
 
+	//randomize suggestion items
 	$scope.productSuggestion.sort((a, b) => 0.5 - Math.random());
 
-	$scope.changeToProductPage = function (product) {
-		AuctionItems.setCurrentItem(product);
-		$route.reload();
-	};
-
+	// bid event
 	$scope.bid = function (price, product, user) {
 		if (!UserData.isUser()) {
 			alert("Please signup to bid");
 			return;
 		}
 
-		if (+product.currentBid >= +price) {
+		if (product.currentBid >= price) {
 			alert("wrong price");
 			return;
 		}
@@ -649,36 +716,26 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 		alert("bid success");
 	};
 
+	// view category event : work in progress
 	$scope.viewCategory = function () {
 		Category.setCategoryItemsByPattern($scope.product.id[0]);
 	};
 });
 
 app.controller("blogController", function ($scope, AuctionItems, BlogData) {
+	$scope.showNavAndFoot();
+
+	//get item blog
 	$scope.currentBlog = BlogData.getCurrentBlog();
 });
 
 app.controller("categoryController", function ($scope, AuctionItems, Category) {
-	$scope.data = Category.getCategoryItems();
+	$scope.showNavAndFoot();
+
+	//get category datae
+	$scope.categoryData = Category.getCategoryItems();
 
 	$scope.changeToProductPage = function (item) {
 		AuctionItems.setCurrentItem(item);
-	};
-});
-
-app.directive("slickCarousel", function () {
-	return {
-		restrict: "A",
-		link: function (scope, element) {
-			// Initialize the Slick Carousel plugin
-			$(element).slick({
-				dots: true,
-				infinite: true,
-				speed: 300,
-				slidesToShow: 1,
-				centerMode: true,
-				variableWidth: true,
-			});
-		},
 	};
 });
