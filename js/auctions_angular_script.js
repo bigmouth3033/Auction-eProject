@@ -86,7 +86,7 @@ app.service("AuctionItems", function () {
 
 	// update car data to json
 	this.updateCarJson = function () {
-		localStorage.setItem(paintingKey, JSON.stringify(carData));
+		localStorage.setItem(carKey, JSON.stringify(carData));
 	};
 
 	// set cardata and update to json
@@ -325,7 +325,7 @@ app.filter("timeFilter", function () {
 });
 
 // using rootScope to handle all base set up for webpage
-app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData, Category, $window) {
+app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData, Category, $window, $location) {
 	$rootScope.navAndFoot = true; // stage of nav nad foot show it or not
 
 	// change nav and foot state to hide
@@ -346,6 +346,7 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 			try {
 				const paintingResponse = await $http.get("./json/painting.json");
 				const blogResponse = await $http.get("./json/blog.json");
+				const carResponse = await $http.get("./json/car.json");
 
 				for (let item of paintingResponse.data.painting) {
 					if (item.endDate === null) {
@@ -363,6 +364,23 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 
 				AuctionItems.setPaintingData(paintingResponse.data.painting);
 				BlogData.setAllBlog(blogResponse.data.blogs);
+
+				for (let item of carResponse.data.car) {
+					if (item.endDate === null) {
+						item.endDate = new Date(Date.now() + randomizeFromMinToMaxByMilisecond(3, 15)).valueOf();
+					}
+				}
+
+				for (let item of carResponse.data.car) {
+					item.endDateStr = new Date(item.endDate).toLocaleDateString("en-us", {
+						weekday: "long",
+						year: "numeric",
+						month: "short",
+						day: "numeric",
+					});
+				}
+
+				AuctionItems.setCarData(carResponse.data.car);
 
 				$window.location.reload();
 			} catch (error) {
@@ -434,6 +452,13 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 			myTimer(item.endDate, item);
 		}, 1000);
 	});
+
+	$rootScope.previousPageOfSignInUp = "home";
+
+	// change previous page of sign in and sign up event to current page
+	$rootScope.changePreviousPageOfSignInUp = function () {
+		$rootScope.previousPageOfSignInUp = $location.path();
+	};
 });
 
 // get random minute from min to max and convert it to milisecond
@@ -554,7 +579,7 @@ app.controller("signInController", function ($scope, $location, UserData) {
 
 		alert("success");
 
-		$location.path("/home");
+		$location.path($scope.previousPageOfSignInUp);
 	};
 });
 
@@ -564,7 +589,7 @@ const USERNAME_REGEX = /^[0-9A-Za-z]+$/;
 const PASSWORD_REGEX = /^[0-9A-Za-z]+$/;
 const PHONE_REGEX = /^[0-9]+$/;
 
-app.controller("signUpController", function ($scope, UserData) {
+app.controller("signUpController", function ($scope, UserData, $location) {
 	$scope.hideNavAndFoot(); // hide nav and foot when signup is loaded
 
 	// check sign up event
@@ -646,6 +671,8 @@ app.controller("signUpController", function ($scope, UserData) {
 			$scope.passwordConfirm = "";
 
 			alert("success");
+
+			$location.path("/signin");
 		}
 	};
 });
@@ -720,6 +747,13 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 	$scope.viewCategory = function () {
 		Category.setCategoryItemsByPattern($scope.product.id[0]);
 	};
+
+	$scope.imgShow = $scope.product.img[0];
+
+	// change current showing img of product page
+	$scope.changeImgShow = function(imghref){
+		$scope.imgShow = imghref
+	}
 });
 
 app.controller("blogController", function ($scope, AuctionItems, BlogData) {

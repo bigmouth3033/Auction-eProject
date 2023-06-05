@@ -12,7 +12,6 @@
 
 <!-- STYLE -->
 <style>
-
 	.slick-dots {
 		display: flex;
 		justify-content: center;
@@ -49,8 +48,12 @@
 
 	.myshow {
 		display: flex !important;
-		height: 650px;
+		height: 700px;
 		align-items: center;
+	}
+
+	.paintingbanner {
+		background: linear-gradient(to left, rgba(0, 0, 0, 0.02), rgba(239, 239, 239, 0.01));
 	}
 </style>
 
@@ -75,7 +78,6 @@
 			<div class="d-none d-lg-flex d-flex flex-column align-items-start justify-content-center ms-5" style="height: 100%">
 				<h1 class="card-title index-banner-style">FIND</h1>
 				<h1 class="card-title mb-5 index-banner-style">YOUR TREASURES</h1>
-				<!-- <button class="btn btn-close-white text-bg-light reset-card index-button-style">VIEW ALL ITEMS</button> -->
 			</div>
 		</div>
 	</div>
@@ -193,17 +195,73 @@
 
 	<!-- ALL ITEM -->
 
-	<div class="px-5">
-		<div class="col justify-content-between fw-bolder fs-2 m-auto fit-content">
-			<a class="text-black" href="#!category" ng-click="viewPainting()">PAINTING</a>
+	<div class="mx-5 overflow-hidden position-relative paintingbanner" style="height: 250px">
+		<a href="#!category" ng-click="viewPainting()" class="painting-overlay position-absolute bg-black w-100 h-100"></a>
+		<div class="row">
+			<img
+				src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+				class="col-md-6 img-fluid"
+			/>
+			<div class="col-md p-4">
+				<p class="fs-2">Bid Now</p>
+				<p>Join art auction. Celebrate paintings, bid, and embrace artistic excellence</p>
+				<div class="text-end mx-4 mt-5">
+					<br />
+					<span class="p-2">View All Paintings</span>
+				</div>
+			</div>
 		</div>
-		<div style="width: 100px" class="m-auto border-top border-4 border-black mb-3 mt-1"></div>
 	</div>
 
-	<slick slides-to-show="4" slides-to-scroll="1" class="p-5 m-5 m-auto container" settings="slickConfig">
+	<!-- PAINTING -->
+	<slick slides-to-show="4" slides-to-scroll="1" class="m-5 m-auto container" settings="slickConfig">
 		<div class="mx-3 myshow" ng-repeat="item in paintingData">
 			<div class="card rounded-0 card-effect">
-				<a href="#!product" ng-click="changeToProductPage(item)"><img ng-src="{{item.img}}" class="img-fluid border-effect" /></a>
+				<a href="#!product" ng-click="changeToProductPage(item)"><img ng-src="{{item.img[0]}}" class="img-fluid border-effect" /></a>
+				<div class="card-body">
+					<p class="text-center fw-bolder" style="font-size: 18px">
+						<a class="text-black" href="#!product" ng-click="changeToProductPage(item)">{{item.fullName}}</a>
+					</p>
+					<div class="row">
+						<div class="col" style="font-size: 17px">Time Left</div>
+						<div class="col text-end" style="font-size: 16px" ng-if="item.currentBid">Current Bid</div>
+						<div class="col text-end" style="font-size: 16px" ng-if="!item.currentBid">Final Price</div>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col fw-bolder" style="font-size: 17px">{{item.timer | timeFilter}}</div>
+						<div class="col fw-bolder text-end" style="font-size: 16px" ng-if="item.currentBid">${{item.currentBid | number}}</div>
+						<div class="col fw-bolder text-end" style="font-size: 16px" ng-if="!item.currentBid">${{item.finalPrice | number}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</slick>
+
+	<!-- CAR -->
+
+	<div class="mx-5 overflow-hidden position-relative paintingbanner" style="height: 250px">
+		<a href="#!category" ng-click="viewPainting()" class="painting-overlay position-absolute bg-black w-100 h-100"></a>
+		<div class="row">
+			<img
+				src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+				class="col-md-6 img-fluid"
+			/>
+			<div class="col-md p-4">
+				<p class="fs-2">Bid Now</p>
+				<p>Join art auction. Celebrate paintings, bid, and embrace artistic excellence</p>
+				<div class="text-end mx-4 mt-5">
+					<br />
+					<span class="p-2">View All Paintings</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<slick slides-to-show="4" slides-to-scroll="1" class="m-5 m-auto container" settings="slickConfig">
+		<div class="mx-3 myshow" ng-repeat="item in carData">
+			<div class="card rounded-0 card-effect">
+				<a href="#!product" ng-click="changeToProductPage(item)"><img ng-src="{{item.img[0]}}" class="img-fluid border-effect" /></a>
 				<div class="card-body">
 					<p class="text-center fw-bolder" style="font-size: 18px">
 						<a class="text-black" href="#!product" ng-click="changeToProductPage(item)">{{item.fullName}}</a>
@@ -253,7 +311,7 @@
 
 	<!-- LASTEST NEW -->
 
-	<div class="container-fluid mt-3 p-5">
+	<div class="container-fluid mt-5 p-5">
 		<div class="row px-4 py-0">
 			<div class="col">
 				<p class="fw-bolder fs-2">LATEST BLOGS</p>
@@ -266,7 +324,7 @@
 					<a href="#!blog" ng-click="changeToBlogPage(allBlogs[0])" class="position-absolute bg-black overlay latest-new-overlay"></a>
 					<img ng-src="{{allBlogs[0].img}}" alt="" style="width: 100%; height: 100%" />
 					<div class="card-img-overlay d-flex flex-column justify-content-end">
-						<h5 class="card-title text-white fw-bolder">{{allBlogs[0].title}}</h5>
+						<h5 class="card-title text-white fw-bolder fs-5">{{allBlogs[0].title}}</h5>
 						<p class="card-text text-white fw-bolder"><small>{{allBlogs[0].date}}</small></p>
 					</div>
 				</div>
@@ -281,7 +339,7 @@
 					></a>
 					<img ng-src="{{allBlogs[1].img}}" class="img-fluid" alt="" />
 					<div class="card-img-overlay">
-						<h5 class="card-title text-white fw-bolder">{{allBlogs[1].title}}</h5>
+						<h5 class="card-title text-white fw-bolder fs-5">{{allBlogs[1].title}}</h5>
 						<p class="card-text text-white fw-bolder"><small>{{allBlogs[1].date}}</small></p>
 					</div>
 				</div>
@@ -294,7 +352,7 @@
 					></a>
 					<img ng-src="{{allBlogs[2].img}}" class="img-fluid" alt="" />
 					<div class="card-img-overlay d-flex flex-column justify-content-end">
-						<h5 class="card-title conten text-white fw-bolder">{{allBlogs[2].title}}</h5>
+						<h5 class="card-title conten text-white fw-bolder fs-5">{{allBlogs[2].title}}</h5>
 						<p class="card-text text-white fw-bolder"><small>{{allBlogs[2].date}}</small></p>
 					</div>
 				</div>

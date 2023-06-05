@@ -20,10 +20,10 @@
 	font-size: 30px;
 }
 .slick-next {
-	right: 10px;
+	right: -20px;
 }
 .slick-prev {
-	left: 10px;
+	left: -20px;
 }
 
 /*  */
@@ -40,8 +40,6 @@
 	flex: 1;
 }
  */
-
-
 
 /* SLICK */
 
@@ -78,7 +76,7 @@ a {
 }
 
 .body-limit {
-	max-width: 2500px;
+	max-width: 2000px;
 	margin: auto;
 }
 
@@ -225,6 +223,25 @@ a {
 	transition: all 200ms ease;
 }
 
+.painting-overlay {
+	z-index: 1000;
+	opacity: 0;
+}
+
+.painting-overlay:hover {
+	opacity: 0.05;
+	transition: all 200ms ease;
+}
+
+.painting-overlay:hover + div div div span{
+	border: 1px solid black;
+}
+
+.painting-overlay + div div div span{
+	border: 1px solid rgba(0, 0, 0, 0.116);
+}
+
+
 .border-effect {
 	outline: 1px solid white;
 	outline-offset: 0px;
@@ -281,4 +298,11 @@ a {
 	background: #616161; /* fallback for old browsers */
 	background: -webkit-linear-gradient(to right, #9bc5c3, #616161); /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to right, #9bc5c3, #616161); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+/* CATEGORY */
+
+pre a {
+	color: black;
 }
