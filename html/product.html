@@ -46,7 +46,7 @@
 		<hr / class="container">
 
 		<div ng-if="!indexUser.username" class="container ps-5 border border-1 py-3">
-			Please <a href="#!signin">log in</a> or <a href="#!signup">sign up</a> to place a bid.
+			Please <a href="#!signin" ng-click="savePreviousToProduct()">log in</a> or <a href="#!signup" ng-click="savePreviousToProduct()">sign up</a> to place a bid.
 		</div>
 
 		<div class="p-5 pt-1">
@@ -83,7 +83,7 @@
 						<div class="fw-bolder fs-6">END DATE</div>
 						<pre class="mb-2 fs-5 fw-bolder text-success">{{product.endDateStr}}</pre>
 						<div class="fw-bolder fs-6">NUMBER OF BID</div>
-						<pre class="mb-2 fs-5 fw-bolder text-success">{{product.numberOfBId}}</pre>
+						<pre class="mb-2 fs-5 fw-bolder text-success">{{product.numberOfBid}}</pre>
 						<div class="row gap-3 p-2">
 							<input type="text" ng-model="userBid" class="col border-0" />
 							<button class="btn btn-danger col rounded-0" ng-disabled="product.end" ng-click="bid(userBid, product, indexUser)">

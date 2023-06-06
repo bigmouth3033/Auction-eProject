@@ -1,5 +1,3 @@
-"use strict";
-
 let app = angular.module("auctionApp", ["ngRoute", "ngSanitize", "slickCarousel"]);
 
 app.config(function ($routeProvider) {
@@ -27,14 +25,11 @@ app.config(function ($routeProvider) {
 		})
 		.when("/whytosell", {
 			templateUrl: "./html/whytosell.html",
+		})
+		.when("/aboutUs", {
+			templateUrl: "./html/aboutUs.html",
 		});
 });
-
-// load localstorage json item by key
-
-function getLocalStorageItem(key) {
-	return JSON.parse(localStorage.getItem(key));
-}
 
 //aution item service
 
@@ -64,10 +59,10 @@ app.service("AuctionItems", function () {
 	};
 
 	// return the first truthy value, if localstorage dont have item then initilize it with array
-	let paintingData = getLocalStorageItem(paintingKey) || [];
-	let carData = getLocalStorageItem(carKey) || [];
-	let furnitureData = getLocalStorageItem(furnitureKey) || [];
-	let currentItem = this.findItem(getLocalStorageItem(currentItemKey)) || [];
+	let paintingData = getLocalStorageJsonItem(paintingKey) || [];
+	let carData = getLocalStorageJsonItem(carKey) || [];
+	let furnitureData = getLocalStorageJsonItem(furnitureKey) || [];
+	let currentItem = this.findItem(getLocalStorageJsonItem(currentItemKey)) || [];
 
 	//call this to update current painting data to json
 	this.updatePaintingJson = function () {
@@ -130,44 +125,47 @@ app.service("AuctionItems", function () {
 	};
 });
 
+// category service only save pattern
 app.service("Category", function (AuctionItems) {
-	const categoryKey = "categoryItems";
-	// patern list
-	// C : car
-	// P : painting
+	const categoryTypeKey = "type";
+	//category type key
 
-	this.setCategoryItemsByPattern = function (pattern) {
-		let arr = [];
+	// get type by localstorage or empty string a initial value
+	let type = getLocalStorageItem(categoryTypeKey) || "";
 
-		if (pattern == "P") {
+	// update type to local storage
+	this.updateCategoryTypeJson = function () {
+		localStorage.setItem(categoryTypeKey, type);
+	};
+
+	// set current type and update to local storage
+	this.setCategoryType = function (data) {
+		type = data;
+		this.updateCategoryTypeJson();
+	};
+
+	//get category item by read the type
+	this.getCategoryTypeItems = function () {
+		let categoryItems = [];
+
+		if (type === "Painting") {
 			for (let item of AuctionItems.getPaintingData()) {
-				arr.push(item);
+				categoryItems.push(item);
 			}
 		}
 
-		if (pattern == "C") {
+		if (type === "Car") {
 			for (let item of AuctionItems.getCarData()) {
-				arr.push(item);
+				categoryItems.push(item);
 			}
 		}
 
-		updateLocalStorageCategoryPattern(pattern);
-
-		return arr;
+		return categoryItems;
 	};
 
-	let categoryItems = this.setCategoryItemsByPattern(localStorage.getItem(categoryKey));
-
-	this.getCategoryItems = function () {
-		if (categoryItems.length != 0) return categoryItems;
-		else {
-			return this.setCategoryItemsByPattern(localStorage.getItem(categoryKey));
-		}
+	this.getType = function () {
+		return type;
 	};
-
-	function updateLocalStorageCategoryPattern(pattern) {
-		localStorage.setItem(categoryKey, pattern);
-	}
 });
 
 app.service("UserData", function () {
@@ -196,8 +194,8 @@ app.service("UserData", function () {
 
 	let isUser = false; // default to false
 	// check for data in localstorage if not that get the initilize value
-	let allUserData = getLocalStorageItem(allUserKey) || [];
-	let currentUser = this.getCurrentUser(getLocalStorageItem(currentUserKey)) || {};
+	let allUserData = getLocalStorageJsonItem(allUserKey) || [];
+	let currentUser = this.getCurrentUser(getLocalStorageJsonItem(currentUserKey)) || {};
 
 	// change logout status
 	this.logoutSuccess = function () {
@@ -259,8 +257,8 @@ app.service("BlogData", function () {
 	};
 
 	// initialize data, find in localstorage if not then using [] and null
-	let blogs = getLocalStorageItem(blogsKey) || [];
-	let currentBlog = this.findBlog(getLocalStorageItem(currentBlogKey)) || null;
+	let blogs = getLocalStorageJsonItem(blogsKey) || [];
+	let currentBlog = this.findBlog(getLocalStorageJsonItem(currentBlogKey)) || null;
 
 	//update all blogdata to localstorage
 	this.updateAllBlogJson = function (data) {
@@ -459,66 +457,9 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 	$rootScope.changePreviousPageOfSignInUp = function () {
 		$rootScope.previousPageOfSignInUp = $location.path();
 	};
+
+	// view all item in category
 });
-
-// get random minute from min to max and convert it to milisecond
-function randomizeFromMinToMaxByMilisecond(min, max) {
-	return Math.round(Math.random() * (max - min + 1) + min - 0.5) * 60000;
-}
-
-// timer function to countdown, combine with interval
-function myTimer(date, obj) {
-	let now = new Date();
-	let future = new Date(date);
-
-	let timeLeft = future - now;
-	let msLeft = timeLeft % 1000;
-
-	let sTotal = (timeLeft - msLeft) / 1000;
-	let sLeft = sTotal % 60;
-
-	let mTotal = (sTotal - sLeft) / 60;
-	let mLeft = mTotal % 60;
-
-	let hTotal = (mTotal - mLeft) / 60;
-	let hLeft = hTotal % 24;
-
-	let dTotal = (hTotal - hLeft) / 24;
-
-	obj.dayLeft = dTotal;
-	obj.hourLeft = hLeft;
-	obj.minuteLeft = mLeft;
-	obj.secondLeft = sLeft;
-
-	if (dTotal < 0 || hLeft < 0 || mLeft < 0 || sLeft < 0) {
-		obj.finalPrice = obj.currentBid;
-		obj.currentBid = null;
-		obj.end = true;
-		obj.timer = "ALREADY END";
-		return;
-	}
-
-	obj.timer = obj.dayLeft + ":" + obj.hourLeft + ":" + obj.minuteLeft + ":" + obj.secondLeft + "";
-}
-
-// useless shit that took days for nothing
-function getArrayOfIterationIndex(length, numberOfItem) {
-	let arr = [];
-
-	for (let i = 0; i < length; i++) {
-		let subArr = [];
-
-		for (let j = i; j < i + numberOfItem; j++) {
-			if (j < length) {
-				subArr.push(j);
-			} else subArr.push(j - length);
-		}
-
-		arr.push(subArr);
-	}
-
-	return arr;
-}
 
 // controller of home
 app.controller("homeController", function ($scope, AuctionItems, UserData, BlogData, Category) {
@@ -556,7 +497,11 @@ app.controller("homeController", function ($scope, AuctionItems, UserData, BlogD
 
 	// change to category page: work in progress
 	$scope.viewPainting = function () {
-		Category.setCategoryItemsByPattern("P");
+		Category.setCategoryType("Painting");
+	};
+
+	$scope.viewCar = function () {
+		Category.setCategoryType("Car");
 	};
 });
 
@@ -678,7 +623,7 @@ app.controller("signUpController", function ($scope, UserData, $location) {
 });
 
 // controller for product page
-app.controller("productController", function ($scope, $route, AuctionItems, UserData, Category) {
+app.controller("productController", function ($scope, $route, AuctionItems, UserData, Category, $location) {
 	$scope.showNavAndFoot();
 
 	//load current item
@@ -720,7 +665,7 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 			return;
 		}
 
-		product.numberOfBId++;
+		product.numberOfBid++;
 		product.currentBid = price;
 		product.lastUserBid = user.username;
 
@@ -738,22 +683,24 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 		}
 
 		UserData.updataUsersJson();
-		AuctionItems.updatePaintingJson();
+
+		if (product.id[0] == "p") AuctionItems.updatePaintingJson();
+
+		if (product.id[0] == "C") AuctionItems.updateCarJson();
 
 		alert("bid success");
-	};
-
-	// view category event : work in progress
-	$scope.viewCategory = function () {
-		Category.setCategoryItemsByPattern($scope.product.id[0]);
 	};
 
 	$scope.imgShow = $scope.product.img[0];
 
 	// change current showing img of product page
-	$scope.changeImgShow = function(imghref){
-		$scope.imgShow = imghref
-	}
+	$scope.changeImgShow = function (imghref) {
+		$scope.imgShow = imghref;
+	};
+
+	$scope.savePreviousToProduct = function () {
+		$scope.changePreviousPageOfSignInUp();
+	};
 });
 
 app.controller("blogController", function ($scope, AuctionItems, BlogData) {
@@ -763,13 +710,209 @@ app.controller("blogController", function ($scope, AuctionItems, BlogData) {
 	$scope.currentBlog = BlogData.getCurrentBlog();
 });
 
-app.controller("categoryController", function ($scope, AuctionItems, Category) {
+app.controller("categoryController", function ($scope, $window, AuctionItems, Category) {
 	$scope.showNavAndFoot();
 
-	//get category datae
-	$scope.categoryData = Category.getCategoryItems();
+	let numberOfItemEachPage = 9;
+	let productType = Category.getType(); // save pattern only one
 
+	if (productType == "Painting") {
+		$scope.arrCategory = ["History", "Portrait", "Still Life", "Landscape", "Nature"];
+	} //set product category
+
+	if (productType == "Car") {
+		$scope.arrCategory = ["Classic", "Muscle", "Sports"];
+	}
+
+	//get category data
+	$scope.categoryData = Category.getCategoryTypeItems();
+
+	// data that divided to different array to show by page
+	$scope.showData = sortItemToDifferentPage($scope.categoryData, numberOfItemEachPage);
+
+	// default to show page 1
+	$scope.showPage = [true, false, false, false, false, false, false, false];
+
+	function turnToFirstPage() {
+		for (let i = 0; i < $scope.showPage.length; i++) {
+			if (i == 0) {
+				$scope.showPage[i] = true;
+				continue;
+			}
+
+			$scope.showPage[i] = false;
+		}
+	}
+
+	// change to different page by index
+	$scope.changePageIndex = function (index) {
+		for (let i = 0; i < $scope.showPage.length; i++) {
+			$scope.showPage[i] = false;
+		}
+
+		$scope.showPage[index] = true;
+		$window.scrollTo(0, 0);
+	};
+
+	// change to specific product
 	$scope.changeToProductPage = function (item) {
 		AuctionItems.setCurrentItem(item);
 	};
+
+	$scope.categoryFilter = [];
+	$scope.statusFilter = [];
+
+	//update category filter, if not have argument then update only do not add more filter
+	function upadateCategoryFilter(category) {
+		if ($scope.categoryFilter.includes(category) == false && category !== undefined) {
+			$scope.categoryFilter.push(category);
+		}
+
+		if ($scope.categoryFilter.length != 0) {
+			$scope.categoryData = Category.getCategoryTypeItems().filter(function (item) {
+				return $scope.categoryFilter.includes(item.category);
+			});
+		} else $scope.categoryData = Category.getCategoryTypeItems();
+
+		if ($scope.statusFilter.length == 1) {
+			let end = $scope.statusFilter[0] == "Still Going" ? false : true;
+
+			$scope.categoryData = $scope.categoryData.filter((item) => item.end == end);
+		}
+
+		$scope.showData = sortItemToDifferentPage($scope.categoryData, numberOfItemEachPage);
+	}
+
+	$scope.addCategoryFilter = function (category) {
+		upadateCategoryFilter(category);
+	};
+
+	$scope.removeAllFilter = function () {
+		$scope.categoryFilter.length = 0;
+		$scope.statusFilter.length = 0;
+		upadateStatusFilter();
+		turnToFirstPage();
+	};
+
+	$scope.removeSpecificCategoryFilter = function (filter) {
+		let index = $scope.categoryFilter.findIndex((item) => item == filter);
+
+		$scope.categoryFilter.splice(index, 1);
+
+		upadateCategoryFilter();
+	};
+
+	function upadateStatusFilter(status) {
+		if ($scope.statusFilter.includes(status) == false && status !== undefined) {
+			$scope.statusFilter.push(status);
+		}
+
+		if ($scope.statusFilter.length == 0 || $scope.statusFilter.length == 2) {
+			upadateCategoryFilter();
+			return;
+		}
+
+		let end = status == "Still Going" ? false : true;
+
+		$scope.categoryData = $scope.categoryData.filter((item) => item.end === end);
+		$scope.showData = sortItemToDifferentPage($scope.categoryData, numberOfItemEachPage);
+	}
+
+	$scope.addStatusFilter = function (status) {
+		upadateStatusFilter(status);
+	};
+
+	$scope.removeSpecificStatusFilter = function (status) {
+		let index = $scope.statusFilter.indexOf(status);
+
+		$scope.statusFilter.splice(index, 1);
+
+		upadateStatusFilter();
+	};
 });
+
+// timer function to countdown, combine with interval
+function myTimer(date, obj) {
+	let now = new Date();
+	let future = new Date(date);
+
+	let timeLeft = future - now;
+	let msLeft = timeLeft % 1000;
+
+	let sTotal = (timeLeft - msLeft) / 1000;
+	let sLeft = sTotal % 60;
+
+	let mTotal = (sTotal - sLeft) / 60;
+	let mLeft = mTotal % 60;
+
+	let hTotal = (mTotal - mLeft) / 60;
+	let hLeft = hTotal % 24;
+
+	let dTotal = (hTotal - hLeft) / 24;
+
+	obj.dayLeft = dTotal;
+	obj.hourLeft = hLeft;
+	obj.minuteLeft = mLeft;
+	obj.secondLeft = sLeft;
+
+	if (dTotal < 0 || hLeft < 0 || mLeft < 0 || sLeft < 0) {
+		obj.finalPrice = obj.currentBid;
+		obj.currentBid = null;
+		obj.end = true;
+		obj.timer = "ALREADY END";
+		return;
+	}
+
+	obj.timer = obj.dayLeft + ":" + obj.hourLeft + ":" + obj.minuteLeft + ":" + obj.secondLeft + "";
+}
+
+function sortItemToDifferentPage(arr, numberOfItemEach) {
+	let newArr = [];
+	let outerLoopLenth = Math.ceil(arr.length / numberOfItemEach);
+
+	for (let i = 0; i < outerLoopLenth; i++) {
+		let innerArr = [];
+
+		for (let j = i * numberOfItemEach; j < arr.length && j < (i + 1) * numberOfItemEach; j++) {
+			innerArr.push(arr[j]);
+		}
+
+		newArr.push(innerArr);
+	}
+
+	return newArr;
+}
+
+// useless shit that took days for nothing
+function getArrayOfIterationIndex(length, numberOfItem) {
+	let arr = [];
+
+	for (let i = 0; i < length; i++) {
+		let subArr = [];
+
+		for (let j = i; j < i + numberOfItem; j++) {
+			if (j < length) {
+				subArr.push(j);
+			} else subArr.push(j - length);
+		}
+
+		arr.push(subArr);
+	}
+
+	return arr;
+}
+
+// get random minute from min to max and convert it to milisecond
+function randomizeFromMinToMaxByMilisecond(min, max) {
+	return Math.round(Math.random() * (max - min + 1) + min - 0.5) * 60000;
+}
+
+// load localstorage json item by key
+
+function getLocalStorageJsonItem(key) {
+	return JSON.parse(localStorage.getItem(key));
+}
+
+function getLocalStorageItem(key) {
+	return localStorage.getItem(key);
+}

@@ -2,6 +2,10 @@
 
 /* SLICK */
 
+html {
+	scroll-behavior: smooth;
+}
+
 .slick-prev::before,
 .slick-next::before {
 	font-family: FontAwesome;
@@ -83,7 +87,7 @@ a {
 .index-banner-style {
 	width: fit-content;
 	background-color: black;
-	font-size: 60px;
+	font-size: 3.75rem;
 }
 
 .index-button-style {
@@ -233,14 +237,13 @@ a {
 	transition: all 200ms ease;
 }
 
-.painting-overlay:hover + div div div span{
+.painting-overlay:hover + div div div span {
 	border: 1px solid black;
 }
 
-.painting-overlay + div div div span{
+.painting-overlay + div div div span {
 	border: 1px solid rgba(0, 0, 0, 0.116);
 }
-
 
 .border-effect {
 	outline: 1px solid white;
@@ -290,6 +293,7 @@ a {
 
 /* BORDER EFFECT */
 
+
 /* SIGN IN PAGE */
 
 .signin-page {
@@ -299,7 +303,6 @@ a {
 	background: -webkit-linear-gradient(to right, #9bc5c3, #616161); /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to right, #9bc5c3, #616161); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-
 
 /* CATEGORY */
 
