@@ -25,33 +25,61 @@
 		background-color: transparent;
 	}
 
-	.accordion-item {
-		transition: all 2s;
+	.category-link:hover {
+		border-left: 3px solid red;
 	}
+
+	.category-link {
+		border-left: 3px solid white;
+		padding-left: 2px;
+		transition: border-left 0.1s;
+	}
+
+	.pagination {
+		box-shadow: none;
+		border-color: #ced4da;
+	}
+
+	
 </style>
 
-<div ng-controller="categoryController">
-	<pre class="container fw-bolder text-black pt-3">
-	<a href="#!home"><i class="fa-solid fa-house"></i> HOME</a> > <a href="" >PRODUCTS</a></pre>
-	<hr / class="container">
+<div ng-controller="categoryController" class="body-background">
+	
+	<nav class="pt-3 fw-bold navigation-bar container" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#!home"><i class="fa-solid fa-house"></i> HOME</a></li>
+			<li class="breadcrumb-item active" aria-current="page"><a href="#!aboutUs">{{productType | uppercase}}</a></li>
+		</ol>
+	</nav>
+	<hr class="container">
 	<!-- PAINTING SORT -->
 
 	<div class="container-fluid row py-5">
-		<div class="col-3 border-end">
+		<div class="col-lg-3 border-end">
 			<div class="row px-4">
 				<h6 class="col fw-bold">Filters Applied:</h6>
 				<div class="text-end col"><a href="" class="p-2" ng-click="removeAllFilter()"> Clear all</a></div>
 			</div>
 
 			<div class="d-flex flex-wrap gap-3 px-4 mb-4">
-				<span class="p-2 border border-black" ng-repeat="item in categoryFilter"
-					>{{item}}<button class="btn-close" ng-click="removeSpecificCategoryFilter(item)"></button
+				<span class="p-1 rounded border border-black bg-dark text-white shadow-sm" ng-repeat="item in categoryFilter"
+					>{{item}}
+					<button
+						class="btn-close border border-black fw-bolder bg-white"
+						style="font-size: 10px"
+						ng-click="removeSpecificCategoryFilter(item)"
+					></button
 				></span>
 			</div>
 
 			<div class="d-flex flex-wrap gap-3 px-4">
-				<span class="p-2 border border-black" ng-repeat="item in statusFilter"
-					>{{item}}<button class="btn-close" ng-click="removeSpecificStatusFilter(item)"></button
+				<span class="p-1 border border-black rounded bg-dark text-white shadow-sm" ng-repeat="item in statusFilter"
+					>{{item}}
+					<button
+						class="btn-close border border-black bg-white"
+						style="font-size: 10px"
+						ng-click="removeSpecificStatusFilter(item)"
+					></button
 				></span>
 			</div>
 			<hr class="mx-4" />
@@ -71,7 +99,9 @@
 					</h2>
 					<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
 						<div class="accordion-body d-flex flex-column">
-							<a class="text-black mb-3 ms-3" href="" ng-repeat="item in arrCategory" ng-click="addCategoryFilter(item)">{{item}}</a>
+							<a class="text-black mb-3 ms-3 category-link" href="" ng-repeat="item in arrCategory" ng-click="addCategoryFilter(item)"
+								>{{item}}</a
+							>
 						</div>
 					</div>
 				</div>
@@ -90,20 +120,18 @@
 					</h2>
 					<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
 						<div class="accordion-body d-flex flex-column">
-							<a href="" class="mb-3 ms-3 text-black" ng-click="addStatusFilter('Still Going')">Still Going</a>
-							<a href="" class="mb-3 ms-3 text-black" ng-click="addStatusFilter('End')">Finished</a>
+							<a href="" class="mb-3 ms-3 text-black category-link" ng-click="addStatusFilter('Still Going')">Still Going</a>
+							<a href="" class="mb-3 ms-3 text-black category-link" ng-click="addStatusFilter('End')">Finished</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div
-			class="col px-5 d-flex flex-wrap gap-5 align-content-between"
+			class="col px-5 d-flex flex-wrap gap-5 align-content-between align-items-center"
 			style="min-height: 800px"
-			ng-repeat="innerArr in showData"
-			ng-if="showPage[$index]"
 		>
-			<div class="card col-4 border-0" style="width: 18rem" ng-repeat="item in innerArr">
+			<div class="card col-4 border-0" style="width: 18rem" ng-repeat="item in currentPage">
 				<div class="position-relative">
 					<a href="#!product" class="position-absolute overlay w-100 h-100 bg-white text-end" ng-click="changeToProductPage(item)"></a>
 					<img ng-src="{{item.img[0]}}" class="card-img-top rounded-0" />
@@ -112,25 +140,27 @@
 					<h5 class="card-title fs-5 fw-bolder">
 						<a href="#!product" ng-click="changeToProductPage(item)" class="text-decoration-none text-dark">{{item.fullName}}</a>
 					</h5>
+					<hr />
 					<div class="row">
 						<div class="col fw-bold">{{item.timer | timeFilter}}</div>
-						<div class="col fw-bold">${{item.currentBid | number}}</div>
+						<div class="col fw-bold text-end" ng-if="!item.end">${{item.currentBid | number}}</div>
+						<div class="col fw-bold text-end" ng-if="item.end">${{item.finalPrice | number}}</div>
 					</div>
-					<hr />
 				</div>
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row mt-5">
 			<div class="col-3"></div>
 
 			<nav aria-label="..." class="col d-flex justify-content-end">
-				<ul class="pagination pagination-sm">
-					<li class="page-item" ng-repeat="item in showData">
+				<ul class="pagination pagination-sm me-5">
+					<li class="page-item" ng-repeat="item in allPageData" ng-class="{active: pageIndex[$index]}">
 						<a ng-click="changePageIndex($index)" class="page-link mypagination text-black" href="">{{$index+1}}</a>
 					</li>
 				</ul>
 			</nav>
 		</div>
 	</div>
+	<a href="" class="return-top text-black border shadow-sm" smooth-scroll target="target"><i class="fa-solid fa-chevron-up"></i></a>
 </div>

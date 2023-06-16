@@ -55,12 +55,13 @@
 	.paintingbanner {
 		background: linear-gradient(to left, rgba(0, 0, 0, 0.02), rgba(239, 239, 239, 0.01));
 	}
+
 </style>
 
 <!-- CONTENT  -->
 
 <div ng-controller="homeController" class="body-background homepage">
-	<div class="card card-effect text-bg-dark reset-card">
+	<div class="card text-bg-dark reset-card">
 		<div id="headingBanner" class="carousel slide" data-bs-ride="carousel">
 			<div class="carousel-inner">
 				<div class="carousel-item active my-transition" data-bs-interval="4000">
@@ -101,110 +102,21 @@
 
 	<!-- UPCOMING AUCTION -->
 
-	<div class="container-fluid my-3 p-4 white-background mb-5">
-		<div class="row px-4 py-0">
-			<div class="col">
-				<p class="fw-bold fs-5">UPCOMING AUCTIONS</p>
-			</div>
-
-			<div class="col text-end">
-				<p class="fw-bold fs-5">
-					<a href="#!" class="text-black text-decoration-none">View all <i class="fas fa-long-arrow-alt-right"></i></a>
-				</p>
-			</div>
-		</div>
-
-		<div class="row row-cols-1 row-cols-lg-2 g-4 px-5 py-2">
-			<div class="col">
-				<div class="card my-shadow reset-card">
-					<div class="row">
-						<div class="col-lg-4">
-							<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
-						</div>
-
-						<div class="col-lg-8">
-							<div class="card-body">
-								<h5 class="card-title">Auction title</h5>
-								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
-								<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
-								<p><i class="fas fa-map-marker-alt"></i> location</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col">
-				<div class="card my-shadow reset-card">
-					<div class="row">
-						<div class="col-lg-4">
-							<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
-						</div>
-
-						<div class="col-lg-8">
-							<div class="card-body">
-								<h5 class="card-title">Auction title</h5>
-								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
-								<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
-								<p><i class="fas fa-map-marker-alt"></i> location</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col">
-				<div class="card my-shadow reset-card">
-					<div class="row">
-						<div class="col-lg-4">
-							<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
-						</div>
-
-						<div class="col-lg-8">
-							<div class="card-body">
-								<h5 class="card-title">Auction title</h5>
-								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
-								<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
-								<p><i class="fas fa-map-marker-alt"></i> location</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col">
-				<div class="card my-shadow reset-card">
-					<div class="row">
-						<div class="col-lg-4 d-flex align-items-center">
-							<img src="./images/dummy-img.png" class="img-fluid img-totalfit" />
-						</div>
-
-						<div class="col-lg-8">
-							<div class="card-body">
-								<h5 class="card-title">Auction title</h5>
-								<p class="card-text"><i class="fas fa-clock"></i> 25 MAY | LIVE AUCTION</p>
-								<p class="cart-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ex placeat illum.</p>
-								<p><i class="fas fa-map-marker-alt"></i> location</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- ALL ITEM -->
 
 	<div class="mx-5 overflow-hidden position-relative paintingbanner" style="height: 15.625rem">
 		<a href="#!category" ng-click="viewPainting()" class="painting-overlay position-absolute bg-black w-100 h-100"></a>
-		<div class="row">
-			<img
-				src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-				class="col-md-6 img-fluid"
-			/>
-			<div class="col-md p-4">
+		<div class="row row-cols-1 row-cols-md-2">
+			<div class="col">
+				<img
+					src="./images/painting-banner.webp"
+					alt=""
+					class="img-fluid"
+				/>
+			</div>
+			<div class="col p-4">
 				<p class="fs-2">Bid Now</p>
-				<p>Join art auction. Celebrate paintings, bid, and embrace artistic excellence</p>
+				<p>Join auction. Celebrate paintings, bid and embrace artistic excellence</p>
 				<div class="text-end mx-4 mt-5">
 					<br />
 					<span class="p-2">View All Paintings</span>
@@ -240,23 +152,23 @@
 
 	<!-- CAR -->
 
-	<div class="mx-5 overflow-hidden position-relative paintingbanner" style="height: 250px">
+	<div class="mx-5 overflow-hidden position-relative paintingbanner" style="height: 15.625rem">
 		<a href="#!category" ng-click="viewCar()" class="painting-overlay position-absolute bg-black w-100 h-100"></a>
-		<div class="row">
-			<img
-				src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-				class="col-md-6 img-fluid"
-			/>
-			<div class="col-md p-4">
+		<div class="row row-cols-1 row-cols-md-2">
+			<div class="col car-background" style="height: 15.625rem" >
+				
+			</div>
+			<div class="col p-4">
 				<p class="fs-2">Bid Now</p>
-				<p>Join art auction. Celebrate paintings, bid, and embrace artistic excellence</p>
+				<p>Experience the thrill of car, find your dream ride, and score incredible deals. Start bidding now!</p>
 				<div class="text-end mx-4 mt-5">
 					<br />
-					<span class="p-2">View All Paintings</span>
+					<span class="p-2">View All Car</span>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<slick slides-to-show="4" slides-to-scroll="1" class="m-5 m-auto container" settings="slickConfig">
 		<div class="mx-3 myshow" ng-repeat="item in carData">
@@ -334,7 +246,7 @@
 				<div class="card col overflow-hidden reset-card">
 					<a
 						href="#!blog"
-						ng-click="changeToBlogPage(allBlogs[1])"
+						ng-click="changeToBlogPage(allBlogs[0])"
 						class="position-absolute bg-black overlay latest-new-small-container"
 					></a>
 					<img ng-src="{{allBlogs[1].img}}" class="img-fluid" alt="" />
@@ -360,8 +272,8 @@
 		</div>
 
 		<div class="text-center">
-			<a href="" class="overlay position-absolute bg-black" style="width: 400px; height: 60px"></a>
-			<button class="px-5 py-3" style="width: 400px; height: 60px">SEE ALL NEWS</button>
+			<a href="#!blogcategory" class="overlay position-absolute bg-black" style="width: 400px; height: 60px"></a>
+			<button class="px-5 py-3" style="width: 400px; height: 60px">SEE ALL BLOGS</button>
 		</div>
 	</div>
 </div>

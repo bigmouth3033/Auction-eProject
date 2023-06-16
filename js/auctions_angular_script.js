@@ -1,4 +1,4 @@
-let app = angular.module("auctionApp", ["ngRoute", "ngSanitize", "slickCarousel"]);
+let app = angular.module("auctionApp", ["ngRoute", "ngSanitize", "slickCarousel", "ngAnimate", "angularSmoothscroll"]);
 
 app.config(function ($routeProvider) {
 	$routeProvider
@@ -28,6 +28,18 @@ app.config(function ($routeProvider) {
 		})
 		.when("/aboutUs", {
 			templateUrl: "./html/aboutUs.html",
+		})
+		.when("/blogcategory", {
+			templateUrl: "./html/blogcategory.html",
+		})
+		.when("/contactUs", {
+			templateUrl: "./html/contactus.html",
+		})
+		.when("/disclaimer", {
+			templateUrl: "./html/disclaimer.html",
+		})
+		.otherwise({
+			templateUrl: "./html/home.html",
 		});
 });
 
@@ -62,7 +74,7 @@ app.service("AuctionItems", function () {
 	let paintingData = getLocalStorageJsonItem(paintingKey) || [];
 	let carData = getLocalStorageJsonItem(carKey) || [];
 	let furnitureData = getLocalStorageJsonItem(furnitureKey) || [];
-	let currentItem = this.findItem(getLocalStorageJsonItem(currentItemKey)) || [];
+	let currentItem = this.findItem(getLocalStorageJsonItem(currentItemKey)) || {};
 
 	//call this to update current painting data to json
 	this.updatePaintingJson = function () {
@@ -195,7 +207,7 @@ app.service("UserData", function () {
 	let isUser = false; // default to false
 	// check for data in localstorage if not that get the initilize value
 	let allUserData = getLocalStorageJsonItem(allUserKey) || [];
-	let currentUser = this.getCurrentUser(getLocalStorageJsonItem(currentUserKey)) || {};
+	let currentUser = this.getCurrentUser(getSessionStorageJson(currentUserKey)) || {};
 
 	// change logout status
 	this.logoutSuccess = function () {
@@ -230,7 +242,7 @@ app.service("UserData", function () {
 
 	// update current user username to localstorage to maintain login status of user when page is loaded
 	this.setCurrentUserUsernameJson = function (username) {
-		localStorage.setItem(currentUserKey, JSON.stringify(username));
+		sessionStorage.setItem(currentUserKey, JSON.stringify(username));
 	};
 
 	// set current user when login success and save user username to localstorage
@@ -323,7 +335,7 @@ app.filter("timeFilter", function () {
 });
 
 // using rootScope to handle all base set up for webpage
-app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData, Category, $window, $location) {
+app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData, Category, $window, $location, filterFilter) {
 	$rootScope.navAndFoot = true; // stage of nav nad foot show it or not
 
 	// change nav and foot state to hide
@@ -348,7 +360,7 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 
 				for (let item of paintingResponse.data.painting) {
 					if (item.endDate === null) {
-						item.endDate = new Date(Date.now() + randomizeFromMinToMaxByMilisecond(3, 15)).valueOf();
+						item.endDate = new Date(Date.now() + randomizeFromMinToMaxByMilisecond(3, 45)).valueOf();
 					}
 				}
 				for (let item of paintingResponse.data.painting) {
@@ -388,6 +400,9 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 	}
 
 	loadAllJsonData();
+
+	$rootScope.searchItems = [];
+	$rootScope.searchItems = AuctionItems.getPaintingData().concat(AuctionItems.getCarData());
 
 	// index user to show user status in nav page
 	$rootScope.indexUser = UserData.getCurrentUser();
@@ -451,26 +466,81 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 		}, 1000);
 	});
 
-	$rootScope.previousPageOfSignInUp = "home";
+	$rootScope.currentPage = "home";
 
-	// change previous page of sign in and sign up event to current page
-	$rootScope.changePreviousPageOfSignInUp = function () {
-		$rootScope.previousPageOfSignInUp = $location.path();
+	// save current page in order to perform return to previous page at any momment
+	$rootScope.saveCurrentPage = function () {
+		$rootScope.currentPage = $location.path();
 	};
 
 	// view all item in category
+
+	window.addEventListener("storage", handleStorageChange);
+
+	function handleStorageChange(event) {
+		if (event.key === "signal" && event.newValue === "true") {
+			$window.location.reload();
+			localStorage.setItem("signal", "false");
+		}
+	}
+
+	// view product page from search bar
+	$rootScope.viewProductPageFromSearch = function (item) {
+		AuctionItems.setCurrentItem(item);
+		if ($location.path() == "/product") {
+			$window.location.reload();
+		}
+	};
+
+	// view painting category from nav
+	$rootScope.viewPaintingIndex = function () {
+		Category.setCategoryType("Painting");
+
+		if ($location.path() == "/category") {
+			$window.location.reload();
+		}
+	};
+
+	// view car category from search bar
+	$rootScope.viewCarIndex = function () {
+		Category.setCategoryType("Car");
+
+		if ($location.path() == "/category") {
+			$window.location.reload();
+		}
+	};
+
+	$rootScope.search = "";
+	$rootScope.searchIndicator = "Enter a search query...";
+	$rootScope.changeSearchIndicator = function (search) {
+		let searchResult = filterFilter($rootScope.searchItems, { fullName: search });
+		if (searchResult.length == 0) {
+			$rootScope.searchIndicator = "No results found.";
+			return;
+		}
+
+		if (search.length > 0) {
+			$rootScope.searchIndicator = "Searching for: " + search;
+			return;
+		}
+
+		if (search.length == 0) {
+			$rootScope.searchIndicator = "Enter a search query...";
+			return;
+		}
+	};
 });
 
 // controller of home
-app.controller("homeController", function ($scope, AuctionItems, UserData, BlogData, Category) {
+app.controller("homeController", function ($scope, AuctionItems, UserData, BlogData, Category, $window) {
+	$scope.saveCurrentPage();
+	$window.scrollTo(0, 0);
 	$scope.showNavAndFoot(); // make sure always show nav and foot when home is loaded
 
 	// config for slick
 	$scope.slickConfig = {
 		enabled: true,
-		autoplay: true,
 		draggable: true,
-		autoplaySpeed: 1000,
 		infinite: false,
 		dots: true,
 		cssEase: "ease",
@@ -505,7 +575,7 @@ app.controller("homeController", function ($scope, AuctionItems, UserData, BlogD
 	};
 });
 
-app.controller("signInController", function ($scope, $location, UserData) {
+app.controller("signInController", function ($scope, $location, UserData, $window) {
 	$scope.hideNavAndFoot(); // hide nav and foot when signin is loaded
 
 	// signin event
@@ -524,7 +594,7 @@ app.controller("signInController", function ($scope, $location, UserData) {
 
 		alert("success");
 
-		$location.path($scope.previousPageOfSignInUp);
+		$location.path($scope.currentPage);
 	};
 });
 
@@ -534,8 +604,11 @@ const USERNAME_REGEX = /^[0-9A-Za-z]+$/;
 const PASSWORD_REGEX = /^[0-9A-Za-z]+$/;
 const PHONE_REGEX = /^[0-9]+$/;
 
-app.controller("signUpController", function ($scope, UserData, $location) {
+app.controller("signUpController", function ($scope, UserData, $location, $window) {
+	$window.scrollTo(0, 0);
 	$scope.hideNavAndFoot(); // hide nav and foot when signup is loaded
+
+	$scope.termOfService = true
 
 	// check sign up event
 	$scope.onSignup = function () {
@@ -597,6 +670,11 @@ app.controller("signUpController", function ($scope, UserData, $location) {
 			isOk = false;
 		} else $scope.wrongPhoneFormat = false;
 
+		if($scope.termOfService == false){
+			$scope.notcheck = true;
+			isOk = false;
+		}else $scope.notcheck = false;
+
 		if (isOk) {
 			UserData.addNewUser({
 				username: $scope.signupUsername,
@@ -623,30 +701,35 @@ app.controller("signUpController", function ($scope, UserData, $location) {
 });
 
 // controller for product page
-app.controller("productController", function ($scope, $route, AuctionItems, UserData, Category, $location) {
+app.controller("productController", function ($scope, $route, AuctionItems, UserData, Category, $location, $interval, $window) {
+	$scope.saveCurrentPage();
+	$window.scrollTo(0, 0);
 	$scope.showNavAndFoot();
 
 	//load current item
 	$scope.product = AuctionItems.getCurrentItem();
 
 	// product suggestion
-	$scope.productSuggestion;
+	$scope.productSuggestion = [];
 
 	// check for current item type to load suggestion items
 	if ($scope.product.id[0] == "P") {
-		$scope.productSuggestion = AuctionItems.getPaintingData();
-	}
-
-	if ($scope.product.id[0] == "F") {
-		$scope.productSuggestion = AuctionItems.getFurnitureData();
+		for (let item of AuctionItems.getPaintingData()) {
+			$scope.productSuggestion.push(item);
+		}
+		$scope.productType = "PAINTING";
 	}
 
 	if ($scope.product.id[0] == "C") {
-		$scope.productSuggestion = AuctionItems.getCarData();
+		for (let item of AuctionItems.getCarData()) {
+			$scope.productSuggestion.push(item);
+		}
+		$scope.productType = "CAR";
 	}
 
 	//randomize suggestion items
 	$scope.productSuggestion.sort((a, b) => 0.5 - Math.random());
+	$scope.productSuggestion.length = 3;
 
 	// bid event
 	$scope.bid = function (price, product, user) {
@@ -684,11 +767,12 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 
 		UserData.updataUsersJson();
 
-		if (product.id[0] == "p") AuctionItems.updatePaintingJson();
+		if (product.id[0] == "P") AuctionItems.updatePaintingJson();
 
 		if (product.id[0] == "C") AuctionItems.updateCarJson();
 
 		alert("bid success");
+		localStorage.setItem("signal", true);
 	};
 
 	$scope.imgShow = $scope.product.img[0];
@@ -698,12 +782,32 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 		$scope.imgShow = imghref;
 	};
 
-	$scope.savePreviousToProduct = function () {
-		$scope.changePreviousPageOfSignInUp();
+	$scope.viewCategory = function () {
+		if ($scope.productType == "CAR") {
+			Category.setCategoryType("Car");
+		}
+
+		if ($scope.productType == "PAINTING") {
+			Category.setCategoryType("Painting");
+		}
 	};
 });
 
-app.controller("blogController", function ($scope, AuctionItems, BlogData) {
+app.controller("blogCategoryController", function ($scope, BlogData, $window, $location) {
+	$scope.saveCurrentPage();
+	$window.scrollTo(0, 0);
+	$scope.showNavAndFoot();
+
+	$scope.allBlogs = BlogData.getAllBlog();
+
+	$scope.viewBlog = function (blog) {
+		BlogData.setCurrentBlog(blog);
+	};
+});
+
+app.controller("blogController", function ($scope, AuctionItems, BlogData, $window) {
+	$scope.saveCurrentPage();
+	$window.scrollTo(0, 0);
 	$scope.showNavAndFoot();
 
 	//get item blog
@@ -711,46 +815,59 @@ app.controller("blogController", function ($scope, AuctionItems, BlogData) {
 });
 
 app.controller("categoryController", function ($scope, $window, AuctionItems, Category) {
+	$scope.saveCurrentPage();
+	$window.scrollTo(0, 0);
 	$scope.showNavAndFoot();
 
-	let numberOfItemEachPage = 9;
-	let productType = Category.getType(); // save pattern only one
+	let numberOfItemEachPage = 9; // number of item for each page
+	$scope.productType = Category.getType(); // save pattern only one
 
-	if (productType == "Painting") {
-		$scope.arrCategory = ["History", "Portrait", "Still Life", "Landscape", "Nature"];
+	// get category array
+	let categorySet = new Set();
+	if ($scope.productType == "Painting") {
+		AuctionItems.getPaintingData().forEach((item) => categorySet.add(item.category));
+		$scope.arrCategory = Array.from(categorySet.values());
 	} //set product category
 
-	if (productType == "Car") {
-		$scope.arrCategory = ["Classic", "Muscle", "Sports"];
+	if ($scope.productType == "Car") {
+		AuctionItems.getCarData().forEach((item) => categorySet.add(item.category));
+		$scope.arrCategory = Array.from(categorySet.values());
 	}
 
 	//get category data
 	$scope.categoryData = Category.getCategoryTypeItems();
 
 	// data that divided to different array to show by page
-	$scope.showData = sortItemToDifferentPage($scope.categoryData, numberOfItemEachPage);
+	$scope.allPageData = sortItemToDifferentPage($scope.categoryData, numberOfItemEachPage);
+	$scope.currentPage = $scope.allPageData[0]; // current page to show
 
-	// default to show page 1
-	$scope.showPage = [true, false, false, false, false, false, false, false];
+	// array of page index
+	$scope.pageIndex = [];
+	$scope.allPageData.forEach((item) => $scope.pageIndex.push(false));
+	$scope.pageIndex[0] = true;
 
+	// turn to first page
 	function turnToFirstPage() {
-		for (let i = 0; i < $scope.showPage.length; i++) {
+		for (let i = 0; i < $scope.pageIndex.length; i++) {
 			if (i == 0) {
-				$scope.showPage[i] = true;
+				$scope.pageIndex[i] = true;
 				continue;
 			}
 
-			$scope.showPage[i] = false;
+			$scope.pageIndex[i] = false;
 		}
+
+		$scope.currentPage = $scope.allPageData[0];
 	}
 
 	// change to different page by index
 	$scope.changePageIndex = function (index) {
-		for (let i = 0; i < $scope.showPage.length; i++) {
-			$scope.showPage[i] = false;
+		for (let i = 0; i < $scope.pageIndex.length; i++) {
+			$scope.pageIndex[i] = false;
 		}
 
-		$scope.showPage[index] = true;
+		$scope.pageIndex[index] = true;
+		$scope.currentPage = $scope.allPageData[index];
 		$window.scrollTo(0, 0);
 	};
 
@@ -780,11 +897,12 @@ app.controller("categoryController", function ($scope, $window, AuctionItems, Ca
 			$scope.categoryData = $scope.categoryData.filter((item) => item.end == end);
 		}
 
-		$scope.showData = sortItemToDifferentPage($scope.categoryData, numberOfItemEachPage);
+		$scope.allPageData = sortItemToDifferentPage($scope.categoryData, numberOfItemEachPage);
 	}
 
 	$scope.addCategoryFilter = function (category) {
 		upadateCategoryFilter(category);
+		turnToFirstPage();
 	};
 
 	$scope.removeAllFilter = function () {
@@ -800,6 +918,7 @@ app.controller("categoryController", function ($scope, $window, AuctionItems, Ca
 		$scope.categoryFilter.splice(index, 1);
 
 		upadateCategoryFilter();
+		turnToFirstPage();
 	};
 
 	function upadateStatusFilter(status) {
@@ -815,11 +934,12 @@ app.controller("categoryController", function ($scope, $window, AuctionItems, Ca
 		let end = status == "Still Going" ? false : true;
 
 		$scope.categoryData = $scope.categoryData.filter((item) => item.end === end);
-		$scope.showData = sortItemToDifferentPage($scope.categoryData, numberOfItemEachPage);
+		$scope.allPageData = sortItemToDifferentPage($scope.categoryData, numberOfItemEachPage);
 	}
 
 	$scope.addStatusFilter = function (status) {
 		upadateStatusFilter(status);
+		turnToFirstPage();
 	};
 
 	$scope.removeSpecificStatusFilter = function (status) {
@@ -828,7 +948,41 @@ app.controller("categoryController", function ($scope, $window, AuctionItems, Ca
 		$scope.statusFilter.splice(index, 1);
 
 		upadateStatusFilter();
+		turnToFirstPage();
 	};
+});
+
+app.controller("howtobuyController", function ($scope, $window) {
+	$scope.saveCurrentPage();
+	$window.scrollTo(0, 0);
+	$scope.showNavAndFoot();
+});
+
+app.controller("howtosellController", function ($scope, $window) {
+	$scope.saveCurrentPage();
+	$window.scrollTo(0, 0);
+	$scope.showNavAndFoot();
+});
+
+app.controller("aboutusController", function ($scope, $window) {
+	$scope.saveCurrentPage();
+	$window.scrollTo(0, 0);
+	$scope.showNavAndFoot();
+});
+
+app.controller("contactUsController", function ($scope, $window) {
+	$scope.saveCurrentPage();
+	$window.scrollTo(0, 0);
+	$scope.showNavAndFoot();
+
+	$scope.submit = function () {
+		alert("We Have Received Your Message");
+	};
+});
+
+app.controller("disclaimerController", function ($scope,$window) {
+	$window.scrollTo(0, 0);
+	$scope.showNavAndFoot();
 });
 
 // timer function to countdown, combine with interval
@@ -915,4 +1069,8 @@ function getLocalStorageJsonItem(key) {
 
 function getLocalStorageItem(key) {
 	return localStorage.getItem(key);
+}
+
+function getSessionStorageJson(key) {
+	return JSON.parse(sessionStorage.getItem(key));
 }

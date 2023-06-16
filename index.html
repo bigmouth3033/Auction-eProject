@@ -4,7 +4,10 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 		<title>AuctionsTable</title>
+
+		<!-- ICON -->
 
 		<!-- GOOGLE FONT -->
 
@@ -37,117 +40,118 @@
 		<!-- STYLE -->
 		<link rel="stylesheet" href="./css/index.css" />
 
+		<style></style>
+
 		<!-- END -->
 	</head>
 	<!--  -->
 	<body ng-app="auctionApp" class="d-flex flex-column min-vh-100 body-limit">
 		<header class="container-fluid bg-dark text-light" ng-if="navAndFoot">
-			<div class="head-top">
-				<div class="row justify-content-between">
-					<div class="col-2 p-2 py-3 d-flex">
-						<p>English</p>
-						<p>(+84) 9999 9999</p>
-					</div>
-					<div class="col-8 p-2 text-center">
-						<a class="navbar-brand" href="#!home">
-							<img src="./images/auctionstable-logo.svg" alt="Logo" width="260" height="60" class="d-inline-block align-text-top" />
-						</a>
-					</div>
-					<div class="col-2 p-2 py-3 d-flex justify-content-end">
-						<ul class="nav">
-							<li class="nav-item">
-								<a
-									class="nav-link active fw-bolder text-white btn border"
-									aria-current="page"
-									href="#!signin"
-									ng-if="!indexUser.username"
-									ng-click="changePreviousPageOfSignInUp()"
-									>SIGN IN</a
-								>
+			<nav class="navbar navbar-dark bg-dark py-0 my-2">
+				<div class="container-fluid justify-content-end">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a
+								class="nav-link active fw-bolder text-white btn rounded-0 border border-white px-2"
+								aria-current="page"
+								href="#!signin"
+								ng-if="!indexUser.username"
+								ng-click="changePreviousPageOfSignInUp()"
+								>SIGN IN</a
+							>
+						</li>
+						<li class="nav-item dropdown bg-white px-2">
+							<a
+								style="color: black !important"
+								class="nav-link dropdown-toggle text-white"
+								ng-if="indexUser.username"
+								data-bs-toggle="dropdown"
+								href="#"
+								role="button"
+								aria-expanded="false"
+								><i class="far fa-user fa-lg"></i> {{indexUser.username}}
+							</a>
+							<ul class="dropdown-menu position-absolute rounded-0" ng-if="indexUser.username">
+								<li><a class="dropdown-item" href="" ng-click="logout()">Log Out</a></li>
+								<li><a class="dropdown-item" href="#">Your Infomation</a></li>
+							</ul>
+						</li>
+					</ul>
+					<span class="px-1">|</span>
+					<span><a class="text-white" href="#!contactUs">Contact</a></span>
+				</div>
+			</nav>
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
+				<div class="container-fluid">
+					<button
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<a class="navbar-brand my-0 py-0" href="#!home">
+						<img src="./images/logo.svg" alt="Logo" width="200" height="40" class="d-inline-block align-text-top py-0" />
+					</a>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav me-auto my-2">
+							<li class="nav-item my-nav-link px-2 py-1">
+								<a class="nav-link active fw-bold" aria-current="page" ng-click="viewPaintingIndex()" href="#!category">Painting</a>
 							</li>
-							<li class="nav-item dropdown">
-								<a
-									class="nav-link dropdown-toggle text-white"
-									ng-if="indexUser.username"
-									data-bs-toggle="dropdown"
-									href="#"
-									role="button"
-									aria-expanded="false"
-									><i class="far fa-user fa-lg"></i> {{indexUser.username}}
-								</a>
-								<ul class="dropdown-menu" ng-if="indexUser.username">
-									<li><a class="dropdown-item" href="#!home" ng-click="logout()">Log Out</a></li>
-									<li><a class="dropdown-item" href="#">Check Cart</a></li>
-									<li><a class="dropdown-item" href="#">Your Infomation</a></li>
-								</ul>
+							<li class="nav-item my-nav-link px-2 py-1">
+								<a class="nav-link active fw-bold" aria-current="page" ng-click="viewCarIndex()" href="#!category">Car</a>
+							</li>
+							<li class="nav-item my-nav-link px-2 py-1">
+								<a class="nav-link active fw-bold" aria-current="page" href="#!blogcategory">Blogs</a>
+							</li>
+							<li class="nav-item my-nav-link px-2 py-1">
+								<a class="nav-link active fw-bold" aria-current="page" href="#!aboutUs">About Us</a>
 							</li>
 						</ul>
+						<form class="d-flex input-group" role="search" style="max-width: 45vw">
+							<div class="input-group-text rounded-0" id="btnGroupAddon2"><i class="fas fa-search"></i></div>
+							<input
+								id="inputdropdown"
+								type="search"
+								class="form-control rounded-0 dropdown-toggle"
+								placeholder="Search"
+								style="outline: none"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+								ng-model="search"
+								ng-change="changeSearchIndicator(search)"
+							/>
+							<div
+								class="dropdown-menu rounded-0 overflow-x-auto"
+								aria-label="inputdropdown"
+								ng-class="{show: isOpen}"
+								style="width: 100%; z-index: 9999"
+								data-bs-auto-close="outside"
+							>
+								<span class="px-2 fw-bold" href="">{{searchIndicator}}</span>
+								<div ng-show="search.length > 0">
+									<a
+										class="dropdown-item"
+										href="#!product"
+										ng-click="viewProductPageFromSearch(item)"
+										ng-show="$index  < 8"
+										ng-repeat="item in searchItems | filter:{fullName :search} track by $index"
+									>
+										<span class="d-flex flex-column border-top searchitem">
+											<span>{{item.fullName}}</span>
+											<span style="font-size: 12px">{{item.timer| timeFilter}}</span>
+										</span>
+									</a>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
-			</div>
-			<div class="head-down py-2 d-flex justify-content-center">
-				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-					<div class="container-fluid">
-						<button
-							class="navbar-toggler"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#navbarSupportedContent"
-							aria-controls="navbarSupportedContent"
-							aria-expanded="false"
-							aria-label="Toggle navigation"
-						>
-							<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="collapse navbar-collapse" id="navbarSupportedContent">
-							<ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-4">
-								<li class="nav-item my-nav-link">
-									<a class="nav-link active" aria-current="page" href="#">Home</a>
-								</li>
-								<li class="nav-item dropdown my-nav-link">
-									<a
-										class="nav-link dropdown-toggle fw-bolder"
-										href="#"
-										id="navbarDropdown"
-										role="button"
-										data-bs-toggle="dropdown"
-										aria-expanded="false"
-										>Products</a
-									>
-									<div class="dropdown-menu slideIn animate" style="left: -300%" aria-labelledby="navbarDropdown">
-										<div style="width: 800px; height: 200px" class="row text-center">
-											<div class="col">
-												<p class="fw-bolder fs-4">PAINTING</p>
-												<p>something</p>
-												<p>something</p>
-												<p>something</p>
-											</div>
-											<div class="col">
-												<p class="fw-bolder fs-4">Car</p>
-												<p>something</p>
-												<p>something</p>
-												<p>something</p>
-											</div>
-											<div class="col">
-												<p class="fw-bolder fs-4">FURNITURE</p>
-												<p>something</p>
-												<p>something</p>
-												<p>something</p>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li class="nav-item my-nav-link">
-									<a class="nav-link active fw-bolder fw-bolder" aria-current="page" href="#">Blogs</a>
-								</li>
-								<li class="nav-item my-nav-link">
-									<a class="nav-link active fw-bolder" aria-current="page" href="#">About Us</a>
-								</li>	
-							</ul>
-						</div>
-					</div>
-				</nav>
-			</div>
+			</nav>
 		</header>
 
 		<!-- MAIN CONTENT -->
@@ -199,16 +203,10 @@
 						<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 text-decoration-none fw-bold">
 							<h6 class="text-uppercase fw-bold mb-4 text-white">Guides</h6>
 							<p>
-								<a href="#!" class="text-gray text-decoration-none">How to Buy</a>
+								<a href="#!howtobuy" class="text-gray text-decoration-none">How to Buy</a>
 							</p>
 							<p>
-								<a href="#!" class="text-gray text-decoration-none">How to Sell</a>
-							</p>
-							<p>
-								<a href="#!" class="text-gray text-decoration-none">Buying Guides</a>
-							</p>
-							<p>
-								<a href="#!" class="text-gray text-decoration-none">Price Guide</a>
+								<a href="#!howtosell" class="text-gray text-decoration-none">How to Sell</a>
 							</p>
 						</div>
 						<!-- Grid column -->
@@ -217,10 +215,7 @@
 						<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 fw-bold">
 							<h6 class="text-uppercase fw-bold mb-4 text-white">Services</h6>
 							<p>
-								<a href="#!" class="fw-bold text-gray text-decoration-none">Bespoke client advisory service</a>
-							</p>
-							<p>
-								<a href="#!" class="text-gray text-decoration-none">Art Finance</a>
+								<a href="#!disclaimer" class="fw-bold text-gray text-decoration-none">Disclaimer</a>
 							</p>
 						</div>
 						<!-- Grid column -->
@@ -230,6 +225,9 @@
 							<h6 class="text-uppercase fw-bold mb-4 text-white">About Us</h6>
 							<p>
 								<a href="#!aboutUs" class="text-gray text-decoration-none">About Us</a>
+							</p>
+							<p>
+								<a href="#!contactUs" class="text-gray text-decoration-none">Contact Us</a>
 							</p>
 						</div>
 					</div>
@@ -245,11 +243,12 @@
 		</footer>
 
 		<!-- SCRIPT -->
-
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-sanitize.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-animate.js"></script>
+		<script src="./js/smoothScroll.js"></script>
 		<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 		<script src="./js/angular-slick.min.js"></script>
 		<script
@@ -257,7 +256,7 @@
 			integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
 			crossorigin="anonymous"
 		></script>
-		<script src="./js/carousel_jquery_script.js"></script>
 		<script src="./js/auctions_angular_script.js"></script>
+		<script src="./js/event.js"></script>
 	</body>
 </html>

@@ -26,19 +26,18 @@
 	.min-vh-80 {
 		min-height: 80vh;
 	}
-
 </style>
 
 <div ng-controller="signInController">
 	<div class="row justify-content-center p-5 h-100 align-items-center signin-page">
-		<form class="col-4 shadow bg-white p-5" ng-submit="onSignin()">
+		<form class="col-lg-4 shadow bg-white p-5" ng-submit="onSignin()">
 			<p class="text-center">Don't have an account?</p>
 			<br />
 			<div class="text-center fs-6"><a href="#!signup">REGISTER FOR FREE</a></div>
 			<hr />
 			<h3 class="text-center mt-2 fw-bolder">SIGN IN TO YOUR ACCOUNT</h3>
 			<div class="mb-5">
-				<label for="username" class="form-text ">USERNAME *</label>
+				<label for="username" class="form-text">USERNAME *</label>
 				<input type="text" class="form-control" id="username" ng-model="signinUsername" />
 			</div>
 			<div class="mb-5">
@@ -49,7 +48,7 @@
 				<button type="submit" class="signin-button text-white">SIGN IN</button>
 			</div>
 			<div class="text-end">
-				<a ng-href="#!{{previousPageOfSignInUp}}">Return To Previous Page</a>
+				<a ng-href="#!{{currentPage}}">Return To Previous Page</a>
 			</div>
 		</form>
 	</div>

@@ -4,6 +4,7 @@
 
 html {
 	scroll-behavior: smooth;
+	transition: scroll-behavior 2s;
 }
 
 .slick-prev::before,
@@ -13,11 +14,11 @@ html {
 }
 
 .slick-prev::before {
-	content: "\f100";
+	content: "\f137";
 }
 
 .slick-next::before {
-	content: "\f101";
+	content: "\f138";
 }
 
 .slick-arrow:before {
@@ -47,16 +48,26 @@ html {
 
 /* SLICK */
 
+.form-control:focus {
+	box-shadow: none;
+	border-color: red;
+
+}
+
 * {
 	font-family: "Montserrat", sans-serif;
 }
 
 .my-nav-link {
-	border-top: 2px solid #212529;
+	transition: 0.1s ease;
+}
+.my-nav-link:hover {
+	background-color: white;
+	color: black;
 }
 
-.my-nav-link:hover {
-	border-top: 2px solid white;
+.my-nav-link:hover a {
+	color: black !important;
 }
 
 .nav-color {
@@ -80,7 +91,7 @@ a {
 }
 
 .body-limit {
-	max-width: 2000px;
+	max-width: 1800px;
 	margin: auto;
 }
 
@@ -293,7 +304,6 @@ a {
 
 /* BORDER EFFECT */
 
-
 /* SIGN IN PAGE */
 
 .signin-page {
@@ -308,4 +318,29 @@ a {
 
 pre a {
 	color: black;
+}
+
+.return-top {
+	position: fixed;
+	top: 90%;
+	left: 95%;
+	padding: 0.5rem 0.7rem;
+}
+
+.searchitem:hover {
+	background-color: rgb(0, 12, 12, 0.1);
+}
+
+.navigation-bar{
+	font-size: 14px;
+}
+.navigation-bar a{
+	color: black;
+}
+
+
+.car-background{
+	background-image: url(../images/car-banner.webp);
+	background-position: 25% 70%;
+	background-size: 100%;
 }

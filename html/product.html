@@ -36,17 +36,29 @@
 		height: 250px;
 		background-color: #f4f5f7;
 	}
+
+	.fill-gradient-instagram {
+		background-clip: text;
+		background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
 </style>
 
 <div ng-controller="productController">
 	<div style="background-color: rgb(250, 250, 245)">
-		<pre
-			class="container fw-bolder text-black pt-3"
-		><a href="#!home"><i class="fa-solid fa-house"></i> HOME</a> > <a href="#!category" ng-click="viewCategory()">PRODUCTS</a> > <a href="">{{product.category}}</a> > <a href="">{{product.fullName || Uppercase}}</a></pre>
-		<hr / class="container">
+
+		<nav class="pt-3 fw-bold navigation-bar container" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="#!home"><i class="fa-solid fa-house"></i> HOME</a></li>
+				<li class="breadcrumb-item"><a href="#!category" ng-click="viewCategory()">{{productType}}</a></li>
+				<li class="breadcrumb-item"><a href="">{{product.fullName || Uppercase}}</a></li>
+			</ol>
+		</nav>
+		<hr class="container">
 
 		<div ng-if="!indexUser.username" class="container ps-5 border border-1 py-3">
-			Please <a href="#!signin" ng-click="savePreviousToProduct()">log in</a> or <a href="#!signup" ng-click="savePreviousToProduct()">sign up</a> to place a bid.
+			Please <a href="#!signin">log in</a> or <a href="#!signup">sign up</a> to place a bid.
 		</div>
 
 		<div class="p-5 pt-1">
@@ -54,30 +66,27 @@
 
 			<div class="row ps-5 mt-3 justify-content-start flex-sm-nowrap">
 				<!-- small img -->
-				<div class="col-1">
+				<div class="col-sm-1">
 					<div ng-repeat="img in product.img" class="my-4">
 						<a href="" ng-click="changeImgShow(img)"><img ng-src="{{img}}" alt="" class="img-fluid" /></a>
 					</div>
 				</div>
 				<!-- big img -->
-				<div class="col-7 rounded d-flex justify-content-center p-3 bg-white" style="height: 80vh; max-height: 600px">
+				<div class="col-sm-7 rounded d-flex justify-content-center p-3 bg-white" style="height: 80vh; max-height: 600px">
 					<img ng-src="{{imgShow}}" style="max-height: 80vh" alt="" class="img-fluid border-effect" />
 				</div>
 				<!-- bidding  -->
-				<div class="col-3 d-flex flex-column border-start" style="width: 380px">
-					<div class="d-flex flex-column mb-2 position-relative">
-						<a href="" class="position-absolute overlay w-100 h-100 bg-black rounded"></a>
-						<button class="bg-white p-2 fs-5 fw-bolder m-0 p-2 border rounded"><i class="far fa-star"></i> Add to your Favorite</button>
-					</div>
-					<hr />
-					<div class="col px-4 pt-3">
+				<div class="col-sm-3 d-flex flex-column justify-content-center gap-2" style="width: 380px">
+					<div class="px-4 pt-3 border border-3">
 						<div class="row my-2">
 							<div class="col fw-bolder fs-5" ng-if="!product.end">CURRENT BID</div>
-							<div class="col fw-bolder fs-5" ng-if="product.end">Final Bid</div>
-							<pre class="col text-end text-danger fs-5 fw-bolder"><i class="fa-solid fa-user"></i> {{product.lastUserBid}}</pre>
+							<div class="col fw-bolder fs-5" ng-if="product.end">FINAL BID</div>
+							<div class="col text-end text-danger fs-6 fw-bolder"><i class="fa-solid fa-user"></i> {{product.lastUserBid}}</div>
 						</div>
-						<pre class="my-2 fw-bolder fs-5 fw-bolder text-success" ng-if="!product.end" >${{product.currentBid | number}}</pre>
-						<pre class="my-2 fw-bolder fs-5 fw-bolder text-success" ng-if="product.end" >${{product.finalPrice | number}}</pre>
+						<pre class="my-2 fw-bolder fs-2 fw-bolder text-success" ng-if="!product.end">${{product.currentBid | number}}</pre>
+						<pre class="my-2 fw-bolder fs-2 fw-bolder text-success" ng-if="product.end">${{product.finalPrice | number}}</pre>
+						<div class="fw-bolder fs-6">STARTING BID</div>
+						<pre class="mb-2 fs-5 fw-bolder text-success">${{product.startingBid|number}}</pre>
 						<div class="fw-bolder fs-6">TIME LEFT <i class="fas fa-clock"></i></div>
 						<pre class="mb-2 fs-5 fw-bolder text-success">{{product.timer}}</pre>
 						<div class="fw-bolder fs-6">END DATE</div>
@@ -85,17 +94,15 @@
 						<div class="fw-bolder fs-6">NUMBER OF BID</div>
 						<pre class="mb-2 fs-5 fw-bolder text-success">{{product.numberOfBid}}</pre>
 						<div class="row gap-3 p-2">
-							<input type="text" ng-model="userBid" class="col border-0" />
+							<input type="text" ng-model="userBid" class="col" />
 							<button class="btn btn-danger col rounded-0" ng-disabled="product.end" ng-click="bid(userBid, product, indexUser)">
 								BID
 							</button>
 						</div>
-						<div class="text-center mt-4">
-							<pre class="fw-bolder"><a href="" class="text-decoration-underline">Frequently Asked Questions</a></pre>
+						<hr />
+						<div class="text-center">
+							<pre class="fw-bolder"><a href="#!howtobuy" class="text-decoration-underline">Frequently Asked Questions</a></pre>
 						</div>
-					</div>
-					<div class="p-3 text-center">
-						<button class="fw-bold border-0 px-5 py-2">Contact Seller</button>
 					</div>
 				</div>
 			</div>
@@ -103,19 +110,19 @@
 			<div class="row ps-5 mt-3 justify-content-start flex-sm-nowrap">
 				<div class="col-1"></div>
 				<div class="col-7 row">
-					<div class="col fw-bolder fs-6"><i class="fa-solid fa-eye pe-1"></i> Views: {{product.view | number}}</div>
+					<div class="col fw-bolder fs-6 ms-4"><i class="fa-solid fa-eye pe-1"></i> Views: {{product.view | number}}</div>
 					<div class="col text-end">
-						<i class="fa-brands fa-facebook fa-lg px-1"></i>
-						<i class="fab fa-tiktok fa-lg px-1"></i>
-						<i class="fa-brands fa-instagram fa-lg px-1"></i>
-						<i class="fab fa-twitter fa-lg px-1"></i>
+						<a href=""><i class="fa-brands fa-facebook fs-5 px-1"></i></a>
+						<a href=""><i class="fab fa-tiktok fs-5 px-1 text-black"></i></a>
+						<a href=""><i class="fab fa-instagram fs-5 fill-gradient-instagram px-1"></i></a>
+						<a href=""><i class="fab fa-twitter fs-5 px-1"></i></a>
 					</div>
 				</div>
 			</div>
 			<!-- show specification and kloe -->
 			<div class="row ps-5 mt-4 justify-content-start flex-sm-nowrap">
 				<div class="col-1"></div>
-				<div class="col-7 row me-4">
+				<div class="col-sm-7 row me-4">
 					<nav>
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
 							<button
@@ -130,30 +137,15 @@
 							>
 								Description
 							</button>
-							<button
-								class="nav-link"
-								id="nav-disabled-tab"
-								data-bs-toggle="tab"
-								data-bs-target="#nav-disabled"
-								type="button"
-								role="tab"
-								aria-controls="nav-disabled"
-								aria-selected="false"
-							>
-								Shipping
-							</button>
 						</div>
 					</nav>
 					<div class="tab-content" id="nav-tabContent">
-						<div class="tab-pane fade info-tab-height" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+						<div class="tab-pane fade info-tab-height show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
 							{{product.description}}
-						</div>
-						<div class="tab-pane fade info-tab-height" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
-							...
 						</div>
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-sm-3">
 					<p class="fw-bold">Brought to you by</p>
 					<div class="row">
 						<div class="col-3">
@@ -173,11 +165,13 @@
 	</div>
 
 	<!-- <div class="row ps-5 mt-5 gap-5"> -->
-	<div class="col-6 p-3 overflow-hidden m-auto bg-white bindhtml" ng-bind-html="product.content"></div>
 
+	<div class="row bg-white justify-content-center">
+		<div class="col-lg-9 p-3 overflow-hidden bindhtml" ng-bind-html="product.content"></div>
+	</div>
 
 	<!-- show off brand -->
-	<div class="container px-5 py-4 border m-auto" style="background-color: rgb(238, 238, 238)">
+	<div class="container px-5 py-4 border m-auto my-3" style="background-color: rgb(238, 238, 238)">
 		<div class="row m-2 border p-5 bg-white">
 			<div class="col text-center">
 				<i class="fa-sharp fa-solid fa-star fa-2xl mb-5"></i>
@@ -207,18 +201,11 @@
 		<div class="text-center mt-3">Need More Help?</div>
 		<div class="text-center mt-5">
 			<div class="position-relative m-auto" style="width: fit-content">
-				<a href="" class="overlay position-absolute w-100 h-100 bg-black"></a>
+				<a href="#!contactUs" class="overlay position-absolute w-100 h-100 bg-black"></a>
 				<button class="px-3 py-4">Contact Customer Support</button>
 			</div>
 		</div>
 	</div>
 
-	<hr />
-	<div class="text-center fw-bolder fs-5">You May Also Like</div>
-
-	<div class="row container row-cols-4 justify-content-center">
-		<div class="col d-flex justify-content-center border" ng-repeat="item in productSuggestion">
-			<img ng-src="{{item.img[0]}}" alt="" class="img-fluid" style="max-height: 200px" />
-		</div>
-	</div>
+	<a href="" class="return-top text-black shadow-sm border" smooth-scroll target="target"><i class="fa-solid fa-chevron-up"></i></a>
 </div>
