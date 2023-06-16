@@ -7,6 +7,10 @@ html {
 	transition: scroll-behavior 2s;
 }
 
+body{
+	margin: 0;
+}
+
 .slick-prev::before,
 .slick-next::before {
 	font-family: FontAwesome;
@@ -91,7 +95,7 @@ a {
 }
 
 .body-limit {
-	max-width: 1800px;
+	max-width: 1600px;
 	margin: auto;
 }
 

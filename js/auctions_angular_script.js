@@ -545,6 +545,22 @@ app.controller("homeController", function ($scope, AuctionItems, UserData, BlogD
 		dots: true,
 		cssEase: "ease",
 		edgeFriction: 0.5,
+		responsive: [
+			{
+				breakpoint: 1200,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1,
+				},
+			},
+			{
+				breakpoint: 1008,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+				},
+			},
+		],
 	};
 
 	// get all data to show
@@ -608,7 +624,7 @@ app.controller("signUpController", function ($scope, UserData, $location, $windo
 	$window.scrollTo(0, 0);
 	$scope.hideNavAndFoot(); // hide nav and foot when signup is loaded
 
-	$scope.termOfService = true
+	$scope.termOfService = true;
 
 	// check sign up event
 	$scope.onSignup = function () {
@@ -670,10 +686,10 @@ app.controller("signUpController", function ($scope, UserData, $location, $windo
 			isOk = false;
 		} else $scope.wrongPhoneFormat = false;
 
-		if($scope.termOfService == false){
+		if ($scope.termOfService == false) {
 			$scope.notcheck = true;
 			isOk = false;
-		}else $scope.notcheck = false;
+		} else $scope.notcheck = false;
 
 		if (isOk) {
 			UserData.addNewUser({
@@ -980,7 +996,7 @@ app.controller("contactUsController", function ($scope, $window) {
 	};
 });
 
-app.controller("disclaimerController", function ($scope,$window) {
+app.controller("disclaimerController", function ($scope, $window) {
 	$window.scrollTo(0, 0);
 	$scope.showNavAndFoot();
 });

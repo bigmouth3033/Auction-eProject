@@ -3,7 +3,7 @@
 		{
 			"id": "C-01",
 			"fullName": "First Model Year Example: 1955 Ford Thunderbird Convertible VIN 00082",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The selling dealer states that it will provide a clean and open Iowa title for the proper transfer of ownership for this vehicle. This well-optioned 1955 Ford Thunderbird is described as presentable, functional, and highly original, with an accurate odometer reading.",
 			"category": "Classic",
 			"endDate": null,
@@ -22,7 +22,7 @@
 		{
 			"id": "C-02",
 			"fullName": "Shoebox Sedan: 1950 Ford Custom Deluxe Fordor",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "As Connecticut does not issue titles for vehicles of this age, the seller states that this vehicle will be sold on the proper document in his name for transfer of ownership. Additional documentation for this 1950 Ford Custom Deluxe Fordor Sedan includes parts receipts and a copy of the original title. Included in the sale is the original tool bag, with tools. After more than seven decades in the same family, this Ford appears well-kept, with targeted upgrades designed to enhance its drivability and reliability. 'It is in perfect running condition,' says the seller. ",
 			"category": "Classic",
 			"endDate": null,
@@ -41,7 +41,7 @@
 		{
 			"id": "C-03",
 			"fullName": "Restored 1968 Dodge Charger R/T 426 Hemi",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The selling dealer states that he will provide a clean California title in the consignor's name. He has 'had direct contact with the previous owner/restorer.' Just 475 Charger R/Ts were Hemi equipped for 1968, and only 264 were backed by the automatic transmission. This offering has been carefully restored, thoroughly documented, and prepped for its new owner. ",
 			"category": "Classic",
 			"endDate": null,
@@ -60,7 +60,7 @@
 		{
 			"id": "C-04",
 			"fullName": "Single Family Owned for 38 Years: 1969 Mercury Cougar XR7 Hardtop",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "As New York State does not issue titles for vehicles of this age, the seller states that this vehicle will be sold on the proper document in his name for transfer of ownership. He reports having 'many receipts from past 38 years.' He also adds that the yellow and black custom-made California Car Cover is included in the sale and a picture has been provided. The 1969 Mercury Cougar XR7 Hardtop expertly blended sportiness and luxury with a European flavor, and this example will soon provide said behind-the-wheel experience for a new owner.",
 			"category": "Classic",
 			"endDate": null,
@@ -79,7 +79,7 @@
 		{
 			"id": "C-05",
 			"fullName": "1941 Cadillac Series 62 Coupe Restomod With a 400-HP LS6 V8",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean Wisconsin title in his and his wife's names. Infused with contemporary upgrades that are said to make it a 'great long-distance driver' this award-winning 1941 Cadillac Series 62 Coupe restomod  appears to have been comprehensively built with no system or component untouched in the process. 'We wanted a resto-mod that could take us anywhere,' says the seller. It looks like it was mission accomplished with this classic Caddy with modern motivation.  ",
 			"category": "Classic",
 			"endDate": null,
@@ -98,7 +98,7 @@
 		{
 			"id": "C-06",
 			"fullName": "In a Collection for 40 Years: 1958 BMW 600 Limousine",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The selling dealer states that it will provide a clean Arkansas title in the consignor's name. According to the seller, '[The] car was purchased 40 years ago in Dallas, Texas, and has been in the collection ever since.' He goes on to say, 'The car was painted and restored when it was first purchased.' He continues, 'This has been a display car and has been driven very little. It does run and drive as you can see in the video.' ",
 			"category": "Classic",
 			"endDate": null,
@@ -117,7 +117,7 @@
 		{
 			"id": "C-07",
 			"fullName": "2005 Ford Mustang Saleen S281 with less than 8.5K Miles",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean Pennsylvania title in his name. Additional paperwork for this 2005 Ford Mustang GT/Saleen S281 includes the Saleen supplemental window sticker outlining the car's content. This quicker-than-factory Mustang is a one-owner, 8,393-mile car with no additional mods and it still rolls on the original rubber. For the enthusiast seeking a low-mileage, original-condition example, Saleen S281 Mustang #1103 appears to be it!",
 			"category": "Muscle",
 			"endDate": null,
@@ -136,7 +136,7 @@
 		{
 			"id": "C-08",
 			"fullName": "Low-Mileage 2015 Dodge Challenger SRT Hellcat With a Six-Speed",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean California title in his name. With less than 8,300 original miles on this 2015 Dodge Challenger SRT Hellcat, this modern Mopar muscle car appears very well kept, with no mods, no stories, and no needs. There's 707 supercharged, exhilarating horsepower on tap—and it's presented in the rarest combination for the year. ",
 			"category": "Muscle",
 			"endDate": null,
@@ -155,7 +155,7 @@
 		{
 			"id": "C-09",
 			"fullName": "1970 Pontiac GTO With a 455 and a Four-Speed",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean Washington title in his name. 'PHS documentation, some receipts, and the ignition lockout components, along with some other extra parts are included.' This 1970 Pontiac GTO has the desirable 455 engine option that delivers neck-snapping torque, and it's said to be a reliable weekend cruiser.",
 			"category": "Muscle",
 			"endDate": "07-09-2023",
@@ -174,7 +174,7 @@
 		{
 			"id": "C-10",
 			"fullName": "Supercharged, Low-Mile 2014 Ford Mustang Shelby GT350 With a Six-Speed",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The selling dealer states that it will provide a clean Texas title in the consignor's name. For more than half a century, Shelby has deftly balanced performance and its brand, with this 1,795-mile 2014 Ford Mustang Shelby GT350 exemplifying the very best of that marriage. It's a supercharged, 624-horsepower Mustang with an authentic Shelby number—and all the heritage wrapped up in it.",
 			"category": "Muscle",
 			"endDate": null,
@@ -193,7 +193,7 @@
 		{
 			"id": "C-11",
 			"fullName": "In the Same Family From New: 1966 Pontiac GTO Hardtop Coupe With Tri-Power and A/C",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean Colorado title in his and his wife's names. The additional paperwork is extensive and includes the following: the original dealership purchase order; the original owner's manuals with the Protect-O-Plate; the original window sticker that shows the extensive options included on the car; and PHS documentation. He adds, 'I have invoices dating back to 1983.' To aid in verifying the mileage, he says that 'the Colorado Safety Sticker on the original windshield was issued on 10/11/1980—the last year of that program—and it lists the mileage at 38,709. An included 1994 classic car appraisal lists the mileage at 42,685.' The toy stuffed tiger (see photo) is an original promotional gift from the dealer. This well-preserved 1966 Pontiac  GTO Hardtop Coupe hasn't required a restoration. It's loaded with highly desirable options and dealer accessories, has moderately low mileage, and is being offered by the family that originally ordered the car new from the dealer. Thus, a new owner can soon enjoy entertaining fellow cruise-night participants by discussing all of those attributes.",
 			"category": "Muscle",
 			"endDate": "07-07-2023",
@@ -231,7 +231,7 @@
 		{
 			"id": "C-13",
 			"fullName": "Owned for 25 Years: 1967 Alfa Romeo Duetto Spider",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "As New York does not issue titles for vehicles of this age, the seller states that this vehicle will be sold on the proper document in his name for transfer of ownership and includes some of the receipts for work done in 2001. With solid-appearing bones and a low-mileage replacement engine, This 1967 Alfa Romeo Duetto looks like it would make a great regular cruiser or project car.",
 			"category": "Sports",
 			"endDate": "07-18-2023",
@@ -250,7 +250,7 @@
 		{
 			"id": "C-14",
 			"fullName": "2006 Porsche 911 Carrera Coupe With a Six-Speed",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The selling dealer states that it will provide a clean and open Illinois title for the proper transfer of ownership for this vehicle. This 2006 Porsche 911 Carrera Coupe is reported by Carfax to have had five previous owners and recent servicing.",
 			"category": "Sports",
 			"endDate": "07-26-2023",
@@ -269,7 +269,7 @@
 		{
 			"id": "C-15",
 			"fullName": "2022 Porsche Boxster GTS 4.0 '25 Year'",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "With just under 500 miles, this special edition Boxster has barely been used, and it is reflected both inside and out. All the mechanicals are in good working order, as are the AC and convertible top. The interior retains its youth, with no tears or blemishes.",
 			"category": "Sports",
 			"endDate": "07-31-2023",
@@ -288,7 +288,7 @@
 		{
 			"id": "C-16",
 			"fullName": "Unmodified 2012 Nissan 370Z Convertible Touring",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The selling dealer states that it will provide a clean and open Oklahoma title for the proper transfer of ownership for this vehicle. There is a $395 doc fee at signing after the car is sold. This 2012 Nissan 370Z Convertible Touring shows less than 100,000 Carfax-verified miles on the odometer and 24 service history records. It appears ready for its next enthusiast owner to enjoy open-air motoring.",
 			"category": "Sports",
 			"endDate": "07-05-2023",
@@ -307,7 +307,7 @@
 		{
 			"id": "C-17",
 			"fullName": "One-Owner 2002 BMW Z3 2.5i Convertible With a Five-Speed",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states this vehicle will be sold on a clean Tennessee title in his wife's name. All sales records and service records since new for this one-owner 2002 BMW Z3 2.5i Convertible are said to be included.",
 			"category": "Sports",
 			"endDate": "07-19-2023",
@@ -326,7 +326,7 @@
 		{
 			"id": "C-18",
 			"fullName": "Restored 1974 BMW 2002 With a Four-Speed",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states this vehicle will be sold on a clean New Jersey title in his name. Further, he says he will include the body shop receipts, photos of the repairs in progress, and receipts for the parts purchased and installed to restore this 1974 BMW 2002.",
 			"category": "Sports",
 			"endDate": "07-29-2023",
@@ -345,7 +345,7 @@
 		{
 			"id": "C-19",
 			"fullName": "Built in Sweden: 1964 Volvo 1800S Coupe",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean Minnesota title in her name. This 1964 Volvo 1800S is reported to be a highly original example.",
 			"category": "Classic",
 			"endDate": "07-04-2023",
@@ -364,7 +364,7 @@
 		{
 			"id": "C-20",
 			"fullName": "Classic French People's Car: 1989 Citroën 2CV6 Club With Less Than 3,000 Km",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean Texas title in his name. All of the components and specifications are 1989 from final production in Portugal, but the title, which matches the frame and VIN, indicates a 1970 model year. Additional paperwork includes copies of prior sales documents after the vehicle was imported into the U.S. in 1997. Built near the end of the car's run, this 1989 Citroën 2CV6 is presented as a very-low-mile unrestored car, ready for slow-down-and-smell-the-baguettes driving and drawing smiles at car shows.",
 			"category": "Classic",
 			"endDate": "07-03-2023",
@@ -383,7 +383,7 @@
 		{
 			"id": "C-21",
 			"fullName": "No-Reserve 1973 MGB GT",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean Illinois title in his name. With its 'fast road' cam and overdrive, this 1973 MGB GT—for sale at no reserve—should make a willing companion for touring or spirited driving. The car will be sold with service records and receipts dating back to 2006.",
 			"category": "Classic",
 			"endDate": null,
@@ -402,7 +402,7 @@
 		{
 			"id": "C-22",
 			"fullName": "Sold-Prewar Woodie: 1941 Plymouth Special Deluxe Westchester Station Wagon",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The selling dealer states that it will provide a clean and open Florida title for the proper transfer of ownership for this vehicle. Extensive documentation, going back to the original bill of sale in Florida will reportedly be provided. This 1941 Plymouth Special Deluxe Westchester Station Wagon is presented in 'fairly original' and unrestored condition.",
 			"category": "Classic",
 			"endDate": "07-10-2023",
@@ -421,7 +421,7 @@
 		{
 			"id": "C-23",
 			"fullName": "1995 Ford F350 XLT Crew Cab Dually Pickup With a 7.3-liter Power Stroke Diesel",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean California title in his name. Service records from the previous owner will be provided, along with a Carfax report. Powered by the torquey Power Stroke turbodiesel, this 1995 Ford F350 XLT Crew Cab Dually Pickup is outfitted for serious trailering.",
 			"category": "Classic",
 			"endDate": "07-13-2023",
@@ -440,7 +440,7 @@
 		{
 			"id": "C-24",
 			"fullName": "Sold-Restored 1960 DeSoto Adventurer Four-Door Sedan",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "",
 			"category": "Classic",
 			"endDate": "07-13-2023",
@@ -459,7 +459,7 @@
 		{
 			"id": "C-25",
 			"fullName": "1970 Mercury Cougar XR7 Convertible With a 428 Cobra Jet and a Four-Speed",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "",
 			"category": "Muscle",
 			"endDate": "07-04-2023",
@@ -478,7 +478,7 @@
 		{
 			"id": "C-26",
 			"fullName": "1967 Ford Mustang Fastback With a V8 and a Five-Speed",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on the proper Quebec, Canada, document in his name for transfer of ownership. Additional paperwork for this 1967 Ford Mustang Fastback includes a professional appraisal that was conducted in 2021. It also passed a recent government inspection, notes the seller. From its striking blue color and vintage mag wheels to the dual-quad 289 engine, this classic pony car has the inimitable character of the Day Two muscle cars of cruise nights gone by. This example, however, appears ready to hit the boulevard immediately.",
 			"category": "Muscle",
 			"endDate": "07-09-2023",
@@ -497,7 +497,7 @@
 		{
 			"id": "C-27",
 			"fullName": "No-Reserve 1995 Ford Mustang Convertible",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean Kentucky title in her name. Additional documentation for this 1995 Ford Mustang Convertible includes an AutoCheck report showing no accident history. It was reportedly used only for pleasure drives and car shows and the repainted Mustang is selling here at no reserve. ",
 			"category": "Muscle",
 			"endDate": "07-04-2023",
@@ -516,7 +516,7 @@
 		{
 			"id": "C-28",
 			"fullName": "Restored 1969 Ford Mustang Boss 302",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean California title in his name. This 1969 Ford Mustang Boss 302 is ready for the road and new ownership. ",
 			"category": "Muscle",
 			"endDate": "07-18-2023",
@@ -535,7 +535,7 @@
 		{
 			"id": "C-29",
 			"fullName": "1967 Pontiac GTO Convertible From a 21-Year Owner",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean North Carolina title in his and his wife's names. 'PHS documentation is included in the sale.' This 1967 Pontiac GTO Convertible still wears its decades-old restoration proudly, and is poised to provide more years of stylish top-down cruising for its new owner.",
 			"category": "Muscle",
 			"endDate": "07-24-2023",
@@ -554,7 +554,7 @@
 		{
 			"id": "C-30",
 			"fullName": "Restored R-Code 1970 Plymouth Hemi 'Cuda With a Replacement 426 V8",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean Florida title in his name. Photos of the restoration are included. This restored 1970 Plymouth Hemi 'Cuda will surely fulfill any Moparite's fantasy of owning one of the most highly sought-after muscle cars of all time.",
 			"category": "Muscle",
 			"endDate": "07-26-2023",
@@ -573,7 +573,7 @@
 		{
 			"id": "C-31",
 			"fullName": "2005 Chrysler Crossfire",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The selling dealer states that it will provide a clean and open California title for the proper transfer of ownership for this vehicle. Additional documentation for this 2005 Chrysler Crossfire Coupe includes the Carfax report, showing an accident-free history, along with service records and the factory books. The Crossfire was lauded by the automotive press upon its introduction, with its literal blend of concept car styling, solid Mercedes structure, and proven powertrain. With only 14,243 miles on the odometer, this example appears well-preserved.",
 			"category": "Sports",
 			"endDate": "08-26-2023",
@@ -592,7 +592,7 @@
 		{
 			"id": "C-32",
 			"fullName": "1967 Chevrolet Chevelle SS 454",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The transmission shifts very smoothly. The brakes are in great condition. The battery is NEW in excellent condition. The car was previously owned by a non smoker. The engine is functioning properly and has no issues. The exterior is clean and in GREAT condition. The interior was well maintained and is extra clean.",
 			"category": "Sports",
 			"endDate": "07-31-2023",
@@ -611,7 +611,7 @@
 		{
 			"id": "C-33",
 			"fullName": "1980 Triumph TR8 Convertible From a 20-Year Owner",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean North Carolina title in his name. With V8 power and compelling style, there's much to love about this 1980 Triumph TR8 convertible, offered for sale by its 20-year owner.",
 			"category": "Sports",
 			"endDate": "07-30-2023",
@@ -629,8 +629,8 @@
 		},
 		{
 			"id": "C-34",
-			"fullName": "",
-			"artist": "",
+			"fullName": "First Year Fourth-Gen: 2016 Mazda MX-5 Miata Sport Convertible",
+			"artist": "Dealer",
 			"description": "The selling dealer states that it will provide a clean and open Oklahoma title for the proper transfer of ownership for this vehicle. This 2016 Mazda MX-5 Miata Sport Convertible, showing a Carfax-verified 44,000 miles on the odometer, is said by the selling dealer to have no needs aside from a new owner.",
 			"category": "Sports",
 			"endDate": "07-26-2023",
@@ -649,7 +649,7 @@
 		{
 			"id": "C-35",
 			"fullName": "Refurbished 1965 Morgan Plus 4 Convertible",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean North Carolina title in his wife's name. A workshop manual and side curtains are included in the sale. This 1965 Morgan Plus 4 Convertible appears to have received proper care over the years and seems ready for top-down motoring adventures.",
 			"category": "Sports",
 			"endDate": null,
@@ -668,7 +668,7 @@
 		{
 			"id": "C-36",
 			"fullName": "Owned for 21 Years: 1967 Sunbeam Tiger Convertible",
-			"artist": "",
+			"artist": "Dealer",
 			"description": "The seller states that this vehicle will be sold on a clean Indiana title in his name. The Tiger Authentication Committee certification will be included with the sale. This 1967 Sunbeam Tiger Convertible was among the last of the 260-powered Mark IA versions. A new owner could address the cosmetic issues while enjoying driving it, or it could be a good candidate for restoration.",
 			"category": "Sports",
 			"endDate": null,
