@@ -80,7 +80,7 @@
 					<div class="px-4 pt-3 border border-3">
 						<div class="row my-2">
 							<div class="col fw-bolder fs-5" ng-if="!product.end">CURRENT BID</div>
-							<div class="col fw-bolder fs-5" ng-if="product.end">FINAL BID</div>
+							<div class="col fw-bolder fs-5" ng-if="product.end">OWNER</div>
 							<div class="col text-end text-danger fs-6 fw-bolder"><i class="fa-solid fa-user"></i> {{product.lastUserBid}}</div>
 						</div>
 						<pre class="my-2 fw-bolder fs-2 fw-bolder text-success" ng-if="!product.end">${{product.currentBid | number}}</pre>

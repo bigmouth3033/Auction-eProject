@@ -785,6 +785,8 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 			user.biddingProducts.push(product.id);
 		}
 
+		product.endDate = new Date(new Date(product.endDate).getTime() + 60000).valueOf();
+
 		UserData.updataUsersJson();
 
 		if (product.id[0] == "P") AuctionItems.updatePaintingJson();
