@@ -734,6 +734,8 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 			$scope.productSuggestion.push(item);
 		}
 		$scope.productType = "PAINTING";
+		$scope.product.view++;
+		AuctionItems.updatePaintingJson();
 	}
 
 	if ($scope.product.id[0] == "C") {
@@ -741,6 +743,8 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 			$scope.productSuggestion.push(item);
 		}
 		$scope.productType = "CAR";
+		$scope.product.view++;
+		AuctionItems.updateCarJson();
 	}
 
 	//randomize suggestion items
