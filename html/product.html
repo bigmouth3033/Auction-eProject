@@ -66,17 +66,17 @@
 
 			<div class="row ps-5 mt-3 justify-content-start flex-sm-nowrap">
 				<!-- small img -->
-				<div class="col-sm-1">
+				<div class="col-lg-1">
 					<div ng-repeat="img in product.img" class="my-4">
 						<a href="" ng-click="changeImgShow(img)"><img ng-src="{{img}}" alt="" class="img-fluid" /></a>
 					</div>
 				</div>
 				<!-- big img -->
-				<div class="col-sm-7 rounded d-flex justify-content-center p-3 bg-white" style="height: 80vh; max-height: 600px">
+				<div class="col-lg-7 rounded d-flex justify-content-center p-3 bg-white" style="height: 80vh; max-height: 600px">
 					<img ng-src="{{imgShow}}" style="max-height: 80vh" alt="" class="img-fluid border-effect" />
 				</div>
 				<!-- bidding  -->
-				<div class="col-sm-3 d-flex flex-column justify-content-center gap-2" style="width: 380px">
+				<div class="col-lg-3 d-flex flex-column justify-content-center gap-2" style="width: 380px">
 					<div class="px-4 pt-3 border border-3">
 						<div class="row my-2">
 							<div class="col fw-bolder fs-5" ng-if="!product.end">CURRENT BID</div>
@@ -172,7 +172,7 @@
 
 	<!-- show off brand -->
 	<div class="container px-5 py-4 border m-auto my-3" style="background-color: rgb(238, 238, 238)">
-		<div class="row m-2 border p-5 bg-white">
+		<div class="row m-2 border p-5 bg-white row-cols-1 row-cols-sm-2 row-cols-lg-4">
 			<div class="col text-center">
 				<i class="fa-sharp fa-solid fa-star fa-2xl mb-5"></i>
 				<p class="m-0 fw-bolder">Thousands Of Five-Star Reviews</p>

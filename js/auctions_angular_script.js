@@ -433,7 +433,7 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 	$rootScope.stillCounted = [];
 	$rootScope.finishedCounted = [];
 
-	// sort items that end and not end to two diffent array that math their end status
+	// sort items that end and not end to two diffent array that match their end status
 	AuctionItems.getPaintingData().forEach(function (item) {
 		if (item.end == false) {
 			$rootScope.stillCounted.push(item);
@@ -758,7 +758,12 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 			return;
 		}
 
-		if (product.currentBid >= price) {
+		if (!Number.isInteger(+price)) {
+			alert("wrong format");
+			return;
+		}
+
+		if (product.currentBid >= +price) {
 			alert("wrong price");
 			return;
 		}
@@ -769,7 +774,7 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 		}
 
 		product.numberOfBid++;
-		product.currentBid = price;
+		product.currentBid = +price;
 		product.lastUserBid = user.username;
 
 		let index;
@@ -815,7 +820,7 @@ app.controller("productController", function ($scope, $route, AuctionItems, User
 	};
 });
 
-app.controller("blogCategoryController", function ($scope, BlogData, $window, $location) {
+app.controller("blogCategoryController", function ($scope, BlogData, $window) {
 	$scope.saveCurrentPage();
 	$window.scrollTo(0, 0);
 	$scope.showNavAndFoot();
@@ -834,6 +839,17 @@ app.controller("blogController", function ($scope, AuctionItems, BlogData, $wind
 
 	//get item blog
 	$scope.currentBlog = BlogData.getCurrentBlog();
+	$scope.blogSuggestion;
+
+	do {
+		$scope.blogSuggestion = BlogData.getAllBlog()[randomizeFromMainToMax(0, 7)];
+	} while ($scope.blogSuggestion.id == $scope.currentBlog.id);
+
+	$scope.changeToSuggestionProduct = function () {
+		BlogData.setCurrentBlog($scope.blogSuggestion);
+		$window.location.reload();
+		$window.scrollTo(0, 0);
+	};
 });
 
 app.controller("categoryController", function ($scope, $window, AuctionItems, Category) {
@@ -843,18 +859,6 @@ app.controller("categoryController", function ($scope, $window, AuctionItems, Ca
 
 	let numberOfItemEachPage = 9; // number of item for each page
 	$scope.productType = Category.getType(); // save pattern only one
-
-	// get category array
-	let categorySet = new Set();
-	if ($scope.productType == "Painting") {
-		AuctionItems.getPaintingData().forEach((item) => categorySet.add(item.category));
-		$scope.arrCategory = Array.from(categorySet.values());
-	} //set product category
-
-	if ($scope.productType == "Car") {
-		AuctionItems.getCarData().forEach((item) => categorySet.add(item.category));
-		$scope.arrCategory = Array.from(categorySet.values());
-	}
 
 	//get category data
 	$scope.categoryData = Category.getCategoryTypeItems();
@@ -897,6 +901,18 @@ app.controller("categoryController", function ($scope, $window, AuctionItems, Ca
 	$scope.changeToProductPage = function (item) {
 		AuctionItems.setCurrentItem(item);
 	};
+
+	// get category array
+	let categorySet = new Set();
+	if ($scope.productType == "Painting") {
+		AuctionItems.getPaintingData().forEach((item) => categorySet.add(item.category));
+		$scope.arrCategory = Array.from(categorySet.values());
+	} //set product category
+
+	if ($scope.productType == "Car") {
+		AuctionItems.getCarData().forEach((item) => categorySet.add(item.category));
+		$scope.arrCategory = Array.from(categorySet.values());
+	}
 
 	$scope.categoryFilter = [];
 	$scope.statusFilter = [];
@@ -1081,6 +1097,10 @@ function getArrayOfIterationIndex(length, numberOfItem) {
 // get random minute from min to max and convert it to milisecond
 function randomizeFromMinToMaxByMilisecond(min, max) {
 	return Math.round(Math.random() * (max - min + 1) + min - 0.5) * 60000;
+}
+
+function randomizeFromMainToMax(min, max) {
+	return Math.round(Math.random() * (max - min + 1) + min - 0.5);
 }
 
 // load localstorage json item by key
