@@ -1,0 +1,246 @@
+<!-- <link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXh501p5ILy+dN9+nJOZ"
+	crossorigin="anonymous"
+/>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+	crossorigin="anonymous"
+></script> -->
+
+<style>
+	h2 {
+		border-bottom: 2px solid red;
+		line-height: 0.1rem;
+		text-align: center;
+		z-index: 999;
+	}
+
+	strong {
+		width: 10rem;
+		background-color: white;
+		padding: 0 1rem;
+	}
+
+	.howtobuy {
+		text-align: left;
+		word-spacing: -2px;
+		/* scroll-behavior: smooth;
+		transition: scroll-behavior 2s; */
+	}
+
+	.link-accordion {
+		border-left: 2px solid white;
+		transition: border-left 0.25s;
+	}
+
+	.link-accordion:hover {
+		border-left: 2px solid red;
+	}
+
+	h5 {
+		font-weight: 600;
+		margin-bottom: 1rem;
+	}
+</style>
+
+<div ng-controller="financeController" class="body-limit">
+	<div class="text-center overflow-hidden" style="height: 700px">
+		<img
+			style="width: 100%"
+			src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+			alt=""
+		/>
+	</div>
+	<div class="row container my-3 howtobuy gap-5 justify-content-center">
+		<div class="col-sm-3">
+			<div id="list-example" class="list-group sticky-top border rounded-0 mt-5">
+				<a
+					class="list-group-item list-group-item-action py-2 link-accordion"
+					smooth-scroll
+					target="list-item-1"
+					href=""
+					ng-click="scrollToFirst()"
+					>Overall</a
+				>
+				<a
+					class="list-group-item list-group-item-action py-2 link-accordion"
+					smooth-scroll
+					target="list-item-2"
+					href=""
+					ng-click="scrollToSecond()"
+					>The loan Process</a
+				>
+				<a
+					class="list-group-item list-group-item-action py-2 link-accordion"
+					smooth-scroll
+					target="list-item-3"
+					href=""
+					ng-click="scrollToThird()"
+					>FAQs</a
+				>
+				<a
+					class="list-group-item list-group-item-action py-2 link-accordion"
+					smooth-scroll
+					target="list-item-4"
+					href=""
+					ng-click="scrollToFourth()"
+					>Contact us</a
+				>
+			</div>
+		</div>
+		<div class="col-sm-7" style="text-align: justify">
+			<div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+				<h2 id="list-item-1" class="my-5 text-danger"><strong>Overall</strong></h2>
+        <div class="text-center"><img src="./images/finance-1.jpg" class="img-fluid my-4" alt=""></div>
+				<p class="fw-bold">Realise the potential of your collection with a loan from AuctionsTable's.</p>
+				<p>
+					AuctionsTable's Finance provides secured loans from $1 million up to $150 million that are tailored to your needs. Our in-house
+					team can offer loans of up to 40-60% against the value of your fine art or luxury goods, enabling you to grow your collection
+					further or boost liquidity for other ventures. We pride ourselves on a collaborative and flexible approach to fine financing,
+					grounded in more than 250 years of experience within the market.
+				</p>
+
+				<p class="fw-bold">Why us?</p>
+				<ul>
+					<li>
+						Flexibility: Access loans from $1 million up to $150 million at competitive interest rates, structured around your financial
+						goals
+					</li>
+					<li>
+						Discretion and speed: Receive funds within 2-3 weeks once initial terms are agreed, with no personal financial information
+						required.
+					</li>
+					<li>
+						Expertise: Benefit from AuctionsTable's deep understanding of the market and our unparalleled global network of specialists.
+					</li>
+					<li>More categories: Leverage a wide range of fine art and luxury goods as collateral.</li>
+					<li>
+						Ease: Save time and money with our seamless end-to-end service, from in-house valuations to facilitating loans to museum
+						exhibitions.
+					</li>
+				</ul>
+				<h2 id="list-item-2" class="my-5 text-danger">
+					<strong>The loan Process</strong>
+				</h2>
+        <div class="text-center"><img src="./images/finance-2.jpg" class="img-fluid my-4" alt=""></div>
+				<p>
+					<span class="fw-bold">Step 1 : </span>Request a complimentary estimate to see if your items are suitable collateral for a loan by using our
+					online auction estimates tool or contacting one of our global specialists.
+				</p>
+				<ul>
+					<li>
+						Please provide a clear colour photograph of your property as well as any additional information on the piece, such as
+						dimensions, materials and provenance.
+					</li>
+				</ul>
+
+				<p>
+					<span class="fw-bold">Step 2 : </span>Our AuctionsTable's Finance team and Specialists will discuss the estimates and terms of the proposed
+					financing conditions with you. We will provide you with a preliminary term sheet for your review.
+				</p>
+
+				<p>
+					<span class="fw-bold">Step 3 : </span>Request a complimentary estimate to see if your items are suitable collateral for a loan by using our
+					online auction estimates tool or contacting one of our global specialists.
+				</p>
+
+				<ul>
+					<li>
+						The AuctionsTable's Finance team will be your point of contact throughout the transaction in order to guide you on what
+						supporting documentation may be needed, such as insurance certificates or KYC documentation. We will also provide you with
+						status updates on your loan.
+					</li>
+					<li>
+						You should arrange for the item to be delivered to one of our offices in New York, London, Hong Kong or one of our approved
+						warehouses. AuctionsTable's can assist with this or put you in touch with trusted local shippers.
+					</li>
+					<li>
+						Our Specialists will coordinate every detail, ranging from cataloguing the property and confirming condition to completing all
+						the required research to underwrite the loan.
+					</li>
+					<li>Our legal team will provide you with our Loan and Security agreements to finalize the loan.</li>
+				</ul>
+
+				<p>
+					<span class="fw-bold">Step 4 : </span>Once we have a fully executed closing set of agreements, we will confirm your net proceeds with any agreed
+					upon fees and expenses deducted at closing. Funds will be wired to your nominated account.
+				</p>
+
+				<h2 id="list-item-3" class="my-5 text-danger"><strong>FAQs</strong></h2>
+        <div class="text-center"><img src="./images/finance-3.jpg" class="img-fluid my-4" alt=""></div>
+				<p class="fw-bold">What does AuctionsTable's Finance do?</p>
+				<p>
+					Our aim is to meet the liquidity needs of our clients by offering loans greater than $1,000,000 against their fine collection.
+					Other types of art collateral will be considered on a case-by-case basis.
+				</p>
+				<hr />
+				<p class="fw-bold">Where does AuctionsTable's provide financing?</p>
+				<p>
+					Loans will be executed out of New York, London or Hong Kong, and generally to clients located in the US, UK, Switzerland and Hong
+					Kong. Clients located in other jurisdictions will be considered on a case-by-case basis, and additional diligence and legal
+					analysis will be necessary before proceeding.
+				</p>
+				<hr />
+				<p class="fw-bold">How much can I borrow and for how long?</p>
+				<p>
+					A typical loan would fall within the region of 40-60% of the low auction estimate of the collateral. These loans are offered for a
+					period of 1-3 years, but we can consider more bespoke arrangements based on the circumstances.
+				</p>
+				<hr />
+				<p class="fw-bold">Does AuctionsTable's take possession of the collateral?</p>
+				<p>
+					Generally, we do. But, in certain jurisdictions, we may allow the pledged art to remain in the client's possession if the legal
+					framework allows.
+				</p>
+				<p>
+					In all cases, the responsibility for insurance coverage on the artwork remains with the owner, with AuctionsTable's Financial
+					Services named as additional insured party and first loss payee.
+				</p>
+				<hr />
+				<p class="fw-bold">Can I borrow from AuctionsTable's without committing to a sale?</p>
+				<p>
+					Absolutely. With a loan against your artwork, there is no obligation to sell. At end of the term, the loan may be refinanced or
+					repaid. Should you desire, our Specialists can work on a sale plan to raise part or all of the funds due — but this is not at all
+					required.
+				</p>
+				<p>
+					Additionally, for clients who are considering sales within a shorter term (less than a year), we can provide financing as an
+					advance against sale at even more advantageous terms.
+				</p>
+				<hr />
+				<p class="fw-bold">How quickly can I receive funds?</p>
+				<p>
+					Once initial terms are agreed, we can typically fund within 2-3 weeks. This ability to move more quickly than most financial
+					institutions is a function of lending only against the value of the collateral artwork.
+				</p>
+				<hr />
+				<p class="fw-bold">How do I start? What do I need to provide?</p>
+				<p">
+					Our goal is to partner closely with you in an effort to structure the loan to meet your financial needs and to support the
+					objectives around your fine collection. The first step involves meeting with us to discuss what you are looking for and
+					providing us with details about the property. Following our initial discussions and once we have received full descriptions of the
+					artworks (medium, dimensions, date) as well as any high-resolution images you may have, we can provide an initial appraisal of the
+					artwork and indicative terms for the loan.
+				</p>
+				<p>
+					Once terms have been accepted, we will need documents that verify the provenance, ownership and insurance for the art proposed as
+					collateral. Also, we will need to complete the required steps or collect additional information for Know Your Client (KYC)
+					purposes.
+				</p>
+				<hr />
+				<p class="fw-bold">What do I need to do now?</p>
+				<p>For general enquiries, please contact us at info@auctionstable.com or by telephone at (+99) 123456789</p>
+				<h2 id="list-item-4" class="my-5 text-danger"><strong>Contact us</strong></h2>
+				<p>Our specialists - in over 60 categories - are here to answer your questions and help guide you.</p>
+				<p>
+					To speak to someone about an upcoming sale, or if you require assistance setting up a AuctionsTable's account or wish to place a
+					bid, please contact our Client Services team.
+				</p>
+				<p>Contact us via online chat, email (info@auctionstable.com) or phone:</p>
+			</div>
+		</div>
+	</div>
+</div>

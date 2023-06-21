@@ -38,6 +38,9 @@ app.config(function ($routeProvider) {
 		.when("/disclaimer", {
 			templateUrl: "./html/disclaimer.html",
 		})
+		.when("/finance", {
+			templateUrl: "./html/finance.html"
+		})
 		.otherwise({
 			templateUrl: "./html/home.html",
 		});
@@ -377,7 +380,7 @@ app.run(function ($rootScope, $http, $interval, AuctionItems, BlogData, UserData
 
 				for (let item of carResponse.data.car) {
 					if (item.endDate === null) {
-						item.endDate = new Date(Date.now() + randomizeFromMinToMaxByMilisecond(3, 15)).valueOf();
+						item.endDate = new Date(Date.now() + randomizeFromMinToMaxByMilisecond(3, 45)).valueOf();
 					}
 				}
 
@@ -1022,6 +1025,14 @@ app.controller("disclaimerController", function ($scope, $window) {
 	$window.scrollTo(0, 0);
 	$scope.showNavAndFoot();
 });
+
+app.controller("financeController", function($scope, $window){
+	$scope.saveCurrentPage();
+	$window.scrollTo(0, 0);
+	$scope.showNavAndFoot();
+
+	
+})
 
 // timer function to countdown, combine with interval
 function myTimer(date, obj) {
